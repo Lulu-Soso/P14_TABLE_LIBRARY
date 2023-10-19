@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import usersData from "../../usersData.js";
+import usersData from "../usersData.js";
 import TableHeader from "../components/TableHeader";
 import EmployeeDataRow from "../components/EmployeeDataRow";
 import SearchField from "../components/SearchField";
@@ -26,7 +26,7 @@ const columnsTableDefault = [
 const SuperTable = ({
   data = usersData,
   columnsTable = columnsTableDefault,
-  customLabelFilter = "Display by Page Number",
+  customLabelFilter = "Display By Page Number",
   customLabelSearch = "Search Bar",
   customTextPrevious = "Previous Page",
   customTextNext = "Next Page",

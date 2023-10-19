@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 var _react = _interopRequireWildcard(require("react"));
-var _usersData = _interopRequireDefault(require("../../usersData.js"));
+var _usersData = _interopRequireDefault(require("../usersData.js"));
 var _TableHeader = _interopRequireDefault(require("../components/TableHeader"));
 var _EmployeeDataRow = _interopRequireDefault(require("../components/EmployeeDataRow"));
 var _SearchField = _interopRequireDefault(require("../components/SearchField"));
