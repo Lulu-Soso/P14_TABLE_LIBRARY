@@ -9,23 +9,12 @@ const PaginatedTable = ({
   customTextPrevious,
   customTextNext,
   customHoverBackgroundColor,
-  customBackgroundColor,
+  customDarkBackgroundColor,
+  customLightBackgroundColor
 }) => {
   const [isHoveredPrevious, setIsHoveredPrevious] = useState(false);
   const [isHoveredNext, setIsHoveredNext] = useState(false);
   const [hoveredPageNumber, setHoveredPageNumber] = useState(null);
-
-  // const hoverColorPrevious = {
-  //   backgroundColor: isHoveredPrevious ? customHoverBackgroundColor : "", // Utilisation de la couleur de fond au survol
-  // };
-
-  // const hoverColorNext = {
-  //   backgroundColor: isHoveredNext ? customHoverBackgroundColor : "", // Utilisation de la couleur de fond au survol
-  // };
-
-  // const buttonBackgroundColor = {
-  //   backgroundColor: customBtnColor, // Utilise la couleur de fond personnalisée pour les boutons "Previous" et "Next"
-  // };
 
   const handleMouseEnterPrevious = () => {
     setIsHoveredPrevious(true);
@@ -59,7 +48,7 @@ const PaginatedTable = ({
         style={{
           backgroundColor: isHoveredPrevious
             ? customHoverBackgroundColor
-            : customBackgroundColor, // Utilise la couleur de fond personnalisée pour les boutons "Previous" et "Next"
+            : customDarkBackgroundColor, // Utilise la couleur de fond personnalisée pour les boutons "Previous" et "Next"
         }}
         onMouseEnter={handleMouseEnterPrevious}
         onMouseLeave={handleMouseLeavePrevious}
@@ -83,8 +72,8 @@ const PaginatedTable = ({
                 hoveredPageNumber === number
                   ? customHoverBackgroundColor
                   : number === currentPage
-                  ? customBackgroundColor // Utilise la couleur de fond personnalisée pour la page active
-                  : "",
+                  ? customDarkBackgroundColor // Utilise la couleur de fond personnalisée pour la page active
+                  : customLightBackgroundColor,
             }}
             onMouseEnter={() => handleMouseEnterPageNumber(number)}
             onMouseLeave={handleMouseLeavePageNumber}
@@ -100,7 +89,7 @@ const PaginatedTable = ({
         style={{
           backgroundColor: isHoveredNext
             ? customHoverBackgroundColor
-            : customBackgroundColor, // Utilise la couleur de fond personnalisée pour les boutons "Previous" et "Next"
+            : customDarkBackgroundColor, // Utilise la couleur de fond personnalisée pour les boutons "Previous" et "Next"
         }}
         onMouseEnter={handleMouseEnterNext}
         onMouseLeave={handleMouseLeaveNext}

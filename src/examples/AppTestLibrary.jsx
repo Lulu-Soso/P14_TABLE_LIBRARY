@@ -40,17 +40,17 @@ const AppTestLibrary = () => {
   return (
     <div className="app-container">
       <SuperTable
-        data={employeesData}
-        columnsTable={customColumnsTable}
-        customLabelSearch="Search"
-        customLabelFilter="Show"
-        customTextPrevious="Previous"
-        customTextNext="Next"
-        customEmptySearchMessage="No results found."
-        // customOddRowClass="custom-odd-row"
+        // data={employeesData}
+        // columnsTable={customColumnsTable}
+        // customLabelSearch="Search"
+        // customLabelFilter="Show"
+        // customTextPrevious="Previous"
+        // customTextNext="Next"
+        // customEmptySearchMessage="No results found."
         // customSortedColumnBackgroundColor="#ffff99"
         // customHoverBackgroundColor="#93ad18"
-        // customBackgroundColor="#5a6f08"
+        // customDarkBackgroundColor="#5a6f08"
+        // customLightBackgroundColor="#d7ddbb"
         // customOddRowBackgroundColor = "#d7ddbb"
       />
     </div>

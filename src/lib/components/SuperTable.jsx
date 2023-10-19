@@ -33,8 +33,9 @@ const SuperTable = ({
   customEmptySearchMessage = "No results found for your search.",
   customSortedColumnBackgroundColor = "#f6f6f6",
   customHoverBackgroundColor = "#aaaaaa",
-  customBackgroundColor = "#929292",
+  customDarkBackgroundColor = "#929292",
   customOddRowBackgroundColor = "#f0f0f0",
+  customLightBackgroundColor="#d2d2d2"
 }) => {
   // États pour gérer la page
   const [showEmptySearch, setShowEmptySearch] = useState(false);
@@ -264,7 +265,8 @@ const SuperTable = ({
           currentPage={currentPage}
           entriesToShow={entriesToShow}
           totalEntries={totalEntries}
-          customBackgroundColor={customBackgroundColor}
+          customDarkBackgroundColor={customDarkBackgroundColor}
+          customLightBackgroundColor={customLightBackgroundColor}
         />
 
         <PaginatedTable
@@ -276,7 +278,8 @@ const SuperTable = ({
           customTextPrevious={customTextPrevious}
           customTextNext={customTextNext}
           customHoverBackgroundColor={customHoverBackgroundColor}
-          customBackgroundColor={customBackgroundColor}
+          customDarkBackgroundColor={customDarkBackgroundColor}
+          customLightBackgroundColor={customLightBackgroundColor}
         />
       </div>
     </div>
