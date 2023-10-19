@@ -1,0 +1,47 @@
+/* Animation */
+@keyframes slideInFromTop {
+  0% {
+    transform: translateY(-30%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.error-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  background-color: rgba(255, 0, 0, 0.1);
+  border: 1px solid red;
+  margin-top: 30px;
+
+  animation: slideInFromTop 0.5s ease-in-out;
+}
+
+/* Définition de l'animation de keyframes */
+@keyframes slideInFromRight {
+  from {
+    right: -200px; /* Position en dehors de l'écran à partir de la droite */
+  }
+  to {
+    right: 10px; /* Position finale à 10px de la droite */
+  }
+}
+
+/* Style de la div d'erreur */
+.right-error-message {
+  position: fixed;
+  top: 100px;
+  right: 10px; /* Position initiale en dehors de l'écran */
+  background-color: red;
+  color: white;
+  padding: 10px;
+  animation: slideInFromRight 0.3s ease-in-out; /* Utilisation de l'animation de keyframes */
+}
+
+
+
