@@ -2,7 +2,7 @@
 
 # SuperTable 
 
-![Alt text](SuperTable1.png)
+![Alt text](src/lib/assets/SuperTable1.png)
 
 ## Introduction à SuperTable
 
