@@ -109,7 +109,7 @@ SuperTable offre un large éventail d'options de personnalisation pour que vous 
 
 - **customLabelFilter** : Cette personnalisation remplace le texte par défaut "Display By Page Number" dans la liste déroulante de filtre du tableau. Utilisez cette option pour personnaliser le libellé du filtre selon vos préférences.
 
-- **customTextPrevious** et **customTextNext** : Ces personnalisations remplacent les textes par défaut "Previous" et "Next" des boutons de pagination. Personnalisez ces boutons pour correspondre au style et à la langue de votre application.
+- **customTextPrevious** et **customTextNext** : Ces personnalisations remplacent les textes par défaut "Previous Page" et "Next Page" des boutons de pagination. Personnalisez ces boutons pour correspondre au style et à la langue de votre application.
 
 - **customEmptySearchMessage** : Lorsqu'une recherche ne renvoie aucun résultat, ce message personnalisé est affiché pour informer l'utilisateur qu'aucune correspondance n'a été trouvée. Personnalisez ce message pour l'adapter à votre application.
 

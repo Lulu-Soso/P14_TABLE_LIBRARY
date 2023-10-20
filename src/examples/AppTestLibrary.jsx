@@ -39,7 +39,8 @@ const AppTestLibrary = () => {
   }, [dispatch]);
 
   return (
-    <div className="app-container">
+    <>
+    {/* // <div> */}
       <div className="employees-header">
         <h2>Current Employees</h2>
       </div>
@@ -57,7 +58,7 @@ const AppTestLibrary = () => {
         customLightBackgroundColor="#d7ddbb"
         customEvenRowBackgroundColor="#d7ddbb"
       />
-    </div>
+    </>
   );
 };
 

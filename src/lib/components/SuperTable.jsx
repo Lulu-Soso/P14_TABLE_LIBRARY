@@ -35,7 +35,7 @@ const SuperTable = ({
   customHoverBackgroundColor = "#aaaaaa",
   customDarkBackgroundColor = "#929292",
   customEvenRowBackgroundColor = "#f0f0f0",
-  customLightBackgroundColor="#d2d2d2"
+  customLightBackgroundColor = "#d2d2d2",
 }) => {
   // États pour gérer la page
   const [showEmptySearch, setShowEmptySearch] = useState(false);
@@ -201,7 +201,7 @@ const SuperTable = ({
   }, [paginatedData]);
 
   return (
-    <div className="app-container">
+    <>
       <div className="employees-header">
         <div className="show-search">
           <FilterEntries
@@ -218,40 +218,42 @@ const SuperTable = ({
         </div>
       </div>
 
-      <table className="employees-table">
-        <thead>
-          <tr>
-            {columnsTable.map((column) => (
-              <TableHeader
-                key={column.key}
-                column={column}
+      <div className="table-container">
+        <table className="employees-table">
+          <thead>
+            <tr>
+              {columnsTable.map((column) => (
+                <TableHeader
+                  key={column.key}
+                  column={column}
+                  sortBy={sortBy}
+                  sortOrder={sortOrder}
+                  onClick={() => handleColumnClick(column.key)}
+                  customSortedColumnBackgroundColor={
+                    customSortedColumnBackgroundColor
+                  }
+                  customHoverBackgroundColor={customHoverBackgroundColor}
+                />
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {paginatedData.map((employee, index) => (
+              <EmployeeDataRow
+                key={employee.id}
+                employee={employee}
                 sortBy={sortBy}
-                sortOrder={sortOrder}
-                onClick={() => handleColumnClick(column.key)}
                 customSortedColumnBackgroundColor={
                   customSortedColumnBackgroundColor
                 }
-                customHoverBackgroundColor={customHoverBackgroundColor}
+                customEvenRowBackgroundColor={
+                  index % 2 !== 0 ? customEvenRowBackgroundColor : ""
+                }
               />
             ))}
-          </tr>
-        </thead>
-        <tbody>
-          {paginatedData.map((employee, index) => (
-            <EmployeeDataRow
-              key={employee.id}
-              employee={employee}
-              sortBy={sortBy}
-              customSortedColumnBackgroundColor={
-                customSortedColumnBackgroundColor
-              }
-              customEvenRowBackgroundColor={
-                index % 2 !== 0 ? customEvenRowBackgroundColor : ""
-              }
-            />
-          ))}
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
 
       {showEmptySearch && (
         <div className="error-message">
@@ -281,7 +283,7 @@ const SuperTable = ({
           customLightBackgroundColor={customLightBackgroundColor}
         />
       </div>
-    </div>
+    </>
   );
 };
 

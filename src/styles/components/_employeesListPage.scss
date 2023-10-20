@@ -2,10 +2,10 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding-top: 3rem;
 
   h2 {
     cursor: default;
+    padding-top: 3rem;
   }
 
   .show-search {
@@ -28,84 +28,97 @@
         cursor: default;
       }
     }
+
+    @media screen and (max-width: 768px) {
+      flex-direction: column;
+      padding-top: 1rem;
+    }
   }
 }
 
-.employees-table {
-  border-collapse: collapse; /* Pour fusionner les bordures */
-  width: 100%;
+.table-container {
+  max-width: 100%; /* Définir une largeur maximale pour le conteneur */
+  overflow-x: auto; /* Ajouter un overflow horizontal pour activer la barre de défilement */
 
-  th,
-  td {
-    border: none;
-    padding: 8px;
-    text-align: left;
-    cursor: default;
+  .employees-table {
+    border-collapse: collapse; /* Pour fusionner les bordures */
+    width: 100%;
+    overflow-x: auto; /* Activer la barre de défilement horizontal si nécessaire */
+    white-space: nowrap; /* Empêcher le texte de se rompre sur plusieurs lignes */
 
-    .flex-jcc-aic {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 1rem 0;
-    }
+    th,
+    td {
+      border: none;
+      padding: 8px;
+      text-align: left;
+      cursor: default;
 
-    .up-down {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 1.5rem;
-      margin-left: 0.5rem;
-      color: rgb(208, 208, 208);
+      .flex-jcc-aic {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem 0;
+      }
 
-      .sorted-icon {
-        color: var(--darkGreen);
+      .up-down {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 1.5rem;
+        margin-left: 0.5rem;
+        color: rgb(208, 208, 208);
+
+        .sorted-icon {
+          color: var(--darkGreen);
+        }
       }
     }
-  }
 
-  th:hover {
-    background-color: var(--hoverBackgroundColor);
-    color: #ffffff;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
+    th:hover {
+      background-color: var(--hoverBackgroundColor);
+      color: #ffffff;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
 
-  td:hover {
-    background-color: #f0f0f0;
-    filter: saturate(0.3);
-    mix-blend-mode: multiply;
-  }
-
-  tbody {
-    border-top: 1px solid #d6d6d6;
-    border-bottom: 1px solid #d6d6d6;
-  }
-
-  .table-row-odd {
-    background-color: #ffffff;
-  }
-  
-  .table-row-even {
-    background-color: #d7ddbb;
-  }
-
-  .sorted-column {
-    position: relative;
-
-    &::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      // background-color: #ffff99;
-      background-color: var(--sortedColumnBackgroundColor); /* Utilisation de la variable CSS */;
+    td:hover {
+      background-color: #f0f0f0;
       filter: saturate(0.3);
-      mix-blend-mode: multiply; /* Applique l'effet de mélange pour l'overlay */
-      pointer-events: none; /* Évite d'interférer avec les interactions de la colonne en-tête */
-      z-index: 1;
+      mix-blend-mode: multiply;
+    }
+
+    tbody {
+      border-top: 1px solid #d6d6d6;
+      border-bottom: 1px solid #d6d6d6;
+    }
+
+    .table-row-odd {
+      background-color: #ffffff;
+    }
+
+    .table-row-even {
+      background-color: #d7ddbb;
+    }
+
+    .sorted-column {
+      position: relative;
+
+      &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(
+          --sortedColumnBackgroundColor
+        ); /* Utilisation de la variable CSS */
+        filter: saturate(0.3);
+        mix-blend-mode: multiply; /* Applique l'effet de mélange pour l'overlay */
+        pointer-events: none; /* Évite d'interférer avec les interactions de la colonne en-tête */
+        z-index: 1;
+      }
     }
   }
 }
@@ -125,7 +138,6 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    margin-top: 1rem;
 
     button {
       cursor: pointer;
@@ -157,11 +169,15 @@
       color: #ffffff;
     }
 
-    // .previous,
-    // .next {
-    //   background-color: #5a6f08;
-    //   color: #ffffff;
-    // }
+    @media screen and (max-width: 768px) {
+      padding-top: 1rem;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    padding-top: 1rem;
+    text-align: center;
   }
 }
 

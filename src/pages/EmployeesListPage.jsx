@@ -221,7 +221,7 @@ const EmployeesListPage = () => {
   }, [paginatedData]);
 
   return (
-    <div className="app-container">
+    <>
       <div className="employees-header">
         <h2>Current Employees</h2>
         <div className="show-search">
@@ -236,7 +236,7 @@ const EmployeesListPage = () => {
           />
         </div>
       </div>
-
+      <div className="table-container">
       <table className="employees-table">
         <thead>
           <tr>
@@ -262,6 +262,7 @@ const EmployeesListPage = () => {
           ))}
         </tbody>
       </table>
+      </div>
 
       {showEmptySearch && (
         <div className="error-message">
@@ -287,7 +288,7 @@ const EmployeesListPage = () => {
       <div className="link-employee">
         <Link to="/employees/create">Create Employee</Link>
       </div>
-    </div>
+    </>
   );
 };
 
