@@ -2,7 +2,7 @@
 
 # SuperTable 
 
-![Alt text](src/lib/assets/SuperTable1.png)
+![Alt text](https://github.com/Lulu-Soso/P14_TABLE_LIBRARY/blob/main/src/lib/assets/SuperTable1.png)
 
 ## Introduction à SuperTable
 
