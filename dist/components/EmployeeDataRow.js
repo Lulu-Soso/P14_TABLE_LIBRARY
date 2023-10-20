@@ -20,12 +20,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 var EmployeeDataRow = function EmployeeDataRow(_ref) {
-  var index = _ref.index,
-    employee = _ref.employee,
+  var employee = _ref.employee,
     sortBy = _ref.sortBy,
     className = _ref.className,
     customSortedColumnBackgroundColor = _ref.customSortedColumnBackgroundColor,
-    customOddRowBackgroundColor = _ref.customOddRowBackgroundColor;
+    customEvenRowBackgroundColor = _ref.customEvenRowBackgroundColor;
   var _useState = (0, _react.useState)(null),
     _useState2 = _slicedToArray(_useState, 2),
     hoveredColumn = _useState2[0],
@@ -40,7 +39,7 @@ var EmployeeDataRow = function EmployeeDataRow(_ref) {
   return /*#__PURE__*/_react["default"].createElement("tr", {
     className: className,
     style: {
-      backgroundColor: customOddRowBackgroundColor
+      backgroundColor: customEvenRowBackgroundColor
     }
   }, employeeEntries.map(function (_ref2) {
     var _ref3 = _slicedToArray(_ref2, 2),

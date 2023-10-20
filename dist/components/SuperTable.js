@@ -73,8 +73,8 @@ var SuperTable = function SuperTable(_ref) {
     customHoverBackgroundColor = _ref$customHoverBackg === void 0 ? "#aaaaaa" : _ref$customHoverBackg,
     _ref$customDarkBackgr = _ref.customDarkBackgroundColor,
     customDarkBackgroundColor = _ref$customDarkBackgr === void 0 ? "#929292" : _ref$customDarkBackgr,
-    _ref$customOddRowBack = _ref.customOddRowBackgroundColor,
-    customOddRowBackgroundColor = _ref$customOddRowBack === void 0 ? "#f0f0f0" : _ref$customOddRowBack,
+    _ref$customEvenRowBac = _ref.customEvenRowBackgroundColor,
+    customEvenRowBackgroundColor = _ref$customEvenRowBac === void 0 ? "#f0f0f0" : _ref$customEvenRowBac,
     _ref$customLightBackg = _ref.customLightBackgroundColor,
     customLightBackgroundColor = _ref$customLightBackg === void 0 ? "#d2d2d2" : _ref$customLightBackg;
   // États pour gérer la page
@@ -274,9 +274,8 @@ var SuperTable = function SuperTable(_ref) {
       key: employee.id,
       employee: employee,
       sortBy: sortBy,
-      className: "table-row-even",
       customSortedColumnBackgroundColor: customSortedColumnBackgroundColor,
-      customOddRowBackgroundColor: index % 2 !== 0 ? customOddRowBackgroundColor : ""
+      customEvenRowBackgroundColor: index % 2 !== 0 ? customEvenRowBackgroundColor : ""
     });
   }))), showEmptySearch && /*#__PURE__*/_react["default"].createElement("div", {
     className: "error-message"
