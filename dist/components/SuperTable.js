@@ -58,7 +58,7 @@ var SuperTable = function SuperTable(_ref) {
     _ref$columnsTable = _ref.columnsTable,
     columnsTable = _ref$columnsTable === void 0 ? columnsTableDefault : _ref$columnsTable,
     _ref$customLabelFilte = _ref.customLabelFilter,
-    customLabelFilter = _ref$customLabelFilte === void 0 ? "Display by Page Number" : _ref$customLabelFilte,
+    customLabelFilter = _ref$customLabelFilte === void 0 ? "Display By Page Number" : _ref$customLabelFilte,
     _ref$customLabelSearc = _ref.customLabelSearch,
     customLabelSearch = _ref$customLabelSearc === void 0 ? "Search Bar" : _ref$customLabelSearc,
     _ref$customTextPrevio = _ref.customTextPrevious,
