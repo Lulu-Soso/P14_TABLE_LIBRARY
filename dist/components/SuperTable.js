@@ -241,9 +241,7 @@ var SuperTable = function SuperTable(_ref) {
   (0, _react.useEffect)(function () {
     setShowEmptySearch(paginatedData.length === 0);
   }, [paginatedData]);
-  return /*#__PURE__*/_react["default"].createElement("div", {
-    className: "app-container"
-  }, /*#__PURE__*/_react["default"].createElement("div", {
+  return /*#__PURE__*/_react["default"].createElement(_react["default"].Fragment, null, /*#__PURE__*/_react["default"].createElement("div", {
     className: "employees-header"
   }, /*#__PURE__*/_react["default"].createElement("div", {
     className: "show-search"
@@ -255,7 +253,9 @@ var SuperTable = function SuperTable(_ref) {
     searchValue: searchValue,
     handleSearchChange: handleSearchChange,
     customLabelSearch: customLabelSearch
-  }))), /*#__PURE__*/_react["default"].createElement("table", {
+  }))), /*#__PURE__*/_react["default"].createElement("div", {
+    className: "table-container"
+  }, /*#__PURE__*/_react["default"].createElement("table", {
     className: "employees-table"
   }, /*#__PURE__*/_react["default"].createElement("thead", null, /*#__PURE__*/_react["default"].createElement("tr", null, columnsTable.map(function (column) {
     return /*#__PURE__*/_react["default"].createElement(_TableHeader["default"], {
@@ -277,7 +277,7 @@ var SuperTable = function SuperTable(_ref) {
       customSortedColumnBackgroundColor: customSortedColumnBackgroundColor,
       customEvenRowBackgroundColor: index % 2 !== 0 ? customEvenRowBackgroundColor : ""
     });
-  }))), showEmptySearch && /*#__PURE__*/_react["default"].createElement("div", {
+  })))), showEmptySearch && /*#__PURE__*/_react["default"].createElement("div", {
     className: "error-message"
   }, /*#__PURE__*/_react["default"].createElement("p", null, customEmptySearchMessage)), /*#__PURE__*/_react["default"].createElement("div", {
     className: "flex-pagination"
