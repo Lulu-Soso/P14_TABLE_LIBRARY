@@ -34,7 +34,7 @@ const SuperTable = ({
   customSortedColumnBackgroundColor = "#f6f6f6",
   customHoverBackgroundColor = "#aaaaaa",
   customDarkBackgroundColor = "#929292",
-  customOddRowBackgroundColor = "#f0f0f0",
+  customEvenRowBackgroundColor = "#f0f0f0",
   customLightBackgroundColor="#d2d2d2"
 }) => {
   // États pour gérer la page
@@ -242,12 +242,11 @@ const SuperTable = ({
               key={employee.id}
               employee={employee}
               sortBy={sortBy}
-              className="table-row-even"
               customSortedColumnBackgroundColor={
                 customSortedColumnBackgroundColor
               }
-              customOddRowBackgroundColor={
-                index % 2 !== 0 ? customOddRowBackgroundColor : ""
+              customEvenRowBackgroundColor={
+                index % 2 !== 0 ? customEvenRowBackgroundColor : ""
               }
             />
           ))}

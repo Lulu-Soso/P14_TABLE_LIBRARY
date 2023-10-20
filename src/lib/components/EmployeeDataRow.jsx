@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 
 const EmployeeDataRow = ({
-  index,
   employee,
   sortBy,
   className,
   customSortedColumnBackgroundColor,
-  customOddRowBackgroundColor,
+  customEvenRowBackgroundColor,
 }) => {
   const [hoveredColumn, setHoveredColumn] = useState(null);
 
@@ -23,7 +22,7 @@ const EmployeeDataRow = ({
   return (
     <tr
       className={className}
-      style={{ backgroundColor: customOddRowBackgroundColor }}
+      style={{ backgroundColor: customEvenRowBackgroundColor }}
     >
       {employeeEntries.map(([key, value]) => {
         if (key !== "id") {

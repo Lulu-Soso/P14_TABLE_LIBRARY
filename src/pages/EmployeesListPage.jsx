@@ -257,7 +257,7 @@ const EmployeesListPage = () => {
               key={employee.id}
               employee={employee}
               sortBy={sortBy}
-              className={index % 2 === 0 ? "table-row-even" : "table-row-odd"}
+              className={index % 2 === 0 ? "table-row-odd" : "table-row-even"}
             />
           ))}
         </tbody>
