@@ -33,6 +33,15 @@ header {
             color: #fff;
             transition: background-color 0.3s ease;
         }
+
+        @media screen and (max-width: 768px) {
+          margin: 0;
+          padding: 0;
+          height: 0;
+          
+          // padding-top: 1rem;
+          text-align: center;
+        }
       }
 
       .nav-active {
@@ -57,6 +66,92 @@ header {
           }
         }
       }
+
+      @media screen and (max-width: 768px) {
+        // display: flex;
+        // flex-direction: column;
+        // align-items: center;
+        display: none;
+      }
     }
+
+    // @media screen and (max-width: 768px) {
+    //   flex-direction: column;
+    //   display: flex;
+    // }
   }
 }
+
+.burger-button {
+  display: none; /* Masque le bouton burger par défaut */
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #5A6F08;
+
+  @media screen and (max-width: 768px) {
+    display: block; /* Affiche le bouton burger pour les appareils mobiles */
+  }
+}
+
+// .burger-menu {
+//   list-style-type: none;
+//   padding: 0;
+//   background-color: beige;
+//   position: absolute;
+//   top: 80px;
+//   left: 0;
+//   width: 100%;
+//   text-align: center;
+//   display: none; /* Masque le menu burger par défaut */
+// }
+
+// .burger-menu.open {
+//   display: block; /* Affiche le menu burger lorsque le bouton est cliqué */
+// }
+
+.burger-menu {
+  list-style-type: none;
+  position: fixed;
+  // background-color: var(--oddRowBackgroundColor);
+  background-color: beige;
+  // top: 80px;
+  top: 0;
+  right: -100%; /* Fait sortir la div du menu de la droite */
+  // width: 80%; /* Largeur de la div du menu */
+  width: 50%; /* Largeur de la div du menu */
+  // background-color: #fff;
+  transition: right 0.3s ease; /* Animation de transition */
+  z-index: 100; /* Assurez-vous qu'il s'affiche au-dessus du contenu */
+  display: none;
+  // height: 100vh;
+
+  @media screen and (max-width: 768px) {
+    display: block; /* Affiche le bouton burger pour les appareils mobiles */
+  }
+}
+
+.burger-menu.open {
+  right: 0; /* Révèle la div du menu lorsque la classe "open" est appliquée */
+}
+
+.burger-menu li {
+  padding: 1rem;
+}
+
+.burger-menu a {
+  text-decoration: none;
+  color: #5A6F08;
+  font-weight: bold;
+  font-size: 1rem;
+  text-transform: uppercase;
+  display: block;
+  transition: color 0.3s ease;
+}
+
+.burger-menu a:hover {
+  color: #fff;
+  background-color: #5A6F08;
+}
+

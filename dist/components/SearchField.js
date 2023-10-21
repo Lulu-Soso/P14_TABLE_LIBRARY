@@ -22,6 +22,7 @@ var SearchField = function SearchField(_ref) {
   }, /*#__PURE__*/_react["default"].createElement("label", {
     htmlFor: "search"
   }, customLabelSearch), /*#__PURE__*/_react["default"].createElement("input", {
+    className: "input-search",
     id: "search",
     type: "text",
     value: searchValue,

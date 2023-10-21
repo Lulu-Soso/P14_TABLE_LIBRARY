@@ -1,5 +1,5 @@
 {
-  "name": "p14-test2-table-component-react",
+  "name": "supertable-react",
   "version": "0.1.5",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -62,7 +62,7 @@
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1"
   },
-  "description": "DO NOT USE! A powerful and customizable React table library for displaying and managing tabular data with ease.",
+  "description": "A powerful and customizable React table library for displaying and managing tabular data with ease.",
   "author": "Lucas Prea",
   "license": "ISC"
 }

@@ -12,6 +12,7 @@ const SearchField = ({ searchValue, handleSearchChange, customLabelSearch }) => 
         <div className="search">
             <label htmlFor="search">{customLabelSearch}</label>
             <input
+                className="input-search"
                 id="search"
                 type="text"
                 value={searchValue}
