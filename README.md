@@ -4,65 +4,64 @@
 
 ![Alt text](https://raw.githubusercontent.com/Lulu-Soso/Github-Files/main/P14-Library/SuperTable1.png)
 
-## Introduction à SuperTable
+## Introduction to SuperTable
 
-SuperTable est une bibliothèque JavaScript puissante et polyvalente, conçue pour simplifier l'affichage de données dans un tableau personnalisable en utilisant React.
+SuperTable is a powerful and versatile JavaScript library designed to simplify data display in a customizable table using React.
 
-## Pourquoi utiliser SuperTable ?
+## Why Use SuperTable?
 
-### Gain de Temps :
+### Time-Saving:
 
-SuperTable vous permet de créer rapidement des tableaux personnalisés sans avoir à écrire de nombreuses lignes de code HTML et CSS. Économisez du temps précieux sur le développement front-end.
+SuperTable allows you to quickly create custom tables without writing many lines of HTML and CSS code. Save precious front-end development time.
 
-### Flexibilité Maximale :
+### Maximum Flexibility:
 
-Notre bibliothèque offre une flexibilité maximale pour personnaliser l'apparence et le comportement de vos tableaux. Personnalisez chaque aspect, de la couleur des cellules à la gestion des événements utilisateur.
+Our library offers maximum flexibility to customize the appearance and behavior of your tables. Customize every aspect, from cell colors to user event handling.
 
-### Interactivité Avancée :
+### Advanced Interactivity:
 
-SuperTable inclut des fonctionnalités avancées pour rendre vos tableaux interactifs. Triez, filtrez et paginez vos données en un clic.
+SuperTable includes advanced features to make your tables interactive. Sort, filter, and paginate your data with a single click.
 
-## Principales fonctionnalités de SuperTable
+## Key Features of SuperTable
 
-- **Personnalisation Facile** : Personnalisez l'apparence de votre tableau en utilisant des thèmes prédéfinis ou en créant votre propre style CSS.
+- **Easy Customization** : Customize the appearance of your table using predefined themes or by creating your own CSS styles.
 
-- **Gestion des Données** : SuperTable facilite la gestion des données, que ce soit pour afficher des informations complexes, des données en temps réel ou des données provenant d'une API.
+- **Data Management** : SuperTable makes data management easy, whether you're displaying complex information, real-time data, or data from an API.
 
-- **Intégration Transparente** : Intégrez SuperTable dans vos projets React existants sans tracas.
+- **Seamless Integration** : Seamlessly integrate SuperTable into your existing React projects with ease.
 
-Que vous cherchiez à améliorer la présentation de vos données, à simplifier la gestion de grands ensembles d'informations ou à créer des tableaux interactifs pour vos applications web, SuperTableReact est l'outil idéal pour atteindre vos objectifs.
+Whether you're looking to improve data presentation, simplify the management of large datasets, or create interactive tables for your web applications, SuperTableReact is the ideal tool to achieve your goals.
 
-## Comment commencer
+## Getting Started
 
-Pour commencer à utiliser SuperTableReact, suivez simplement ces étapes :
+To start using SuperTableReact, simply follow these steps:
 
-1. **Installation** : Installez SuperTableReact en utilisant npm ou yarn.
-
+1. **Installation** : Install SuperTableReact using npm or yarn.
 ```shell
-npm install supertable
+npm i supertable-react
 ```
 
-2. **Importation** : Importez la bibliothèque dans votre composant React.
+2. **Import** : Import the library into your React component.
 
 ```javascript
-import SuperTable from "supertable";
+import SuperTable from "supertable-react";
 ```
 
-3. **Utilisation** : Utilisez SuperTable pour créer et personnaliser votre tableau de données.
+3. **Usage** : Use SuperTable to create and customize your data table.
 
 ```jsx
-<SuperTable data={votreData} />
+<SuperTable data={yourData} />
 ```
 
-## Personnalisation des Colonnes
+## Customizing Columns
 
-Pour personnaliser les colonnes de votre tableau avec SuperTable, vous devez fournir un tableau d'objets contenant deux propriétés clés : "key" et "label". Ces propriétés sont essentielles pour déterminer quelles données seront affichées dans le tableau et quelles étiquettes seront utilisées pour les en-têtes de colonne. Voici comment vous pouvez expliquer cela :
+To customize the columns of your table with SuperTable, you need to provide an array of objects containing two key properties: "key" and "label." These properties are essential for determining what data will be displayed in the table and what labels will be used for column headers. Here's how you can explain this:
 
-"Pour personnaliser les colonnes de votre tableau avec SuperTableReact, vous devez créer un tableau d'objets appelé `customColumnsTable`. Chaque objet de ce tableau doit contenir deux propriétés :
+"To customize the columns of your table with SuperTableReact, you need to create an array of objects called `customColumnsTable`. Each object in this array must contain two properties:
 
-- `key` : Cette propriété représente la clé de la colonne, qui doit correspondre à la clé des données que vous souhaitez afficher dans cette colonne.
+- `key` : This property represents the column key, which should match the key of the data you want to display in this column.
 
-- `label` : Cette propriété représente l'étiquette de la colonne, qui sera affichée comme en-tête de la colonne dans le tableau."
+- `label` : This property represents the column label, which will be displayed as the column header in the table."
 
 ```javascript
 const customColumnsTable = [
@@ -78,7 +77,7 @@ const customColumnsTable = [
 ];
 ```
 
-Une fois que vous avez défini votre tableau customColumnsTable, vous pouvez le passer comme prop columnsTable à votre composant `<SuperTable />`. Voici comment vous pouvez l'utiliser dans votre code :
+Once you've defined your customColumnsTable array, you can pass it as the `columnsTable` prop to your `<SuperTable />` component. Here's how you can use it in your code:
 
 ```jsx
 <SuperTable 
@@ -87,43 +86,43 @@ Une fois que vous avez défini votre tableau customColumnsTable, vous pouvez le 
 />
 ```
 
-En spécifiant ces colonnes personnalisées, vous avez un contrôle total sur les données que vous souhaitez afficher et sur les en-têtes de colonne que vous souhaitez utiliser dans votre tableau.
+By specifying these custom columns, you have full control over the data you want to display and the column headers you want to use in your table.
 
 ![Alt text](https://raw.githubusercontent.com/Lulu-Soso/Github-Files/main/P14-Library/SuperTable8.png)
 
-### Gestion des Recherches Vides
+### Handling Empty Searches
 
-SuperTable inclut une gestion intelligente des cas où la barre de recherche ne trouve pas de correspondances dans les données affichées. Lorsque l'utilisateur effectue une recherche qui ne renvoie aucun résultat, SuperTable affiche un message d'information pour informer l'utilisateur qu'aucune correspondance n'a été trouvée.
+SuperTable includes intelligent handling of cases where the search bar doesn't find matches in the displayed data. When a user performs a search that returns no results, SuperTable displays an informative message to inform the user that no match was found.
 
-Ce message informatif est conçu pour améliorer l'expérience de l'utilisateur en lui indiquant que la recherche n'a pas abouti et en l'invitant à ajuster ses critères de recherche. Cela permet d'assurer une expérience utilisateur fluide et de réduire toute confusion qui pourrait survenir en cas de recherche infructueuse.
+This informative message is designed to enhance the user experience by letting them know that the search didn't yield any results and encouraging them to adjust their search criteria. This ensures a smooth user experience and reduces any confusion that may arise from unsuccessful searches.
 
-SuperTable s'efforce de rendre la recherche et la navigation dans les données aussi simples et efficaces que possible, et la gestion des recherches vides en est un exemple. Cela permet aux utilisateurs de trouver plus facilement les informations dont ils ont besoin tout en maintenant une interface utilisateur propre et intuitive.
+SuperTable strives to make searching and navigating data as simple and efficient as possible, and handling empty searches is an example of that. It helps users find the information they need more easily while maintaining a clean and intuitive user interface.
 
 ![Alt text](https://raw.githubusercontent.com/Lulu-Soso/Github-Files/main/P14-Library/SuperTable4.png)
 
-### Personnalisation de l'Apparence du Tableau
+### Customizing Table Appearance
 
-SuperTable offre un large éventail d'options de personnalisation pour que vous puissiez adapter l'apparence de votre tableau à vos besoins spécifiques. Voici comment chaque personnalisation affecte l'apparence du tableau :
+SuperTable offers a wide range of customization options so you can tailor the appearance of your table to your specific needs. Here's how each customization affects the table's appearance:
 
-- **customLabelSearch** : Cette personnalisation remplace le texte par défaut "Search Bar" dans la barre de recherche du tableau. Vous pouvez utiliser cette option pour localiser la barre de recherche dans la langue de votre choix.
+- **customLabelSearch** : This customization replaces the default text "Search Bar" in the table's search bar. You can use this option to localize the search bar in the language of your choice.
 
-- **customLabelFilter** : Cette personnalisation remplace le texte par défaut "Display By Page Number" dans la liste déroulante de filtre du tableau. Utilisez cette option pour personnaliser le libellé du filtre selon vos préférences.
+- **customLabelFilter** : This customization replaces the default text "Display By Page Number" in the table's filter dropdown. Use this option to customize the filter label to your preferences.
 
-- **customTextPrevious** et **customTextNext** : Ces personnalisations remplacent les textes par défaut "Previous Page" et "Next Page" des boutons de pagination. Personnalisez ces boutons pour correspondre au style et à la langue de votre application.
+- **customTextPrevious** and **customTextNext** : These customizations replace the default "Previous Page" and "Next Page" texts on the pagination buttons. Customize these buttons to match your application's style and language.
 
-- **customEmptySearchMessage** : Lorsqu'une recherche ne renvoie aucun résultat, ce message personnalisé est affiché pour informer l'utilisateur qu'aucune correspondance n'a été trouvée. Personnalisez ce message pour l'adapter à votre application.
+- **customEmptySearchMessage** : When a search returns no results, this custom message is displayed to inform the user that no match was found. Customize this message to fit your application.
 
-- **customSortedColumnBackgroundColor** : Cette personnalisation permet de définir une couleur de fond personnalisée pour la colonne triée.
+- **customSortedColumnBackgroundColor** : This customization allows you to set a custom background color for the sorted column.
 
-- **customHoverBackgroundColor** : Lorsque l'utilisateur survole une cellule du tableau, cette personnalisation détermine la couleur de fond de la cellule en surbrillance.
+- **customHoverBackgroundColor** : When a user hovers over a table cell, this customization determines the background color of the highlighted cell.
 
-- **customEvenRowBackgroundColor** : Cette personnalisation permet de définir la couleur de fond pour les lignes paires du tableau. Vous pouvez spécifier une couleur personnalisée pour toutes les lignes paires afin de créer un schéma de couleurs alternées distinct.
+- **customEvenRowBackgroundColor** : This customization allows you to set the background color for even rows of the table. You can specify a custom color for all even rows to create a distinct alternating color scheme.
 
-- **customDarkBackgroundColor** : Vous pouvez utiliser cette personnalisation pour définir une couleur de fond plus foncée.
+- **customDarkBackgroundColor** : You can use this customization to set a darker background color.
 
-- **customLightBackgroundColor** : À l'inverse, cette personnalisation vous permet de définir une couleur de fond plus claire.
+- **customLightBackgroundColor** : Conversely, this customization allows you to set a lighter background color.
 
-En utilisant ces options de personnalisation, vous pouvez créer un tableau qui s'intègre parfaitement à l'apparence et au style de votre application, tout en offrant une expérience utilisateur fluide et intuitive.
+By using these customization options, you can create a table that seamlessly fits the look and style of your application while providing a smooth and intuitive user experience.
 
 ```jsx
 <SuperTable
