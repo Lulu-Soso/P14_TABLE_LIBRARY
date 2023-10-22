@@ -145,4 +145,16 @@ By using these customization options, you can create a table that seamlessly fit
 
 ![Alt text](https://raw.githubusercontent.com/Lulu-Soso/Github-Files/main/P14-Library/SuperTable7.png)
 
+## Keywords
+- Data display
+- React library
+- Customizable table
+- JavaScript
+- Front-end development
+- Data management
+- Filter
+- Search
+- Pagination
+
+
 <!-- Markdown -->
