@@ -57,19 +57,11 @@ const CreateEmployeePage = () => {
       return; // Arrête la soumission du formulaire
     }
 
-    // Convertit la date de naissance et la date de début en objets Date
-    const birthDateObj = new Date(birthDate);
-    const startDateObj = new Date(startDate);
-
-    // Obtient les dates formatées en tant que chaînes au format local
-    const formattedBirthDate = birthDateObj.toLocaleDateString("fr-FR");
-    const formattedStartDate = startDateObj.toLocaleDateString("fr-FR");
-
     const data = {
       firstName,
       lastName,
-      birthDate: formattedBirthDate,
-      startDate: formattedStartDate,
+      birthDate,
+      startDate,
       street,
       city,
       state,
@@ -80,8 +72,8 @@ const CreateEmployeePage = () => {
     const resetFormFields = () => {
       setFirstName("");
       setLastName("");
-      setBirthDate(new Date());
-      setStartDate(new Date());
+      setBirthDate("");
+      setStartDate("");
       setStreet("");
       setCity("");
       setState("");
@@ -92,7 +84,7 @@ const CreateEmployeePage = () => {
     try {
       console.log("Sending request with data:", data);
       const response = await axios.post(
-        "http://localhost:5000/employees",
+        "http://localhost:5001/employees",
         data
       );
       // console.log("Response:", response.data);
@@ -168,11 +160,13 @@ const CreateEmployeePage = () => {
         </div>
         <div className="field-row">
           <DateSelector
+            type="date"
             label="Date of Birth"
             value={birthDate}
             onChange={setBirthDate}
           />
           <DateSelector
+            type="date"
             label="Start Date"
             value={startDate}
             onChange={setStartDate}
@@ -240,12 +234,15 @@ const CreateEmployeePage = () => {
       <div className="link-employee">
         <Link to="/employees/list">View Current Employees</Link>
       </div>
-      <ConfirmationModal
-        isOpen={showModalConfirmation}
-        message="Employee Created !"
-        onClose={() => setShowModalConfirmation(false)}
-      />
-    </div>
+
+      {/* <div className="confirm-modal"> */}
+        <ConfirmationModal
+          isOpen={showModalConfirmation}
+          message="Employee Created !"
+          onClose={() => setShowModalConfirmation(false)}
+        />
+      </div>
+    // </div>
   );
 };
 

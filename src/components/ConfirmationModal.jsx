@@ -2,8 +2,8 @@ import React from "react";
 
 const ConfirmationModal = ({ isOpen, message, onClose }) => {
   return (
-    <div className={`modal ${isOpen ? "active" : ""}`}>
-      <div className="modal-content">
+    <div className={`confirm-modal ${isOpen ? "active" : ""}`}>
+      <div className="confirm-modal-content">
         <p>{message}</p>
         <button onClick={onClose}>X</button>
       </div>

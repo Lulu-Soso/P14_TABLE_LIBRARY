@@ -43,6 +43,8 @@
 .table-container {
   max-width: 100%; /* Définir une largeur maximale pour le conteneur */
   overflow-x: auto; /* Ajouter un overflow horizontal pour activer la barre de défilement */
+  overflow-y: hidden;
+
 
   .employees-table {
     border-collapse: collapse; /* Pour fusionner les bordures */

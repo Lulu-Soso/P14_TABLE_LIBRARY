@@ -8,13 +8,13 @@ import React from "react";
  * @param {string} props.value - Valeur de la date.
  * @param {function} props.onChange - Fonction de rappel pour gérer les changements de date.
  */
-const DateSelector = ({ label, value, onChange }) => {
+const DateSelector = ({ type, label, value, onChange }) => {
   return (
     <div className="field">
       <label htmlFor={label.toLowerCase()}>{label}</label>
       <input
         className="date-selector"
-        type="date"
+        type={type}
         id={label.toLowerCase()}
         value={value}
         onChange={(e) => onChange(e.target.value)}

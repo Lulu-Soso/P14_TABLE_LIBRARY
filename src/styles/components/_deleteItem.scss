@@ -1,0 +1,19 @@
+.delete-item {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  
+    .delete-btn {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+  
+      button {
+        padding: 0.3rem;
+        margin: 0.6rem;
+        border: none;
+        color: #fff;
+        border-radius: 0.3rem;
+      }
+    }
+  }

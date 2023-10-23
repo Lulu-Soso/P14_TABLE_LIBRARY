@@ -1,0 +1,39 @@
+.confirm-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+  color: white;
+  text-align: center;
+  padding: 10px;
+  z-index: 1000; /* Pour que la fenêtre modale soit au-dessus de tout le reste */
+  display: none; /* Cachée par défaut */
+
+  &.active {
+    display: block;
+  }
+
+  .confirm-modal-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    button {
+      margin-left: 1rem;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: none;
+      font-size: 1rem;
+      font-weight: 600;
+
+      &:hover {
+        background-color: #93ad18;
+        color: #ffffff;
+        transform: scale(1.2);
+        transition: background-color 0.3s ease;
+      }
+    }
+  }
+}

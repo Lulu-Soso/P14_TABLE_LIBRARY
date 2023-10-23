@@ -27,6 +27,19 @@ const employeesSlice = createSlice({
       localStorage.setItem("employeeInfo", JSON.stringify(payload));
       localStorage.setItem("employees", JSON.stringify(state.employeesData));
     },
+    updateEmployee: (state, { payload }) => {
+      state.employeesData = state.employeesData.map((employee) =>
+        employee.id === payload.id ? payload : employee
+      );
+      localStorage.setItem("employeeInfo", JSON.stringify(payload.id));
+      localStorage.setItem("employeesData", JSON.stringify(state.employeesData));
+    },
+    deleteEmployee: (state, { payload }) => {
+      state.employeesData = state.employeesData.filter(
+        (employee) => employee.id !== payload 
+      );
+      localStorage.setItem("employeesData", JSON.stringify(state.employeesData));
+    },
     setError: (state, { payload }) => {
       state.error = payload;
     },
@@ -61,5 +74,7 @@ export const {
   setError,
   setEntriesToShow,
   setSearch,
+  updateEmployee,
+  deleteEmployee
 } = employeesSlice.actions;
 export default employeesSlice.reducer;

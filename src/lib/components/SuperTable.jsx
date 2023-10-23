@@ -6,6 +6,12 @@ import SearchField from "../components/SearchField";
 import EntriesInfo from "../components/EntriesInfo";
 import PaginatedTable from "../components/PaginatedTable";
 import FilterEntries from "../components/FilterEntries";
+import Modal from "../components/Modal";
+import ViewItem from "../components/ViewItem";
+import { FaEye, FaPen, FaTrashCan } from "react-icons/fa6";
+import EditForm from "../components/EditForm";
+import DeleteItem from "../components/DeleteItem";
+// import { formatLocalDate } from "../../utils/formatLocalDate.js";
 
 /**
  * @typedef {Object} Column - Définit une colonne dans la table.
@@ -13,14 +19,14 @@ import FilterEntries from "../components/FilterEntries";
  * @property {string} label - Le libellé de la colonne.
  */
 const columnsTableDefault = [
-  { key: "firstName", label: "First Name" },
-  { key: "lastName", label: "Last Name" },
-  { key: "email", label: "Email" },
-  { key: "phoneNumber", label: "Phone Number" },
-  { key: "dateOfBirth", label: "Date of Birth" },
-  { key: "address", label: "Address" },
-  { key: "zipCode", label: "Zip Code" },
-  { key: "country", label: "Country" },
+  { key: "firstName", label: "First Name", type: "text" },
+  { key: "lastName", label: "Last Name", type: "text" },
+  { key: "email", label: "Email", type: "email" },
+  { key: "phoneNumber", label: "Phone Number", type: "tel" },
+  { key: "dateOfBirth", label: "Date of Birth", type: "date" },
+  { key: "address", label: "Address", type: "text" },
+  { key: "zipCode", label: "Zip Code", type: "number" },
+  { key: "country", label: "Country", type: "text" },
 ];
 
 const SuperTable = ({
@@ -31,19 +37,63 @@ const SuperTable = ({
   customTextPrevious = "Previous Page",
   customTextNext = "Next Page",
   customEmptySearchMessage = "No results found for your search.",
+  customDeleteItemMessage = "Are you sure you want to delete this item?",
+  customTextYesDeleteItem = "Yes",
+  customTextNoDeleteItem = "No",
   customSortedColumnBackgroundColor = "#f6f6f6",
   customHoverBackgroundColor = "#aaaaaa",
   customDarkBackgroundColor = "#929292",
   customEvenRowBackgroundColor = "#f0f0f0",
   customLightBackgroundColor = "#d2d2d2",
+  handleEditForm,
+  handleDeleteItem,
 }) => {
   // États pour gérer la page
   const [showEmptySearch, setShowEmptySearch] = useState(false);
-  const [sortBy, setSortBy] = useState("firstName");
+  // const [sortBy, setSortBy] = useState("firstName");
+  const [sortBy, setSortBy] = useState("");
   const [sortOrder, setSortOrder] = useState("asc");
   const [entriesToShow, setEntriesToShow] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchValue, setSearchValue] = useState("");
+
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedAction, setSelectedAction] = useState(null);
+
+  // États pour gérer l'édition
+  const [editingItem, setEditingItem] = useState(null);
+  const [editedItem, setEditedItem] = useState(null);
+
+  // /**
+  //  * Génère le format de date local à partir d'une date au format ISO.
+  //  * @param {string} isoDate - La date au format ISO (ex: "2023-09-25").
+  //  * @returns {string} - La date formatée au format local.
+  //  */
+  // const formatLocalDate = (isoDate) => {
+  //   const options = { year: '2-digit', month: '2-digit', day: '2-digit' };
+  //   const locale = navigator.language;
+
+  //   switch (locale) {
+  //     case 'fr-FR': // Locale française
+  //       return new Date(isoDate)
+  //         .toLocaleDateString(locale, options)
+  //         .replace(/-/g, '/'); // Remplace les tirets par des slashs pour la locale française
+  //     default:
+  //       return new Date(isoDate)
+  //         .toLocaleDateString(locale, options)
+  //         .replace(/\//g, '-'); // Remplace les slashs par des tirets pour les autres locales, y compris en US
+  //   }
+  // };
+
+  const handleFieldChange = (fieldName, value) => {
+    value = value.trim();
+
+    setEditedItem((prevData) => ({
+      ...prevData,
+      [fieldName]: value,
+    }));
+  };
 
   /**
    * Inverse l'ordre de tri actuel.
@@ -107,6 +157,7 @@ const SuperTable = ({
    */
   const handlePageClick = (page) => {
     setCurrentPage(page);
+    setEditingItem(null); // Fermez le formulaire d'édition en changeant de page
   };
 
   // Fonction pour générer les numéros de page à afficher
@@ -157,19 +208,13 @@ const SuperTable = ({
       // Convertit la valeur de recherche en minuscules pour une recherche insensible à la casse
       const searchLowerCase = searchValue.toLowerCase();
 
-      // Vérifie si l'employé actuel correspond à la recherche dans plusieurs champs
-      return (
-        // opérateur de coalescence nulle (??), nous attribuons une chaîne vide "" à chaque champ de l'objet employee s'il est null ou undefined, puis nous appliquons toLowerCase() sur chaque champ en toute sécurité sans risquer de provoquer une erreur "Cannot read properties of undefined".
-        (employee.firstName ?? "").toLowerCase().includes(searchLowerCase) || // Vérifie le prénom
-        (employee.lastName ?? "").toLowerCase().includes(searchLowerCase) ||
-        (employee.birthDate ?? "").toLowerCase().includes(searchLowerCase) ||
-        (employee.startDate ?? "").toLowerCase().includes(searchLowerCase) ||
-        (employee.street ?? "").toLowerCase().includes(searchLowerCase) ||
-        (employee.city ?? "").toLowerCase().includes(searchLowerCase) ||
-        (employee.state ?? "").toLowerCase().includes(searchLowerCase) ||
-        (employee.zipCode ?? "").toLowerCase().includes(searchLowerCase) ||
-        (employee.department ?? "").toLowerCase().includes(searchLowerCase)
-      );
+      // Vérifie si l'employé actuel correspond à la recherche dans les champs spécifiés
+      return columnsTable.some((column) => {
+        const fieldValue = (employee[column.key] ?? "")
+          .toString()
+          .toLowerCase();
+        return fieldValue.includes(searchLowerCase);
+      });
     })
     // Effectue une pagination en tranchant les données filtrées en fonction de la page actuelle et du nombre d'entrées à afficher par page
     .slice((currentPage - 1) * entriesToShow, currentPage * entriesToShow);
@@ -199,6 +244,50 @@ const SuperTable = ({
   useEffect(() => {
     setShowEmptySearch(paginatedData.length === 0);
   }, [paginatedData]);
+
+  // Fonction pour ouvrir la modal et définir l'élément sélectionné
+  const handleCellClick = (item) => {
+    setSelectedItem(item);
+    setSelectedAction(null); // Réinitialisez l'action sélectionnée
+    setIsModalOpen(true);
+  };
+
+  // Fonction pour fermer la modal
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  // Fonction pour gérer l'action sélectionnée
+  const handleActionClick = (action) => {
+    setSelectedAction(action);
+    if (action === "edit") {
+      // Mettez à jour l'état editedItem avec les données de l'élément en cours d'édition
+      setEditedItem(selectedItem);
+    }
+  };
+
+  // Fonction pour soumettre le formulaire d'édition
+  const handleEdit = () => {
+    if (handleEditForm) {
+      handleEditForm(editedItem);
+    } else {
+      console.log("Editing item with ID:");
+      setEditingItem(editedItem);
+      // setData(updatedData);
+      setEditingItem(null); // Fermez le formulaire d'édition
+      setIsModalOpen(false); // Fermez la modal
+    }
+    setIsModalOpen(false);
+  };
+
+  const handleDelete = (item) => {
+    if (handleDeleteItem) {
+      handleDeleteItem(item.id);
+    } else {
+      console.log(`Deleting item with ID: ${item.id}`);
+    }
+    setIsModalOpen(false);
+  };
 
   return (
     <>
@@ -249,6 +338,8 @@ const SuperTable = ({
                 customEvenRowBackgroundColor={
                   index % 2 !== 0 ? customEvenRowBackgroundColor : ""
                 }
+                onCellClick={() => handleCellClick(employee)} // Ajoutez cette ligne
+                columnsTable={columnsTable} // Assurez-vous de passer columnsTable
               />
             ))}
           </tbody>
@@ -283,6 +374,65 @@ const SuperTable = ({
           customLightBackgroundColor={customLightBackgroundColor}
         />
       </div>
+
+      {/* Votre table et autres éléments ici */}
+      {isModalOpen && (
+        <Modal
+          isActiveModal={isModalOpen}
+          closeModal={closeModal}
+          customDarkBackgroundColor={customDarkBackgroundColor}
+          customHoverBackgroundColor={customHoverBackgroundColor}
+        >
+          {/* Affichez la liste de boutons d'action si aucune action n'est sélectionnée */}
+          {selectedAction === null && (
+            <div className="option-buttons">
+              {/* <h3>Choose an Action</h3> */}
+              <button onClick={() => handleActionClick("view")}>
+                <FaEye className="pen-trash-icons" />
+              </button>
+              <button onClick={() => handleActionClick("edit")}>
+                <FaPen className="pen-trash-icons" />
+              </button>
+              <button onClick={() => handleActionClick("delete")}>
+                <FaTrashCan className="pen-trash-icons" />
+              </button>
+            </div>
+          )}
+
+          {/* Affichez les détails de l'élément sélectionné si l'action est "Aperçu" */}
+          {selectedAction === "view" && selectedItem && (
+            <div>
+              <ViewItem item={selectedItem} columnsTable={columnsTable} />
+            </div>
+          )}
+
+          {selectedAction === "edit" && editedItem && (
+            <div>
+              <EditForm
+                item={editedItem}
+                columnsTable={columnsTable}
+                handleEdit={handleEdit}
+                handleFieldChange={handleFieldChange}
+                closeModal={closeModal}
+                customDarkBackgroundColor={customDarkBackgroundColor}
+                customHoverBackgroundColor={customHoverBackgroundColor}
+              />
+            </div>
+          )}
+          {selectedAction === "delete" && selectedItem && (
+            <DeleteItem
+              customDeleteItemMessage={customDeleteItemMessage}
+              item={selectedItem}
+              handleDelete={handleDelete}
+              customTextYesDeleteItem={customTextYesDeleteItem}
+              customTextNoDeleteItem={customTextNoDeleteItem}
+              setSelectedAction={setSelectedAction}
+              customDarkBackgroundColor={customDarkBackgroundColor}
+              customHoverBackgroundColor={customHoverBackgroundColor}
+            />
+          )}
+        </Modal>
+      )}
     </>
   );
 };

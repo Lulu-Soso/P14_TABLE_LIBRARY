@@ -13,6 +13,8 @@ import FilterEntries from "../components/FilterEntries";
 import SearchField from "../components/SearchField";
 import EntriesInfo from "../components/EntriesInfo";
 import PaginatedTable from "../components/PaginatedTable";
+import { formatLocalDate } from "../utils/formatLocalDate";
+
 
 /**
  * @typedef {Object} Column - Définit une colonne dans la table.
@@ -47,6 +49,27 @@ const EmployeesListPage = () => {
   // Sélectionner les données des employés depuis le Redux store
   const employeesData = useSelector((state) => state.employees.employeesData);
   const dispatch = useDispatch();
+
+  // /**
+  //  * Génère le format de date local à partir d'une date au format ISO.
+  //  * @param {string} isoDate - La date au format ISO (ex: "2023-09-25").
+  //  * @returns {string} - La date formatée au format local.
+  //  */
+  // const formatLocalDate = (isoDate) => {
+  //   const options = { year: '2-digit', month: '2-digit', day: '2-digit' };
+  //   const locale = navigator.language;
+
+  //   switch (locale) {
+  //     case 'fr-FR': // Locale française
+  //       return new Date(isoDate)
+  //         .toLocaleDateString(locale, options)
+  //         .replace(/-/g, '/'); // Remplace les tirets par des slashs pour la locale française
+  //     default:
+  //       return new Date(isoDate)
+  //         .toLocaleDateString(locale, options)
+  //         .replace(/\//g, '-'); // Remplace les slashs par des tirets pour les autres locales, y compris en US
+  //   }
+  // };
 
   /**
    * Utilise useEffect pour récupérer les données des employés depuis l'API.
@@ -189,7 +212,7 @@ const EmployeesListPage = () => {
         (employee.state ?? "").toLowerCase().includes(searchLowerCase) ||
         (employee.zipCode ?? "").toLowerCase().includes(searchLowerCase) ||
         (employee.department ?? "").toLowerCase().includes(searchLowerCase)
-      );     
+      );
     })
     // Effectue une pagination en tranchant les données filtrées en fonction de la page actuelle et du nombre d'entrées à afficher par page
     .slice((currentPage - 1) * entriesToShow, currentPage * entriesToShow);
@@ -237,31 +260,32 @@ const EmployeesListPage = () => {
         </div>
       </div>
       <div className="table-container">
-      <table className="employees-table">
-        <thead>
-          <tr>
-            {columns.map((column) => (
-              <TableHeader
-                key={column.key}
-                column={column}
+        <table className="employees-table">
+          <thead>
+            <tr>
+              {columns.map((column) => (
+                <TableHeader
+                  key={column.key}
+                  column={column}
+                  sortBy={sortBy}
+                  sortOrder={sortOrder}
+                  onClick={() => handleColumnClick(column.key)}
+                />
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {paginatedData.map((employee, index) => (
+              <EmployeeDataRow
+                key={employee.id}
+                employee={employee}
                 sortBy={sortBy}
-                sortOrder={sortOrder}
-                onClick={() => handleColumnClick(column.key)}
+                className={index % 2 === 0 ? "table-row-odd" : "table-row-even"}
+                formatLocalDate={formatLocalDate} // Passez la fonction de formatage de date
               />
             ))}
-          </tr>
-        </thead>
-        <tbody>
-          {paginatedData.map((employee, index) => (
-            <EmployeeDataRow
-              key={employee.id}
-              employee={employee}
-              sortBy={sortBy}
-              className={index % 2 === 0 ? "table-row-odd" : "table-row-even"}
-            />
-          ))}
-        </tbody>
-      </table>
+          </tbody>
+        </table>
       </div>
 
       {showEmptySearch && (

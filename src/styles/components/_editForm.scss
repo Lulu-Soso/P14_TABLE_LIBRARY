@@ -1,0 +1,59 @@
+// /* Styles généraux */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Espace entre les champs */
+  max-width: 600px; /* Largeur maximale du formulaire */
+  margin: 0 auto; /* Centrer le formulaire */
+}
+
+.editField {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="tel"],
+input[type="date"],
+textarea {
+  /* Uniformiser le style entre input et textarea */
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+}
+
+textarea {
+  resize: vertical; /* Autoriser le redimensionnement uniquement verticalement */
+  max-height: 200px; /* Hauteur maximale du textarea lors du redimensionnement */
+  min-height: 50px;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+
+  button {
+    width: 50%;
+    margin: 0;
+    // background-color: #5a6f08;
+    height: 30px;
+    border: none;
+    border-radius: 0.2rem;
+    color: #fff;
+
+    &:hover {
+      background-color: #93ad18;
+    }
+  }
+}
