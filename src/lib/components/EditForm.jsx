@@ -6,9 +6,9 @@ const EditForm = ({
   columnsTable,
   handleEdit,
   handleFieldChange,
-  closeModal,
   customDarkBackgroundColor,
   customHoverBackgroundColor,
+  setSelectedAction
 }) => {
   const [isHoveredSave, setIsHoveredSave] = useState(false);
   const [isHoveredCancel, setIsHoveredCancel] = useState(false);
@@ -128,7 +128,7 @@ const EditForm = ({
           }}
           onMouseEnter={handleMouseEnterCancel}
           onMouseLeave={handleMouseLeaveCancel}
-          onClick={closeModal}
+          onClick={() => setSelectedAction(null)}
         >
           Cancel
         </button>

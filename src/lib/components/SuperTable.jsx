@@ -8,10 +8,14 @@ import PaginatedTable from "../components/PaginatedTable";
 import FilterEntries from "../components/FilterEntries";
 import Modal from "../components/Modal";
 import ViewItem from "../components/ViewItem";
-import { FaEye, FaPen, FaTrashCan } from "react-icons/fa6";
+import {
+  FaEye,
+  FaPen,
+  FaTrashCan,
+  FaArrowRightArrowLeft,
+} from "react-icons/fa6";
 import EditForm from "../components/EditForm";
 import DeleteItem from "../components/DeleteItem";
-// import { formatLocalDate } from "../../utils/formatLocalDate.js";
 
 /**
  * @typedef {Object} Column - Définit une colonne dans la table.
@@ -40,6 +44,7 @@ const SuperTable = ({
   customDeleteItemMessage = "Are you sure you want to delete this item?",
   customTextYesDeleteItem = "Yes",
   customTextNoDeleteItem = "No",
+  customTextViewCancelBtn = "Cancel",
   customSortedColumnBackgroundColor = "#f6f6f6",
   customHoverBackgroundColor = "#aaaaaa",
   customDarkBackgroundColor = "#929292",
@@ -50,7 +55,6 @@ const SuperTable = ({
 }) => {
   // États pour gérer la page
   const [showEmptySearch, setShowEmptySearch] = useState(false);
-  // const [sortBy, setSortBy] = useState("firstName");
   const [sortBy, setSortBy] = useState("");
   const [sortOrder, setSortOrder] = useState("asc");
   const [entriesToShow, setEntriesToShow] = useState(10);
@@ -65,27 +69,7 @@ const SuperTable = ({
   const [editingItem, setEditingItem] = useState(null);
   const [editedItem, setEditedItem] = useState(null);
 
-  // /**
-  //  * Génère le format de date local à partir d'une date au format ISO.
-  //  * @param {string} isoDate - La date au format ISO (ex: "2023-09-25").
-  //  * @returns {string} - La date formatée au format local.
-  //  */
-  // const formatLocalDate = (isoDate) => {
-  //   const options = { year: '2-digit', month: '2-digit', day: '2-digit' };
-  //   const locale = navigator.language;
-
-  //   switch (locale) {
-  //     case 'fr-FR': // Locale française
-  //       return new Date(isoDate)
-  //         .toLocaleDateString(locale, options)
-  //         .replace(/-/g, '/'); // Remplace les tirets par des slashs pour la locale française
-  //     default:
-  //       return new Date(isoDate)
-  //         .toLocaleDateString(locale, options)
-  //         .replace(/\//g, '-'); // Remplace les slashs par des tirets pour les autres locales, y compris en US
-  //   }
-  // };
-
+  const [isReversed, setIsReversed] = useState(true); // Nouvel état pour l'ordre inverse
   const handleFieldChange = (fieldName, value) => {
     value = value.trim();
 
@@ -93,6 +77,10 @@ const SuperTable = ({
       ...prevData,
       [fieldName]: value,
     }));
+  };
+
+  const toggleReverseOrder = () => {
+    setIsReversed(!isReversed); // Inverser l'ordre d'affichage lorsque le bouton est cliqué
   };
 
   /**
@@ -113,25 +101,31 @@ const SuperTable = ({
       setSortBy(columnName);
       setSortOrder("asc");
     }
+    setIsReversed(false); // Réinitialisez l'ordre inverse lorsque l'utilisateur clique sur une colonne
   };
 
-  // Fonction pour trier les données des employés
-  const sortedData = data.slice().sort((a, b) => {
-    if (sortBy === null) return 0;
+  const sortedData = data.slice();
 
-    const aValue = a[sortBy];
-    const bValue = b[sortBy];
+  if (isReversed) {
+    sortedData.reverse(); // Inversez l'ordre des données
+  } else {
+    sortedData.sort((a, b) => {
+      if (sortBy === null) return 0;
 
-    if (aValue == null || bValue == null) return 0;
+      const aValue = a[sortBy];
+      const bValue = b[sortBy];
 
-    if (typeof aValue === "string" && typeof bValue === "string") {
-      return sortOrder === "asc"
-        ? aValue.localeCompare(bValue)
-        : bValue.localeCompare(aValue);
-    } else {
-      return sortOrder === "asc" ? aValue - bValue : bValue - aValue;
-    }
-  });
+      if (aValue == null || bValue == null) return 0;
+
+      if (typeof aValue === "string" && typeof bValue === "string") {
+        return sortOrder === "asc"
+          ? aValue.localeCompare(bValue)
+          : bValue.localeCompare(aValue);
+      } else {
+        return sortOrder === "asc" ? aValue - bValue : bValue - aValue;
+      }
+    });
+  }
 
   // Calcul du nombre total d'entrées et de pages
   const totalEntries = sortedData.length;
@@ -338,8 +332,8 @@ const SuperTable = ({
                 customEvenRowBackgroundColor={
                   index % 2 !== 0 ? customEvenRowBackgroundColor : ""
                 }
-                onCellClick={() => handleCellClick(employee)} // Ajoutez cette ligne
-                columnsTable={columnsTable} // Assurez-vous de passer columnsTable
+                onCellClick={() => handleCellClick(employee)}
+                columnsTable={columnsTable}
               />
             ))}
           </tbody>
@@ -375,7 +369,6 @@ const SuperTable = ({
         />
       </div>
 
-      {/* Votre table et autres éléments ici */}
       {isModalOpen && (
         <Modal
           isActiveModal={isModalOpen}
@@ -383,10 +376,12 @@ const SuperTable = ({
           customDarkBackgroundColor={customDarkBackgroundColor}
           customHoverBackgroundColor={customHoverBackgroundColor}
         >
-          {/* Affichez la liste de boutons d'action si aucune action n'est sélectionnée */}
+          {/* Afficher la liste de boutons d'action si aucune action n'est sélectionnée */}
           {selectedAction === null && (
             <div className="option-buttons">
-              {/* <h3>Choose an Action</h3> */}
+              <button onClick={toggleReverseOrder} className="rotation">
+                <FaArrowRightArrowLeft />
+              </button>
               <button onClick={() => handleActionClick("view")}>
                 <FaEye className="pen-trash-icons" />
               </button>
@@ -399,10 +394,17 @@ const SuperTable = ({
             </div>
           )}
 
-          {/* Affichez les détails de l'élément sélectionné si l'action est "Aperçu" */}
+          {/* Afficher les détails de l'élément sélectionné si l'action est "Aperçu" */}
           {selectedAction === "view" && selectedItem && (
             <div>
-              <ViewItem item={selectedItem} columnsTable={columnsTable} />
+              <ViewItem
+                item={selectedItem}
+                columnsTable={columnsTable}
+                customTextViewCancelBtn={customTextViewCancelBtn}
+                setSelectedAction={setSelectedAction}
+                customDarkBackgroundColor={customDarkBackgroundColor}
+                customHoverBackgroundColor={customHoverBackgroundColor}
+              />
             </div>
           )}
 
@@ -413,9 +415,9 @@ const SuperTable = ({
                 columnsTable={columnsTable}
                 handleEdit={handleEdit}
                 handleFieldChange={handleFieldChange}
-                closeModal={closeModal}
                 customDarkBackgroundColor={customDarkBackgroundColor}
                 customHoverBackgroundColor={customHoverBackgroundColor}
+                setSelectedAction={setSelectedAction}
               />
             </div>
           )}

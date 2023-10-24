@@ -25,18 +25,6 @@
       "department": "IT"
     },
     {
-      "id": 3,
-      "firstName": "Robert",
-      "lastName": "Johnson",
-      "birthDate": "1967-01-03",
-      "startDate": "2014-05-18",
-      "street": "Oakwood Drive",
-      "city": "Lakeside",
-      "state": "Texas",
-      "zipCode": "67890",
-      "department": "Engineering"
-    },
-    {
       "id": 4,
       "firstName": "Lucia",
       "lastName": "Gonzalez",
@@ -239,54 +227,6 @@
       "zipCode": "2",
       "department": "Marketing",
       "id": 20
-    },
-    {
-      "firstName": "dd",
-      "lastName": "ddd",
-      "birthDate": "2023-10-02",
-      "startDate": "2023-09-29",
-      "street": "dd",
-      "city": "dd",
-      "state": "CA",
-      "zipCode": "1",
-      "department": "Human Resources",
-      "id": 21
-    },
-    {
-      "firstName": "ccc",
-      "lastName": "ccc",
-      "birthDate": "2023-09-26",
-      "startDate": "2023-10-06",
-      "street": "cc",
-      "city": "ccc",
-      "state": "NC",
-      "zipCode": "2",
-      "department": "Engineering",
-      "id": 22
-    },
-    {
-      "firstName": "ff",
-      "lastName": "ff",
-      "birthDate": "2023-10-04",
-      "startDate": "2023-10-06",
-      "street": "ff",
-      "city": "ff",
-      "state": "WA",
-      "zipCode": "2",
-      "department": "Engineering",
-      "id": 23
-    },
-    {
-      "firstName": "gg",
-      "lastName": "gg",
-      "birthDate": "2023-10-04",
-      "startDate": "2023-09-29",
-      "street": "ggg",
-      "city": "gg",
-      "state": "WA",
-      "zipCode": "2",
-      "department": "Marketing",
-      "id": 24
     }
   ]
 }

@@ -75,6 +75,10 @@
           background-color: transparent;
           font-size: 1.1rem;
         }
+
+        button.rotation {
+          transform: rotate(90deg);
+        }
       }
 
       @media screen and (max-width: 768px) {

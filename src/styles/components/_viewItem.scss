@@ -32,3 +32,17 @@
 .modal-content h3 {
   margin-bottom: 15px;
 }
+
+.view-button {
+  display: flex;
+  justify-content: center;
+
+  button {
+    padding: 0.3rem;
+    margin: 0.6rem;
+    border: none;
+    color: #fff;
+    border-radius: 0.3rem;
+    min-width: 100px;
+  }
+}

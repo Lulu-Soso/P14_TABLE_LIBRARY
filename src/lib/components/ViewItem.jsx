@@ -1,7 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { formatLocalDate } from "../../utils/formatLocalDate"; // Importez votre fonction de formatage
 
-const ViewItem = ({ item, columnsTable }) => {
+const ViewItem = ({
+  item,
+  columnsTable,
+  customTextViewCancelBtn,
+  setSelectedAction,
+  customDarkBackgroundColor,
+  customHoverBackgroundColor,
+}) => {
+  const [isHoveredCancel, setIsHoveredCancel] = useState(false);
+
+  const handleMouseEnterCancel = () => {
+    setIsHoveredCancel(true);
+  };
+
+  const handleMouseLeaveCancel = () => {
+    setIsHoveredCancel(false);
+  };
+
   return (
     <>
       {columnsTable.map((column) => (
@@ -16,6 +33,22 @@ const ViewItem = ({ item, columnsTable }) => {
           </div>
         </div>
       ))}
+      <div className="view-button">
+        <button
+          type="button"
+          className="btn-edit-form"
+          onClick={() => setSelectedAction(null)}
+          style={{
+            backgroundColor: isHoveredCancel
+              ? customHoverBackgroundColor
+              : customDarkBackgroundColor,
+          }}
+          onMouseEnter={handleMouseEnterCancel}
+          onMouseLeave={handleMouseLeaveCancel}
+        >
+          {customTextViewCancelBtn}
+        </button>
+      </div>
     </>
   );
 };
