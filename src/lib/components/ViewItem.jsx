@@ -4,7 +4,7 @@ import { formatLocalDate } from "../../utils/formatLocalDate"; // Importez votre
 const ViewItem = ({
   item,
   columnsTable,
-  customTextViewCancelBtn,
+  customTextViewCloseBtn,
   setSelectedAction,
   customDarkBackgroundColor,
   customHoverBackgroundColor,
@@ -46,7 +46,7 @@ const ViewItem = ({
           onMouseEnter={handleMouseEnterCancel}
           onMouseLeave={handleMouseLeaveCancel}
         >
-          {customTextViewCancelBtn}
+          {customTextViewCloseBtn}
         </button>
       </div>
     </>

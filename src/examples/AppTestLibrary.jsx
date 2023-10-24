@@ -32,7 +32,7 @@ const AppTestLibrary = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:5001/employees");
+        const response = await axios.get("http://localhost:5000/employees");
         console.log(response.data);
         dispatch(setEmployeesData(response.data));
       } catch (error) {
@@ -43,40 +43,39 @@ const AppTestLibrary = () => {
 
     fetchData();
   }, [dispatch]);
+  
 
   const handleEditForm = async (item) => {
     try {
       console.log("Saving edited employee:", item);
 
       const response = await axios.put(
-        `http://localhost:5001/employees/${item.id}`,
+        `http://localhost:5000/employees/${item.id}`,
         item
       );
 
       console.log("Edit response:", response.data);
       dispatch(updateEmployee(response.data));
-      //   dispatch(setEmployeesData(response.data));
-      //   dispatch({ type: "SET_FORM_DATA", payload: response.data });
     } catch (error) {
       console.error("An error occurred while editing employee:", error);
     }
   };
 
-  const handleDeleteItem = async (employeeId) => {
+  const handleDeleteItem = async (itemId) => {
     try {
-      console.log("Deleting employee with ID:", employeeId);
+      console.log("Deleting employee with ID:", itemId);
 
       const response = await axios.delete(
-        `http://localhost:5001/employees/${employeeId}`
+        `http://localhost:5000/employees/${itemId}`
       );
 
       console.log("Delete response:", response.data);
-    //   localStorage.setItem("employeesData", JSON.stringify(response.data));
-      dispatch(deleteEmployee(employeeId));
+      dispatch(deleteEmployee(itemId));
     } catch (error) {
       console.error("An error occurred while deleting employee:", error);
     }
   };
+
 
   return (
     <>
@@ -84,8 +83,8 @@ const AppTestLibrary = () => {
         <h2>Current Employees</h2>
       </div>
       <SuperTable
-        data={employeesData}
-        columnsTable={customColumnsTable}
+        // data={employeesData}
+        // columnsTable={customColumnsTable}
         customLabelSearch="Search"
         customLabelFilter="Show"
         customTextPrevious="Previous"
@@ -96,8 +95,8 @@ const AppTestLibrary = () => {
         customDarkBackgroundColor="#5a6f08"
         customLightBackgroundColor="#d7ddbb"
         customEvenRowBackgroundColor="#d7ddbb"
-        handleEditForm={handleEditForm}
-        handleDeleteItem={handleDeleteItem}
+        // handleEditForm={handleEditForm}
+        // handleDeleteItem={handleDeleteItem}
       />
     </>
   );

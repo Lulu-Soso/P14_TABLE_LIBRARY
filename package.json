@@ -32,7 +32,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "build": "rd /s /q dist && set NODE_ENV=production && babel src/lib --out-dir dist --copy-files --ignore __tests__,spec.js,test.js,__snapshots__",
-    "server": "json-server db.json -p 5001 -w -d 0"
+    "server": "json-server db.json -p 5000 -w -d 0"
   },
   "eslintConfig": {
     "extends": [

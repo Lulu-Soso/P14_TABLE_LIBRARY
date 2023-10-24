@@ -49,18 +49,6 @@
       "department": "Sales"
     },
     {
-      "id": 6,
-      "firstName": "Nadia",
-      "lastName": "Rashid",
-      "birthDate": "1985-11-20",
-      "startDate": "2018-09-03",
-      "street": "Maple Avenue",
-      "city": "Springfield",
-      "state": "Illinois",
-      "zipCode": "23456",
-      "department": "Marketing"
-    },
-    {
       "id": 7,
       "firstName": "Aarona",
       "lastName": "Wallace",
@@ -83,30 +71,6 @@
       "state": "Georgia",
       "zipCode": "56789",
       "department": "Customer Service"
-    },
-    {
-      "id": 9,
-      "firstName": "Vincent",
-      "lastName": "Moreau",
-      "birthDate": "1977-02-06",
-      "startDate": "2013-04-15",
-      "street": "Birch Lane",
-      "city": "Seaview",
-      "state": "Oregon",
-      "zipCode": "78901",
-      "department": "Finance"
-    },
-    {
-      "id": 10,
-      "firstName": "Aisha",
-      "lastName": "Ahmed",
-      "birthDate": "1990-10-11",
-      "startDate": "2019-05-10",
-      "street": "Spruce Drive",
-      "city": "Woodland",
-      "state": "Washington",
-      "zipCode": "89012",
-      "department": "Product Management"
     },
     {
       "id": 11,
@@ -146,15 +110,14 @@
     },
     {
       "id": 14,
-      "firstName": "Isabella",
-      "lastName": "Garcia",
-      "birthDate": "1987-04-17",
-      "startDate": "2012-09-15",
-      "street": "Redwood Lane",
-      "city": "Brighton",
-      "state": "Michigan",
-      "zipCode": "23451",
-      "department": "Finance"
+      "firstName": "Mias",
+      "lastName": "Hall",
+      "email": "mia.hall@example.com",
+      "phoneNumber": "222-444-5555",
+      "dateOfBirth": "1997-06-23",
+      "address": "555 Birch St",
+      "zipCode": "56789",
+      "country": "Russia"
     },
     {
       "id": 15,
@@ -181,7 +144,7 @@
       "department": "Quality Assurance"
     },
     {
-      "firstName": "aa",
+      "firstName": "aqq",
       "lastName": "aa",
       "birthDate": "2023-09-26",
       "startDate": "2023-09-29",
@@ -193,7 +156,7 @@
       "id": 17
     },
     {
-      "firstName": "bb",
+      "firstName": "bbdhd",
       "lastName": "bb",
       "birthDate": "2023-09-25",
       "startDate": "2023-09-29",
@@ -203,30 +166,6 @@
       "zipCode": "5",
       "department": "Marketing",
       "id": 18
-    },
-    {
-      "firstName": "cc",
-      "lastName": "cc",
-      "birthDate": "2023-10-03",
-      "startDate": "2023-10-07",
-      "street": "cc",
-      "city": "cc",
-      "state": "WA",
-      "zipCode": "1",
-      "department": "Marketing",
-      "id": 19
-    },
-    {
-      "firstName": "dd",
-      "lastName": "dd",
-      "birthDate": "2023-10-04",
-      "startDate": "2023-10-06",
-      "street": "dd",
-      "city": "dd",
-      "state": "NC",
-      "zipCode": "2",
-      "department": "Marketing",
-      "id": 20
     }
   ]
 }

@@ -34,7 +34,10 @@ const columnsTableDefault = [
 ];
 
 const SuperTable = ({
-  data = usersData,
+  data,
+  // data = usersData,
+  // data: customData, // Utilise le prop 'data' comme données personnalisées de l'utilisateur
+  // data: customData = usersData,
   columnsTable = columnsTableDefault,
   customLabelFilter = "Display By Page Number",
   customLabelSearch = "Search Bar",
@@ -44,7 +47,7 @@ const SuperTable = ({
   customDeleteItemMessage = "Are you sure you want to delete this item?",
   customTextYesDeleteItem = "Yes",
   customTextNoDeleteItem = "No",
-  customTextViewCancelBtn = "Cancel",
+  customTextViewCloseBtn = "Close",
   customSortedColumnBackgroundColor = "#f6f6f6",
   customHoverBackgroundColor = "#aaaaaa",
   customDarkBackgroundColor = "#929292",
@@ -53,23 +56,22 @@ const SuperTable = ({
   handleEditForm,
   handleDeleteItem,
 }) => {
+  const initialData = data || usersData;
+
   // États pour gérer la page
+  const [defaultData, setDefaultData] = useState(initialData);
   const [showEmptySearch, setShowEmptySearch] = useState(false);
   const [sortBy, setSortBy] = useState("");
   const [sortOrder, setSortOrder] = useState("asc");
   const [entriesToShow, setEntriesToShow] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchValue, setSearchValue] = useState("");
-
   const [selectedItem, setSelectedItem] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedAction, setSelectedAction] = useState(null);
+  const [editedItem, setEditedItem] = useState(null); // États pour gérer l'édition
+  const [isReversed, setIsReversed] = useState(true); // Nouvel état pour l'ordre inverse  
 
-  // États pour gérer l'édition
-  const [editingItem, setEditingItem] = useState(null);
-  const [editedItem, setEditedItem] = useState(null);
-
-  const [isReversed, setIsReversed] = useState(true); // Nouvel état pour l'ordre inverse
   const handleFieldChange = (fieldName, value) => {
     value = value.trim();
 
@@ -104,7 +106,9 @@ const SuperTable = ({
     setIsReversed(false); // Réinitialisez l'ordre inverse lorsque l'utilisateur clique sur une colonne
   };
 
-  const sortedData = data.slice();
+  // const sortedData = data.slice();
+  // const sortedData = userData.slice();
+  const sortedData = data ? data.slice() : defaultData.slice();
 
   if (isReversed) {
     sortedData.reverse(); // Inversez l'ordre des données
@@ -151,7 +155,7 @@ const SuperTable = ({
    */
   const handlePageClick = (page) => {
     setCurrentPage(page);
-    setEditingItem(null); // Fermez le formulaire d'édition en changeant de page
+    setEditedItem(null); // Fermez le formulaire d'édition en changeant de page
   };
 
   // Fonction pour générer les numéros de page à afficher
@@ -220,7 +224,6 @@ const SuperTable = ({
   const handleSearchChange = (e) => {
     setSearchValue(e.target.value);
     setCurrentPage(1);
-    // dispatch(setSearch(e.target.value));
   };
 
   /**
@@ -260,25 +263,31 @@ const SuperTable = ({
     }
   };
 
-  // Fonction pour soumettre le formulaire d'édition
-  const handleEdit = () => {
+  const handleEdit = () => { 
     if (handleEditForm) {
       handleEditForm(editedItem);
     } else {
-      console.log("Editing item with ID:");
-      setEditingItem(editedItem);
-      // setData(updatedData);
-      setEditingItem(null); // Fermez le formulaire d'édition
-      setIsModalOpen(false); // Fermez la modal
+      const updatedData = initialData.map((item) =>
+      item.id === editedItem.id ? editedItem : item
+      );
+      console.log(updatedData);
+      setDefaultData(updatedData);
     }
     setIsModalOpen(false);
   };
-
+  
   const handleDelete = (item) => {
     if (handleDeleteItem) {
+      // Appeler la fonction handleDeleteItem avec l'ID de l'élément à supprimer
       handleDeleteItem(item.id);
     } else {
-      console.log(`Deleting item with ID: ${item.id}`);
+      console.log("Deleting item with ID:", item.id);
+
+      // Mettre à jour la copie des données (data) en supprimant l'élément
+      const updatedData = initialData.filter(
+        (dataItem) => dataItem.id !== item.id
+      );
+      setDefaultData(updatedData); // Utilise setData pour mettre à jour les données // Mettre à jour la copie des données (data) en supprimant l'élément
     }
     setIsModalOpen(false);
   };
@@ -400,7 +409,7 @@ const SuperTable = ({
               <ViewItem
                 item={selectedItem}
                 columnsTable={columnsTable}
-                customTextViewCancelBtn={customTextViewCancelBtn}
+                customTextViewCloseBtn={customTextViewCloseBtn}
                 setSelectedAction={setSelectedAction}
                 customDarkBackgroundColor={customDarkBackgroundColor}
                 customHoverBackgroundColor={customHoverBackgroundColor}

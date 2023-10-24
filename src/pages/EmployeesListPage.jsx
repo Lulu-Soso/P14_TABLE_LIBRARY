@@ -50,27 +50,6 @@ const EmployeesListPage = () => {
   const employeesData = useSelector((state) => state.employees.employeesData);
   const dispatch = useDispatch();
 
-  // /**
-  //  * Génère le format de date local à partir d'une date au format ISO.
-  //  * @param {string} isoDate - La date au format ISO (ex: "2023-09-25").
-  //  * @returns {string} - La date formatée au format local.
-  //  */
-  // const formatLocalDate = (isoDate) => {
-  //   const options = { year: '2-digit', month: '2-digit', day: '2-digit' };
-  //   const locale = navigator.language;
-
-  //   switch (locale) {
-  //     case 'fr-FR': // Locale française
-  //       return new Date(isoDate)
-  //         .toLocaleDateString(locale, options)
-  //         .replace(/-/g, '/'); // Remplace les tirets par des slashs pour la locale française
-  //     default:
-  //       return new Date(isoDate)
-  //         .toLocaleDateString(locale, options)
-  //         .replace(/\//g, '-'); // Remplace les slashs par des tirets pour les autres locales, y compris en US
-  //   }
-  // };
-
   /**
    * Utilise useEffect pour récupérer les données des employés depuis l'API.
    */
@@ -281,7 +260,7 @@ const EmployeesListPage = () => {
                 employee={employee}
                 sortBy={sortBy}
                 className={index % 2 === 0 ? "table-row-odd" : "table-row-even"}
-                formatLocalDate={formatLocalDate} // Passez la fonction de formatage de date
+                formatLocalDate={formatLocalDate} // Passe la fonction de formatage de date
               />
             ))}
           </tbody>
