@@ -58,6 +58,8 @@
       padding: 8px;
       text-align: left;
       cursor: default;
+      max-width: 200px;
+      overflow: hidden;
 
       .flex-jcc-aic {
         display: flex;

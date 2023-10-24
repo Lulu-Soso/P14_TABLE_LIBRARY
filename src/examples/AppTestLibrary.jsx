@@ -95,6 +95,8 @@ const AppTestLibrary = () => {
         customDarkBackgroundColor="#5a6f08"
         customLightBackgroundColor="#d7ddbb"
         customEvenRowBackgroundColor="#d7ddbb"
+        editButton
+        deleteButton
         // handleEditForm={handleEditForm}
         // handleDeleteItem={handleDeleteItem}
       />

@@ -55,6 +55,8 @@ const SuperTable = ({
   customLightBackgroundColor = "#d2d2d2",
   handleEditForm,
   handleDeleteItem,
+  editButton,
+  deleteButton
 }) => {
   const initialData = data || usersData;
 
@@ -394,12 +396,16 @@ const SuperTable = ({
               <button onClick={() => handleActionClick("view")}>
                 <FaEye className="pen-trash-icons" />
               </button>
+              {editButton && (
               <button onClick={() => handleActionClick("edit")}>
                 <FaPen className="pen-trash-icons" />
               </button>
+              )}
+              {deleteButton && (
               <button onClick={() => handleActionClick("delete")}>
                 <FaTrashCan className="pen-trash-icons" />
               </button>
+              )}
             </div>
           )}
 
