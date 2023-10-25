@@ -4,9 +4,9 @@ const DeleteItem = ({
   customDeleteItemMessage,
   handleDelete,
   item,
-  customTextYesDeleteItem,
+  customTextYesDeleteItemBtn,
   setSelectedAction,
-  customTextNoDeleteItem,
+  customTextNoDeleteItemBtn,
   customDarkBackgroundColor,
   customHoverBackgroundColor,
 }) => {
@@ -40,7 +40,7 @@ const DeleteItem = ({
           }}
           onMouseEnter={handleMouseEnterYes}
           onMouseLeave={handleMouseLeaveYes}>
-          {customTextYesDeleteItem}
+          {customTextYesDeleteItemBtn}
         </button>
         <button onClick={() => setSelectedAction(null)} style={{
             backgroundColor: isHoveredNo
@@ -49,7 +49,7 @@ const DeleteItem = ({
           }}
           onMouseEnter={handleMouseEnterNo}
           onMouseLeave={handleMouseLeaveNo}>
-          {customTextNoDeleteItem}
+          {customTextNoDeleteItemBtn}
         </button>
       </div>
     </div>

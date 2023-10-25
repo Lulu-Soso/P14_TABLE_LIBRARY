@@ -83,8 +83,8 @@ const AppTestLibrary = () => {
         <h2>Current Employees</h2>
       </div>
       <SuperTable
-        // data={employeesData}
-        // columnsTable={customColumnsTable}
+        data={employeesData}
+        columnsTable={customColumnsTable}
         customLabelSearch="Search"
         customLabelFilter="Show"
         customTextPrevious="Previous"
@@ -97,8 +97,8 @@ const AppTestLibrary = () => {
         customEvenRowBackgroundColor="#d7ddbb"
         editButton
         deleteButton
-        // handleEditForm={handleEditForm}
-        // handleDeleteItem={handleDeleteItem}
+        handleEditForm={handleEditForm}
+        handleDeleteItem={handleDeleteItem}
       />
     </>
   );

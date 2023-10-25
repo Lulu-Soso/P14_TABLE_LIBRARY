@@ -8,7 +8,9 @@ const EditForm = ({
   handleFieldChange,
   customDarkBackgroundColor,
   customHoverBackgroundColor,
-  setSelectedAction
+  setSelectedAction,
+  customTextEditValidationBtn,
+  customTextEditCancelBtn,
 }) => {
   const [isHoveredSave, setIsHoveredSave] = useState(false);
   const [isHoveredCancel, setIsHoveredCancel] = useState(false);
@@ -110,13 +112,13 @@ const EditForm = ({
           style={{
             backgroundColor: isHoveredSave
               ? customHoverBackgroundColor
-              : customDarkBackgroundColor
+              : customDarkBackgroundColor,
           }}
           onMouseEnter={handleMouseEnterSave}
           onMouseLeave={handleMouseLeaveSave}
           onClick={handleEdit}
         >
-          Save
+          {customTextEditValidationBtn}
         </button>
         <button
           type="button"
@@ -124,13 +126,13 @@ const EditForm = ({
           style={{
             backgroundColor: isHoveredCancel
               ? customHoverBackgroundColor
-              : customDarkBackgroundColor
+              : customDarkBackgroundColor,
           }}
           onMouseEnter={handleMouseEnterCancel}
           onMouseLeave={handleMouseLeaveCancel}
           onClick={() => setSelectedAction(null)}
         >
-          Cancel
+          {customTextEditCancelBtn}
         </button>
       </div>
     </form>

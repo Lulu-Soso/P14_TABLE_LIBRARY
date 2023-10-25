@@ -35,9 +35,6 @@ const columnsTableDefault = [
 
 const SuperTable = ({
   data,
-  // data = usersData,
-  // data: customData, // Utilise le prop 'data' comme données personnalisées de l'utilisateur
-  // data: customData = usersData,
   columnsTable = columnsTableDefault,
   customLabelFilter = "Display By Page Number",
   customLabelSearch = "Search Bar",
@@ -45,9 +42,11 @@ const SuperTable = ({
   customTextNext = "Next Page",
   customEmptySearchMessage = "No results found for your search.",
   customDeleteItemMessage = "Are you sure you want to delete this item?",
-  customTextYesDeleteItem = "Yes",
-  customTextNoDeleteItem = "No",
+  customTextYesDeleteItemBtn = "Yes",
+  customTextNoDeleteItemBtn = "No",
   customTextViewCloseBtn = "Close",
+  customTextEditValidationBtn = "Save",
+  customTextEditCancelBtn = "Cancel",
   customSortedColumnBackgroundColor = "#f6f6f6",
   customHoverBackgroundColor = "#aaaaaa",
   customDarkBackgroundColor = "#929292",
@@ -433,6 +432,8 @@ const SuperTable = ({
                 customDarkBackgroundColor={customDarkBackgroundColor}
                 customHoverBackgroundColor={customHoverBackgroundColor}
                 setSelectedAction={setSelectedAction}
+                customTextEditValidationBtn={customTextEditValidationBtn}
+                customTextEditCancelBtn={customTextEditCancelBtn}
               />
             </div>
           )}
@@ -441,8 +442,8 @@ const SuperTable = ({
               customDeleteItemMessage={customDeleteItemMessage}
               item={selectedItem}
               handleDelete={handleDelete}
-              customTextYesDeleteItem={customTextYesDeleteItem}
-              customTextNoDeleteItem={customTextNoDeleteItem}
+              customTextYesDeleteItemBtn={customTextYesDeleteItemBtn}
+              customTextNoDeleteItemBtn={customTextNoDeleteItemBtn}
               setSelectedAction={setSelectedAction}
               customDarkBackgroundColor={customDarkBackgroundColor}
               customHoverBackgroundColor={customHoverBackgroundColor}

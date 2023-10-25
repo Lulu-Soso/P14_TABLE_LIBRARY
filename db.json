@@ -109,17 +109,6 @@
       "department": "Legal"
     },
     {
-      "id": 14,
-      "firstName": "Mias",
-      "lastName": "Hall",
-      "email": "mia.hall@example.com",
-      "phoneNumber": "222-444-5555",
-      "dateOfBirth": "1997-06-23",
-      "address": "555 Birch St",
-      "zipCode": "56789",
-      "country": "Russia"
-    },
-    {
       "id": 15,
       "firstName": "Emma",
       "lastName": "Singh",
@@ -142,30 +131,6 @@
       "state": "Washington",
       "zipCode": "56743",
       "department": "Quality Assurance"
-    },
-    {
-      "firstName": "aqq",
-      "lastName": "aa",
-      "birthDate": "2023-09-26",
-      "startDate": "2023-09-29",
-      "street": "aa",
-      "city": "aa",
-      "state": "NC",
-      "zipCode": "2",
-      "department": "Engineering",
-      "id": 17
-    },
-    {
-      "firstName": "bbdhd",
-      "lastName": "bb",
-      "birthDate": "2023-09-25",
-      "startDate": "2023-09-29",
-      "street": "bb",
-      "city": "bb",
-      "state": "CA",
-      "zipCode": "5",
-      "department": "Marketing",
-      "id": 18
     }
   ]
 }

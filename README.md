@@ -1,6 +1,6 @@
 <!-- Markdown -->
 
-# SuperTable
+# SuperTable : JavaScript Library for Customized and Responsive Tables
 
 ![Alt text](https://raw.githubusercontent.com/Lulu-Soso/Github-Files/main/P14-Library/SuperTable1.png)
 
@@ -10,15 +10,15 @@ SuperTable is a powerful and versatile JavaScript library designed to simplify d
 
 ## Why Use SuperTable?
 
-### Time-Saving:
+### Time-Saving :
 
 SuperTable allows you to quickly create custom tables without writing many lines of HTML and CSS code. Save precious front-end development time.
 
-### Maximum Flexibility:
+### Maximum Flexibility :
 
 Our library offers maximum flexibility to customize the appearance and behavior of your tables. Customize every aspect, from cell colors to user event handling.
 
-### Advanced Interactivity:
+### Advanced Interactivity :
 
 SuperTable includes advanced features to make your tables interactive. Sort, filter, and paginate your data with a single click.
 
@@ -30,13 +30,20 @@ SuperTable includes advanced features to make your tables interactive. Sort, fil
 
 - **Seamless Integration** : Seamlessly integrate SuperTable into your existing React projects with ease.
 
-Whether you're looking to improve data presentation, simplify the management of large datasets, or create interactive tables for your web applications, SuperTableReact is the ideal tool to achieve your goals.
+## Customization Functions
+
+- **Edit Function** : Create an edit function to allow users to modify data directly from the table.
+
+- **Delete Function** : Set up a delete function to enable users to remove items from the table effortlessly.
+
+- **Mobile Adaptability** : SuperTable is designed to be responsive and adapt to mobile devices. Tables are user-friendly on smartphones and tablets.
 
 ## Getting Started
 
-To start using SuperTableReact, simply follow these steps:
+To start using SuperTableReact, simply follow these steps :
 
 1. **Installation** : Install SuperTableReact using npm or yarn.
+
 ```shell
 npm i supertable-react
 ```
@@ -48,42 +55,42 @@ import SuperTable from "supertable-react";
 ```
 
 3. **Usage** : Use SuperTable to create and customize your data table.
-
 ```jsx
 <SuperTable data={yourData} />
 ```
 
 ## Customizing Columns
 
-To customize the columns of your table with SuperTable, you need to provide an array of objects containing two key properties: "key" and "label." These properties are essential for determining what data will be displayed in the table and what labels will be used for column headers. Here's how you can explain this:
+To customize the columns of your table with SuperTable, you need to provide an array of objects containing three properties: "key," "label," and optionally "type." These properties are essential for determining what data will be displayed in the table, what labels will be used for column headers, and for advanced customization if needed.
 
-"To customize the columns of your table with SuperTableReact, you need to create an array of objects called `customColumnsTable`. Each object in this array must contain two properties:
+Here's how you can explain this:
+
+"To customize the columns of your table with SuperTableReact, you need to create an array of objects called customColumnsTable. Each object in this array must contain three properties:
 
 - `key` : This property represents the column key, which should match the key of the data you want to display in this column.
 
-- `label` : This property represents the column label, which will be displayed as the column header in the table."
+- `label` : This property represents the column label, which will be displayed as the column header in the table.
+
+- `type`  (optionnel) : This property allows you to specify the data type of the column, for example, "text" or "date." When using the library's internal edit form, this information can be useful for setting appropriate input controls and data validation."
 
 ```javascript
 const customColumnsTable = [
-  { key: "firstName", label: "First Name" },
-  { key: "lastName", label: "Last Name" },
-  { key: "birthDate", label: "Date of Birth" },
-  { key: "startDate", label: "Start Date" },
-  { key: "street", label: "Street" },
-  { key: "city", label: "City" },
-  { key: "state", label: "State" },
-  { key: "zipCode", label: "Zip Code" },
-  { key: "department", label: "Department" }
+  { key: "firstName", label: "First Name", type: "text" },
+  { key: "lastName", label: "Last Name", type: "text" },
+  { key: "birthDate", label: "Date of Birth", type: "date" },
+  { key: "startDate", label: "Start Date", type: "date" },
+  { key: "street", label: "Street", type: "text" },
+  { key: "city", label: "City", type: "text" },
+  { key: "state", label: "State", type: "text" },
+  { key: "zipCode", label: "Zip Code", type: "number" },
+  { key: "department", label: "Department", type: "text" },
 ];
 ```
 
-Once you've defined your customColumnsTable array, you can pass it as the `columnsTable` prop to your `<SuperTable />` component. Here's how you can use it in your code:
+Once you've defined your customColumnsTable array, you can pass it as the columnsTable prop to your <SuperTable /> component. Here's how you can use it in your code :
 
 ```jsx
-<SuperTable 
-  data={yourData} 
-  columnsTable={customColumnsTable} 
-/>
+<SuperTable data={yourData} columnsTable={customColumnsTable} />
 ```
 
 By specifying these custom columns, you have full control over the data you want to display and the column headers you want to use in your table.
@@ -102,7 +109,7 @@ SuperTable strives to make searching and navigating data as simple and efficient
 
 ### Customizing Table Appearance
 
-SuperTable offers a wide range of customization options so you can tailor the appearance of your table to your specific needs. Here's how each customization affects the table's appearance:
+SuperTable offers a wide range of customization options so you can tailor the appearance of your table to your specific needs. Here's how each customization affects the table's appearance :
 
 - **customLabelSearch** : This customization replaces the default text "Search Bar" in the table's search bar. You can use this option to localize the search bar in the language of your choice.
 
@@ -138,6 +145,10 @@ By using these customization options, you can create a table that seamlessly fit
   customDarkBackgroundColor="#5a6f08"
   customLightBackgroundColor="#d7ddbb"
   customEvenRowBackgroundColor="#d7ddbb"
+  editButton
+  deleteButton
+  handleEditForm={handleEditForm}
+  handleDeleteItem={handleDeleteItem}
 />
 ```
 
@@ -145,7 +156,28 @@ By using these customization options, you can create a table that seamlessly fit
 
 ![Alt text](https://raw.githubusercontent.com/Lulu-Soso/Github-Files/main/P14-Library/SuperTable7.png)
 
-## Keywords
+![Alt text](https://raw.githubusercontent.com/Lulu-Soso/Github-Files/main/P14-Library/SuperTable20.png)
+
+![Alt text](https://raw.githubusercontent.com/Lulu-Soso/Github-Files/main/P14-Library/SuperTable21.png)
+
+![Alt text](https://raw.githubusercontent.com/Lulu-Soso/Github-Files/main/P14-Library/SuperTable22.png)
+
+![Alt text](https://raw.githubusercontent.com/Lulu-Soso/Github-Files/main/P14-Library/SuperTable23.png)
+
+### Mobile Adaptability
+
+![Alt text](https://raw.githubusercontent.com/Lulu-Soso/Github-Files/main/P14-Library/SuperTable24.png)
+
+![Alt text](https://raw.githubusercontent.com/Lulu-Soso/Github-Files/main/P14-Library/SuperTable25.png)
+
+## Mobile Adaptability
+
+SuperTable provides the ability to customize edit and delete functions to allow users to edit and delete items directly from the table. Here's how to do it:
+
+![Alt text](https://raw.githubusercontent.com/Lulu-Soso/Github-Files/main/P14-Library/SuperTable26.png)
+
+## Mots-clés
+
 - Data display
 - React library
 - Customizable table
@@ -155,6 +187,5 @@ By using these customization options, you can create a table that seamlessly fit
 - Filter
 - Search
 - Pagination
-
 
 <!-- Markdown -->
