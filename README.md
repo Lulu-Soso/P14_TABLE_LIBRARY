@@ -40,9 +40,9 @@ SuperTable includes advanced features to make your tables interactive. Sort, fil
 
 ## Getting Started
 
-To start using SuperTableReact, simply follow these steps :
+To start using SuperTable, simply follow these steps :
 
-1. **Installation** : Install SuperTableReact using npm or yarn.
+1. **Installation** : Install SuperTable using npm or yarn.
 
 ```shell
 npm i supertable-react-javascript
