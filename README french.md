@@ -45,13 +45,13 @@ Pour commencer à utiliser SuperTableReact, suivez simplement ces étapes :
 1. **Installation** : Installez SuperTableReact à l'aide de npm ou yarn.
 
 ```shell
-npm i supertable-react
+npm i supertable-js-react
 ```
 
 2. **Importation** : Importez la bibliothèque dans votre composant React.
 
 ```javascript
-import SuperTable from "supertable-react";
+import SuperTable from "supertable-js-react";
 ```
 
 3. **Utilisation** : Utilisez SuperTable pour créer et personnaliser votre tableau de données.
