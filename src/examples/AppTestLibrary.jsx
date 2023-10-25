@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import axios from "axios";
-import SuperTable from "../lib/components/SuperTable";
+// import SuperTable from "../lib/components/SuperTable";
 import {
   setEmployeesData,
   setError,
@@ -8,6 +8,7 @@ import {
   deleteEmployee,
 } from "../feature/employees.slice";
 import { useDispatch, useSelector } from "react-redux";
+import SuperTable from "supertable-js-react"
 // import SuperTable from "p14-test2-table-component-react/dist/components/SuperTable";
 // import SuperTable from "supertable-react";
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { formatLocalDate } from "../../utils/formatLocalDate"; // Importez votre fonction de formatage
+import { formatLocalDate } from "../utils/formatLocalDate"; // Importez votre fonction de formatage
 
 const EmployeeDataRow = ({
   employee,

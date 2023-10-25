@@ -176,7 +176,7 @@ SuperTable provides the ability to customize edit and delete functions to allow 
 
 ![Alt text](https://raw.githubusercontent.com/Lulu-Soso/Github-Files/main/P14-Library/SuperTable26.png)
 
-## Mots-clés
+## Keywords
 
 - Data display
 - React library
