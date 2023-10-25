@@ -17,7 +17,7 @@ const Modal = ({
     setIsHoveredCloseButton(false);
   };
   return (
-    <div className={`modal ${isActiveModal ? "active" : ""}`}>
+    <div className={`modal-screen ${isActiveModal ? "active" : ""}`}>
       <div className="modal-content">
         <div className="children-content">{children}</div>
         <div className="close-modal-button">

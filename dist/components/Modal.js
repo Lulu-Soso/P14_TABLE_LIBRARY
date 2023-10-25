@@ -31,7 +31,7 @@ var Modal = function Modal(_ref) {
     setIsHoveredCloseButton(false);
   };
   return /*#__PURE__*/_react["default"].createElement("div", {
-    className: "modal ".concat(isActiveModal ? "active" : "")
+    className: "modal-screen ".concat(isActiveModal ? "active" : "")
   }, /*#__PURE__*/_react["default"].createElement("div", {
     className: "modal-content"
   }, /*#__PURE__*/_react["default"].createElement("div", {

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import axios from "axios";
-// import SuperTable from "../lib/components/SuperTable";
+import SuperTable from "../lib/components/SuperTable";
 import {
   setEmployeesData,
   setError,
@@ -8,7 +8,7 @@ import {
   deleteEmployee,
 } from "../feature/employees.slice";
 import { useDispatch, useSelector } from "react-redux";
-import SuperTable from "supertable-react-javascript"
+// import SuperTable from "supertable-react-javascript"
 
 // *** CONSTANTS ***
 const customColumnsTable = [
