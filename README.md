@@ -170,7 +170,7 @@ By using these customization options, you can create a table that seamlessly fit
 
 ![Alt text](https://raw.githubusercontent.com/Lulu-Soso/Github-Files/main/P14-Library/SuperTable25.png)
 
-## Mobile Adaptability
+## Customizing Edit and Delete Functions in SuperTable
 
 SuperTable provides the ability to customize edit and delete functions to allow users to edit and delete items directly from the table. Here's how to do it:
 
