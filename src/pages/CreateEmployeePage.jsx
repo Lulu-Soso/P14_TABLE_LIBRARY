@@ -84,7 +84,7 @@ const CreateEmployeePage = () => {
     try {
       console.log("Sending request with data:", data);
       const response = await axios.post(
-        "http://localhost:5001/employees",
+        "http://localhost:5000/employees",
         data
       );
       // console.log("Response:", response.data);
