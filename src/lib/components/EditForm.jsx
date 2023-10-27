@@ -1,11 +1,12 @@
 import React, { useState } from "react";
+import "./EditForm.css"
 import { isValidPhoneNumber, isValidEmail } from "../utils/validations.js";
 
 const EditForm = ({
   item,
   columnsTable,
   handleEdit,
-  handleFieldChange,
+  setEditedItem,
   customDarkBackgroundColor,
   customHoverBackgroundColor,
   setSelectedAction,
@@ -29,6 +30,22 @@ const EditForm = ({
 
   const handleMouseLeaveCancel = () => {
     setIsHoveredCancel(false);
+  };
+
+  /**
+   * Gère le changement de valeur d'un champ de l'objet édité.
+   *
+   * @param {string} fieldName - Le nom du champ qui change.
+   * @param {string} value - La nouvelle valeur du champ.
+   */
+  const handleFieldChange = (fieldName, value) => {
+    value = value.trim(); // Supprime les espaces inutiles autour de la nouvelle valeur
+
+    // Met à jour l'objet édité en utilisant une fonction de mise à jour du précédent état
+    setEditedItem((prevData) => ({
+      ...prevData, // Copie toutes les propriétés de l'objet édité précédent
+      [fieldName]: value, // Met à jour la propriété spécifiée par le nom de champ avec la nouvelle valeur
+    }));
   };
 
   const isFieldValid = (column, value) => {
@@ -92,15 +109,21 @@ const EditForm = ({
             />
           )}
           {column.type === "tel" && (
-            <span className="validation-message">
-              {!isFieldValid(column, item[column.key]) &&
-                "Invalid phone number"}
+            <span>
+              {!isFieldValid(column, item[column.key]) && (
+            <div className="validation-message">
+              <p>!</p>
+            </div>
+          )}
             </span>
           )}
           {column.type === "email" && (
-            <span className="validation-message">
-              {!isFieldValid(column, item[column.key]) &&
-                "Invalid email address"}
+            <span>
+              {!isFieldValid(column, item[column.key]) && (
+            <div className="validation-message">
+              <p>!</p>
+            </div>
+          )}
             </span>
           )}
         </div>

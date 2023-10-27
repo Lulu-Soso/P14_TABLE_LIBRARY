@@ -6,9 +6,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 var _react = _interopRequireWildcard(require("react"));
+require("./EditForm.css");
 var _validations = require("../utils/validations.js");
 function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(e) { return e ? t : r; })(e); }
 function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != _typeof(e) && "function" != typeof e) return { "default": e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && Object.prototype.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n["default"] = e, t && t.set(e, n), n; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -19,7 +25,7 @@ var EditForm = function EditForm(_ref) {
   var item = _ref.item,
     columnsTable = _ref.columnsTable,
     handleEdit = _ref.handleEdit,
-    handleFieldChange = _ref.handleFieldChange,
+    setEditedItem = _ref.setEditedItem,
     customDarkBackgroundColor = _ref.customDarkBackgroundColor,
     customHoverBackgroundColor = _ref.customHoverBackgroundColor,
     setSelectedAction = _ref.setSelectedAction,
@@ -44,6 +50,21 @@ var EditForm = function EditForm(_ref) {
   };
   var handleMouseLeaveCancel = function handleMouseLeaveCancel() {
     setIsHoveredCancel(false);
+  };
+
+  /**
+   * Gère le changement de valeur d'un champ de l'objet édité.
+   *
+   * @param {string} fieldName - Le nom du champ qui change.
+   * @param {string} value - La nouvelle valeur du champ.
+   */
+  var handleFieldChange = function handleFieldChange(fieldName, value) {
+    value = value.trim(); // Supprime les espaces inutiles autour de la nouvelle valeur
+
+    // Met à jour l'objet édité en utilisant une fonction de mise à jour du précédent état
+    setEditedItem(function (prevData) {
+      return _objectSpread(_objectSpread({}, prevData), {}, _defineProperty({}, fieldName, value));
+    });
   };
   var isFieldValid = function isFieldValid(column, value) {
     if (column.type === "tel") {
@@ -105,11 +126,11 @@ var EditForm = function EditForm(_ref) {
       onChange: function onChange(e) {
         return handleFieldChange(column.key, e.target.value);
       }
-    }), column.type === "tel" && /*#__PURE__*/_react["default"].createElement("span", {
+    }), column.type === "tel" && /*#__PURE__*/_react["default"].createElement("span", null, !isFieldValid(column, item[column.key]) && /*#__PURE__*/_react["default"].createElement("div", {
       className: "validation-message"
-    }, !isFieldValid(column, item[column.key]) && "Invalid phone number"), column.type === "email" && /*#__PURE__*/_react["default"].createElement("span", {
+    }, /*#__PURE__*/_react["default"].createElement("p", null, "!"))), column.type === "email" && /*#__PURE__*/_react["default"].createElement("span", null, !isFieldValid(column, item[column.key]) && /*#__PURE__*/_react["default"].createElement("div", {
       className: "validation-message"
-    }, !isFieldValid(column, item[column.key]) && "Invalid email address"));
+    }, /*#__PURE__*/_react["default"].createElement("p", null, "!"))));
   }), /*#__PURE__*/_react["default"].createElement("div", {
     className: "buttons-container"
   }, /*#__PURE__*/_react["default"].createElement("button", {

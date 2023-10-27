@@ -5,6 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 var _react = _interopRequireDefault(require("react"));
+require("./EntriesInfo.css");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 /**
  * Composant pour afficher des informations sur les entrées affichées.
@@ -29,7 +30,7 @@ var EntriesInfo = function EntriesInfo(_ref) {
       style: {
         backgroundColor: customDarkBackgroundColor
       }
-    }, (currentPage - 1) * entriesToShow + 1, " ", "...", " ", Math.min(currentPage * entriesToShow, totalEntries)), /*#__PURE__*/_react["default"].createElement("p", {
+    }, (currentPage - 1) * entriesToShow + 1, "...", " ", Math.min(currentPage * entriesToShow, totalEntries)), /*#__PURE__*/_react["default"].createElement("span", {
       style: {
         backgroundColor: customLightBackgroundColor
       }

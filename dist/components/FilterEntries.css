@@ -1,0 +1,9 @@
+.filter {
+  display: flex;
+  gap: 0.5rem;
+  font-weight: 600;
+}
+
+.filter-select {
+  cursor: pointer;
+}

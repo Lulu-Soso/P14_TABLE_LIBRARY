@@ -7,6 +7,8 @@ import EntriesInfo from "../components/EntriesInfo";
 import PaginatedTable from "../components/PaginatedTable";
 import FilterEntries from "../components/FilterEntries";
 import Modal from "../components/Modal";
+import "./settings.css"
+import "./SuperTable.css"
 import ViewItem from "../components/ViewItem";
 import {
   FaEye,
@@ -36,7 +38,7 @@ const columnsTableDefault = [
 const SuperTable = ({
   data,
   columnsTable = columnsTableDefault,
-  customLabelFilter = "Display By Page Number",
+  customLabelFilter = "Number Of Entries",
   customLabelSearch = "Search Bar",
   customTextPrevious = "Previous Page",
   customTextNext = "Next Page",
@@ -55,7 +57,7 @@ const SuperTable = ({
   handleEditForm,
   handleDeleteItem,
   editButton,
-  deleteButton
+  deleteButton,
 }) => {
   const initialData = data || usersData;
 
@@ -71,19 +73,29 @@ const SuperTable = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedAction, setSelectedAction] = useState(null);
   const [editedItem, setEditedItem] = useState(null); // États pour gérer l'édition
-  const [isReversed, setIsReversed] = useState(true); // Nouvel état pour l'ordre inverse  
+  const [isReversed, setIsReversed] = useState(true); // Nouvel état pour l'ordre inverse
+  const [isArrowIconClicked, setIsArrowIconClicked] = useState(false);
 
+  /**
+   * Gère le changement de valeur d'un champ de l'objet édité.
+   *
+   * @param {string} fieldName - Le nom du champ qui change.
+   * @param {string} value - La nouvelle valeur du champ.
+   */
   const handleFieldChange = (fieldName, value) => {
+    // Supprime les espaces inutiles autour de la nouvelle valeur
     value = value.trim();
 
+    // Met à jour l'objet édité en utilisant une fonction de mise à jour du précédent état
     setEditedItem((prevData) => ({
-      ...prevData,
-      [fieldName]: value,
+      ...prevData, // Copie toutes les propriétés de l'objet édité précédent
+      [fieldName]: value, // Met à jour la propriété spécifiée par le nom de champ avec la nouvelle valeur
     }));
   };
 
   const toggleReverseOrder = () => {
     setIsReversed(!isReversed); // Inverser l'ordre d'affichage lorsque le bouton est cliqué
+    setIsArrowIconClicked(!isArrowIconClicked);
   };
 
   /**
@@ -162,56 +174,79 @@ const SuperTable = ({
   // Fonction pour générer les numéros de page à afficher
   const pageNumbers = getPageNumbers(totalPages, currentPage);
 
-  /**
-   * Génère les numéros de page à afficher.
-   * @param {number} totalPages - Le nombre total de pages.
-   * @param {number} currentPage - La page actuellement affichée.
-   * @param {number} pagesToShow - Le nombre de pages à afficher.
-   * @returns {Array} - Les numéros de page à afficher.
-   */
-  function getPageNumbers(totalPages, currentPage, pagesToShow = 5) {
-    const halfWay = Math.ceil(pagesToShow / 2);
-    let startPage = currentPage - halfWay + 1;
-    let endPage = currentPage + halfWay - 1;
+ /**
+ * Génère les numéros de page à afficher en garantissant que cette liste contient un nombre spécifié de numéros de page consécutifs.
+ *
+ * @param {number} totalPages - Le nombre total de pages.
+ * @param {number} currentPage - La page actuellement affichée.
+ * @param {number} pagesToShow - Le nombre de pages à afficher.
+ * @returns {Array} - Les numéros de page à afficher.
+ */
+function getPageNumbers(totalPages, currentPage, pagesToShow = 5) {
+  // Calcule la moitié du nombre de pages à afficher
+  const halfWay = Math.ceil(pagesToShow / 2);
 
-    if (startPage <= 0) {
-      endPage -= startPage - 1;
-      startPage = 1;
-    }
+  // Calcule la première page à afficher
+  let startPage = currentPage - halfWay + 1;
 
-    if (endPage > totalPages) {
-      endPage = totalPages;
-    }
+  // Calcule la dernière page à afficher
+  let endPage = currentPage + halfWay - 1;
 
-    if (endPage - pagesToShow + 1 > 0) {
-      startPage = endPage - pagesToShow + 1;
-    }
-
-    const pages = [];
-    for (let i = startPage; i <= endPage; i++) {
-      pages.push(i);
-    }
-
-    if (startPage !== 1) pages.unshift(1);
-    if (endPage !== totalPages && totalPages !== 1) pages.push(totalPages);
-
-    return pages;
+  // Gère les cas où startPage ou endPage sont en dehors des limites
+  if (startPage <= 0) {
+    endPage -= startPage - 1;
+    startPage = 1;
   }
 
-  // Fonction pour filtrer les données des employés en fonction de la recherche
+  if (endPage > totalPages) {
+    endPage = totalPages;
+  }
+
+  // Gère les cas où il y a une discontinuité dans les numéros de page
+  // Supposons que pagesToShow (le nombre de numéros de page à afficher) soit défini sur 5 et que la currentPage (page actuellement affichée) soit 8. Sans ce code, la plage de numéros de page serait générée comme suit : 6, 7, 8, 9, 10. Cela signifie qu'il y aurait une discontinuité car la première page affichée dans la liste n'est pas "1".
+  if (endPage - pagesToShow + 1 > 0) {
+    startPage = endPage - pagesToShow + 1;
+  }
+
+  const pages = [];
+
+  // Génère la liste des numéros de page à afficher
+  for (let i = startPage; i <= endPage; i++) {
+    pages.push(i);
+  }
+
+  // Ajoute les boutons "1" et "dernière page" si nécessaire
+  if (startPage !== 1) pages.unshift(1);
+  if (endPage !== totalPages && totalPages !== 1) pages.push(totalPages);
+
+  return pages;
+}
+
+
+  /**
+   * Filtrage et pagination des données des éléments en fonction de la recherche.
+   *
+   * @param {Array.<Object>} sortedData - Les données des éléments triées.
+   * @param {string} searchValue - La valeur de recherche.
+   * @param {Array.<Object>} columnsTable - Les colonnes de la table contenant les données des éléments.
+   * @param {number} currentPage - Le numéro de la page actuelle.
+   * @param {number} entriesToShow - Le nombre d'entrées à afficher par page.
+   * @returns {Array.<Object>} - Les données filtrées et paginées des éléments.
+   */
   const paginatedData = sortedData
-    .filter((employee) => {
+    .filter((item) => {
       // Vérifie si la valeur de recherche est vide
       if (!searchValue) return true;
 
       // Convertit la valeur de recherche en minuscules pour une recherche insensible à la casse
       const searchLowerCase = searchValue.toLowerCase();
 
-      // Vérifie si l'employé actuel correspond à la recherche dans les champs spécifiés
+      // Vérifie si l'élément actuel correspond à la recherche dans les champs spécifiés
       return columnsTable.some((column) => {
-        const fieldValue = (employee[column.key] ?? "")
-          .toString()
-          .toLowerCase();
+        // Récupère la valeur du champ et la convertit en chaîne de caractères en minuscules
+        const fieldValue = (item[column.key] ?? "").toString().toLowerCase();
+
+        // Vérifie si la valeur du champ inclut la valeur de recherche
         return fieldValue.includes(searchLowerCase);
       });
     })
@@ -264,19 +299,19 @@ const SuperTable = ({
     }
   };
 
-  const handleEdit = () => { 
+  const handleEdit = () => {
     if (handleEditForm) {
       handleEditForm(editedItem);
     } else {
       const updatedData = initialData.map((item) =>
-      item.id === editedItem.id ? editedItem : item
+        item.id === editedItem.id ? editedItem : item
       );
       console.log(updatedData);
       setDefaultData(updatedData);
     }
     setIsModalOpen(false);
   };
-  
+
   const handleDelete = (item) => {
     if (handleDeleteItem) {
       // Appeler la fonction handleDeleteItem avec l'ID de l'élément à supprimer
@@ -294,8 +329,8 @@ const SuperTable = ({
   };
 
   return (
-    <>
-      <div className="employees-header">
+    <div className="super-container">
+      {/* <div className="employees-header"> */}
         <div className="show-search">
           <FilterEntries
             entriesToShow={entriesToShow}
@@ -309,7 +344,7 @@ const SuperTable = ({
             customLabelSearch={customLabelSearch}
           />
         </div>
-      </div>
+      {/* </div> */}
 
       <div className="table-container">
         <table className="employees-table">
@@ -389,21 +424,21 @@ const SuperTable = ({
           {/* Afficher la liste de boutons d'action si aucune action n'est sélectionnée */}
           {selectedAction === null && (
             <div className="option-buttons">
-              <button onClick={toggleReverseOrder} className="rotation">
+              <button onClick={toggleReverseOrder} className="rotation" style={{ backgroundColor: isArrowIconClicked ? customLightBackgroundColor : "" }}>
                 <FaArrowRightArrowLeft />
               </button>
               <button onClick={() => handleActionClick("view")}>
                 <FaEye className="pen-trash-icons" />
               </button>
               {editButton && (
-              <button onClick={() => handleActionClick("edit")}>
-                <FaPen className="pen-trash-icons" />
-              </button>
+                <button onClick={() => handleActionClick("edit")}>
+                  <FaPen className="pen-trash-icons" />
+                </button>
               )}
               {deleteButton && (
-              <button onClick={() => handleActionClick("delete")}>
-                <FaTrashCan className="pen-trash-icons" />
-              </button>
+                <button onClick={() => handleActionClick("delete")}>
+                  <FaTrashCan className="pen-trash-icons" />
+                </button>
               )}
             </div>
           )}
@@ -434,6 +469,7 @@ const SuperTable = ({
                 setSelectedAction={setSelectedAction}
                 customTextEditValidationBtn={customTextEditValidationBtn}
                 customTextEditCancelBtn={customTextEditCancelBtn}
+                setEditedItem={setEditedItem}
               />
             </div>
           )}
@@ -451,7 +487,7 @@ const SuperTable = ({
           )}
         </Modal>
       )}
-    </>
+    </div>
   );
 };
 

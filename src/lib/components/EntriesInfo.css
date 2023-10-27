@@ -1,0 +1,12 @@
+.entries {
+  display: flex;
+  align-items: center;
+  cursor: default;
+}
+
+.entries span {
+  background-color: #5a6f08;
+  padding: 0.3rem;
+  color: #ffffff;
+  margin-right: 1rem;
+}

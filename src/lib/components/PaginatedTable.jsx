@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./PaginatedTable.css"
 
 const PaginatedTable = ({
   currentPage,
@@ -59,6 +60,8 @@ const PaginatedTable = ({
       {pageNumbers.map((number, index) => (
         <React.Fragment key={number}>
           {/* Vérifie s'il y a une discontinuité entre les numéros de page */}
+          {/* index > 0 garantit que nous sommes au moins au deuxième élément de la liste pageNumbers (car il n'y a pas de numéro de page précédent pour le premier élément). */}
+          {/* pageNumbers[index - 1] !== number - 1 compare le numéro de page précédent au numéro de page actuel. Si ces numéros ne sont pas consécutifs (c'est-à-dire que le numéro de page précédent n'est pas égal au numéro de page actuel moins un), alors cela signifie qu'il y a une discontinuité */}
           {index > 0 && pageNumbers[index - 1] !== number - 1 && (
             <span>...</span>
           )}

@@ -14,6 +14,8 @@ var _EntriesInfo = _interopRequireDefault(require("../components/EntriesInfo"));
 var _PaginatedTable = _interopRequireDefault(require("../components/PaginatedTable"));
 var _FilterEntries = _interopRequireDefault(require("../components/FilterEntries"));
 var _Modal = _interopRequireDefault(require("../components/Modal"));
+require("./settings.css");
+require("./SuperTable.css");
 var _ViewItem = _interopRequireDefault(require("../components/ViewItem"));
 var _fa = require("react-icons/fa6");
 var _EditForm = _interopRequireDefault(require("../components/EditForm"));
@@ -75,7 +77,7 @@ var SuperTable = function SuperTable(_ref) {
     _ref$columnsTable = _ref.columnsTable,
     columnsTable = _ref$columnsTable === void 0 ? columnsTableDefault : _ref$columnsTable,
     _ref$customLabelFilte = _ref.customLabelFilter,
-    customLabelFilter = _ref$customLabelFilte === void 0 ? "Display By Page Number" : _ref$customLabelFilte,
+    customLabelFilter = _ref$customLabelFilte === void 0 ? "Number Of Entries" : _ref$customLabelFilte,
     _ref$customLabelSearc = _ref.customLabelSearch,
     customLabelSearch = _ref$customLabelSearc === void 0 ? "Search Bar" : _ref$customLabelSearc,
     _ref$customTextPrevio = _ref.customTextPrevious,
@@ -160,16 +162,30 @@ var SuperTable = function SuperTable(_ref) {
   var _useState23 = (0, _react.useState)(true),
     _useState24 = _slicedToArray(_useState23, 2),
     isReversed = _useState24[0],
-    setIsReversed = _useState24[1]; // Nouvel état pour l'ordre inverse  
+    setIsReversed = _useState24[1]; // Nouvel état pour l'ordre inverse
+  var _useState25 = (0, _react.useState)(false),
+    _useState26 = _slicedToArray(_useState25, 2),
+    isArrowIconClicked = _useState26[0],
+    setIsArrowIconClicked = _useState26[1];
 
+  /**
+   * Gère le changement de valeur d'un champ de l'objet édité.
+   *
+   * @param {string} fieldName - Le nom du champ qui change.
+   * @param {string} value - La nouvelle valeur du champ.
+   */
   var handleFieldChange = function handleFieldChange(fieldName, value) {
+    // Supprime les espaces inutiles autour de la nouvelle valeur
     value = value.trim();
+
+    // Met à jour l'objet édité en utilisant une fonction de mise à jour du précédent état
     setEditedItem(function (prevData) {
       return _objectSpread(_objectSpread({}, prevData), {}, _defineProperty({}, fieldName, value));
     });
   };
   var toggleReverseOrder = function toggleReverseOrder() {
     setIsReversed(!isReversed); // Inverser l'ordre d'affichage lorsque le bouton est cliqué
+    setIsArrowIconClicked(!isArrowIconClicked);
   };
 
   /**
@@ -243,17 +259,25 @@ var SuperTable = function SuperTable(_ref) {
   var pageNumbers = getPageNumbers(totalPages, currentPage);
 
   /**
-   * Génère les numéros de page à afficher.
-   * @param {number} totalPages - Le nombre total de pages.
-   * @param {number} currentPage - La page actuellement affichée.
-   * @param {number} pagesToShow - Le nombre de pages à afficher.
-   * @returns {Array} - Les numéros de page à afficher.
-   */
+  * Génère les numéros de page à afficher en garantissant que cette liste contient un nombre spécifié de numéros de page consécutifs.
+  *
+  * @param {number} totalPages - Le nombre total de pages.
+  * @param {number} currentPage - La page actuellement affichée.
+  * @param {number} pagesToShow - Le nombre de pages à afficher.
+  * @returns {Array} - Les numéros de page à afficher.
+  */
   function getPageNumbers(totalPages, currentPage) {
     var pagesToShow = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 5;
+    // Calcule la moitié du nombre de pages à afficher
     var halfWay = Math.ceil(pagesToShow / 2);
+
+    // Calcule la première page à afficher
     var startPage = currentPage - halfWay + 1;
+
+    // Calcule la dernière page à afficher
     var endPage = currentPage + halfWay - 1;
+
+    // Gère les cas où startPage ou endPage sont en dehors des limites
     if (startPage <= 0) {
       endPage -= startPage - 1;
       startPage = 1;
@@ -261,30 +285,49 @@ var SuperTable = function SuperTable(_ref) {
     if (endPage > totalPages) {
       endPage = totalPages;
     }
+
+    // Gère les cas où il y a une discontinuité dans les numéros de page
+    // Supposons que pagesToShow (le nombre de numéros de page à afficher) soit défini sur 5 et que la currentPage (page actuellement affichée) soit 8. Sans ce code, la plage de numéros de page serait générée comme suit : 6, 7, 8, 9, 10. Cela signifie qu'il y aurait une discontinuité car la première page affichée dans la liste n'est pas "1".
     if (endPage - pagesToShow + 1 > 0) {
       startPage = endPage - pagesToShow + 1;
     }
     var pages = [];
+
+    // Génère la liste des numéros de page à afficher
     for (var i = startPage; i <= endPage; i++) {
       pages.push(i);
     }
+
+    // Ajoute les boutons "1" et "dernière page" si nécessaire
     if (startPage !== 1) pages.unshift(1);
     if (endPage !== totalPages && totalPages !== 1) pages.push(totalPages);
     return pages;
   }
 
-  // Fonction pour filtrer les données des employés en fonction de la recherche
-  var paginatedData = sortedData.filter(function (employee) {
+  /**
+   * Filtrage et pagination des données des éléments en fonction de la recherche.
+   *
+   * @param {Array.<Object>} sortedData - Les données des éléments triées.
+   * @param {string} searchValue - La valeur de recherche.
+   * @param {Array.<Object>} columnsTable - Les colonnes de la table contenant les données des éléments.
+   * @param {number} currentPage - Le numéro de la page actuelle.
+   * @param {number} entriesToShow - Le nombre d'entrées à afficher par page.
+   * @returns {Array.<Object>} - Les données filtrées et paginées des éléments.
+   */
+  var paginatedData = sortedData.filter(function (item) {
     // Vérifie si la valeur de recherche est vide
     if (!searchValue) return true;
 
     // Convertit la valeur de recherche en minuscules pour une recherche insensible à la casse
     var searchLowerCase = searchValue.toLowerCase();
 
-    // Vérifie si l'employé actuel correspond à la recherche dans les champs spécifiés
+    // Vérifie si l'élément actuel correspond à la recherche dans les champs spécifiés
     return columnsTable.some(function (column) {
-      var _employee$column$key;
-      var fieldValue = ((_employee$column$key = employee[column.key]) !== null && _employee$column$key !== void 0 ? _employee$column$key : "").toString().toLowerCase();
+      var _item$column$key;
+      // Récupère la valeur du champ et la convertit en chaîne de caractères en minuscules
+      var fieldValue = ((_item$column$key = item[column.key]) !== null && _item$column$key !== void 0 ? _item$column$key : "").toString().toLowerCase();
+
+      // Vérifie si la valeur du champ inclut la valeur de recherche
       return fieldValue.includes(searchLowerCase);
     });
   })
@@ -364,8 +407,8 @@ var SuperTable = function SuperTable(_ref) {
 
     setIsModalOpen(false);
   };
-  return /*#__PURE__*/_react["default"].createElement(_react["default"].Fragment, null, /*#__PURE__*/_react["default"].createElement("div", {
-    className: "employees-header"
+  return /*#__PURE__*/_react["default"].createElement("div", {
+    className: "super-container"
   }, /*#__PURE__*/_react["default"].createElement("div", {
     className: "show-search"
   }, /*#__PURE__*/_react["default"].createElement(_FilterEntries["default"], {
@@ -376,7 +419,7 @@ var SuperTable = function SuperTable(_ref) {
     searchValue: searchValue,
     handleSearchChange: handleSearchChange,
     customLabelSearch: customLabelSearch
-  }))), /*#__PURE__*/_react["default"].createElement("div", {
+  })), /*#__PURE__*/_react["default"].createElement("div", {
     className: "table-container"
   }, /*#__PURE__*/_react["default"].createElement("table", {
     className: "employees-table"
@@ -434,7 +477,10 @@ var SuperTable = function SuperTable(_ref) {
     className: "option-buttons"
   }, /*#__PURE__*/_react["default"].createElement("button", {
     onClick: toggleReverseOrder,
-    className: "rotation"
+    className: "rotation",
+    style: {
+      backgroundColor: isArrowIconClicked ? customLightBackgroundColor : ""
+    }
   }, /*#__PURE__*/_react["default"].createElement(_fa.FaArrowRightArrowLeft, null)), /*#__PURE__*/_react["default"].createElement("button", {
     onClick: function onClick() {
       return handleActionClick("view");
@@ -469,7 +515,8 @@ var SuperTable = function SuperTable(_ref) {
     customHoverBackgroundColor: customHoverBackgroundColor,
     setSelectedAction: setSelectedAction,
     customTextEditValidationBtn: customTextEditValidationBtn,
-    customTextEditCancelBtn: customTextEditCancelBtn
+    customTextEditCancelBtn: customTextEditCancelBtn,
+    setEditedItem: setEditedItem
   })), selectedAction === "delete" && selectedItem && /*#__PURE__*/_react["default"].createElement(_DeleteItem["default"], {
     customDeleteItemMessage: customDeleteItemMessage,
     item: selectedItem,

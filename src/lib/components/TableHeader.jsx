@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./TableHeader.css"
 import { FaCaretUp, FaCaretDown } from "react-icons/fa";
 
 /**
@@ -53,9 +54,7 @@ const TableHeader = ({
   return (
     <th
       onClick={onClick}
-      className={`${
-        sortBy === column.key ? customSortedColumnBackgroundColor : ""
-      }`}
+      className={sortBy === column.key ? customSortedColumnBackgroundColor : ""}
       style={columnHeaderStyle}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}

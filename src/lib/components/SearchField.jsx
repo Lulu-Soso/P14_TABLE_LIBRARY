@@ -1,4 +1,5 @@
 import React from 'react';
+import "./SearchField.css"
 
 /**
  * Composant pour afficher un champ de recherche.

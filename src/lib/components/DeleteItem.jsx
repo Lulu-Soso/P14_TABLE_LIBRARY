@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./DeleteItem.css"
 
 const DeleteItem = ({
   customDeleteItemMessage,

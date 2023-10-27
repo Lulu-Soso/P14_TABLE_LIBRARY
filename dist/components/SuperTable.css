@@ -1,0 +1,151 @@
+.super-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.show-search {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 95%;
+  padding: 1.2rem 0;
+}
+
+.table-container {
+  /* max-width: 100%; */
+  width: 100%; /* Définir une largeur maximale pour le conteneur */
+  overflow-x: auto; 
+  overflow-y: hidden;
+}
+
+.employees-table {
+  border-collapse: collapse; /* Pour fusionner les bordures */
+  width: 100%;
+  overflow-x: auto; /* Activer la barre de défilement horizontal si nécessaire */
+  white-space: nowrap; /* Empêcher le texte de se rompre sur plusieurs lignes */
+}
+
+th,
+td {
+  border: none;
+  padding: 8px;
+  text-align: left;
+  cursor: default;
+  max-width: 200px;
+  overflow: hidden;
+}
+
+.flex-jcc-aic {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.up-down {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 1.5rem;
+  margin-left: 0.5rem;
+  color: rgb(208, 208, 208);
+}
+
+.sorted-icon {
+  color: var(--darkGreen);
+}
+
+th:hover {
+  background-color: var(--hoverBackgroundColor);
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+td:hover {
+  background-color: #f0f0f0;
+  filter: saturate(0.3);
+  mix-blend-mode: multiply;
+}
+
+tbody {
+  border-top: 1px solid #d6d6d6;
+  border-bottom: 1px solid #d6d6d6;
+}
+
+.table-row-odd {
+  background-color: #ffffff;
+}
+
+.table-row-even {
+  background-color: #d7ddbb;
+}
+
+.sorted-column {
+  position: relative;
+}
+
+.sorted-column::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--sortedColumnBackgroundColor);
+  pointer-events: none; 
+  z-index: 1;
+}
+
+.flex-pagination {
+  display: flex;
+  justify-content: space-between;
+  width: 95%;
+  align-items: center;
+  margin: 1.2rem 0;
+}
+
+
+.error-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100px;
+  background-color: rgba(255, 0, 0, 0.1);
+  border: 1px solid red;
+  margin-top: 30px;
+  animation: slideInFromTop 0.5s ease-in-out;
+}
+
+@keyframes slideInFromTop {
+  0% {
+    transform: translateY(-30%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  /* Styles spécifiques pour les tablettes (paysage) */
+  .show-search {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .flex-pagination {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+
+  

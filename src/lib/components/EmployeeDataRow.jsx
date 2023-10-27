@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./EmployeeDataRow.css"
 import { formatLocalDate } from "../utils/formatLocalDate";
 
 const EmployeeDataRow = ({
@@ -7,8 +8,8 @@ const EmployeeDataRow = ({
   className,
   customSortedColumnBackgroundColor,
   customEvenRowBackgroundColor,
-  onCellClick, // Ajoutez cette prop pour gérer le clic sur une cellule
-  columnsTable, // Ajoutez la liste des colonnes
+  onCellClick,
+  columnsTable, 
 }) => {
   const [hoveredColumn, setHoveredColumn] = useState(null);
 

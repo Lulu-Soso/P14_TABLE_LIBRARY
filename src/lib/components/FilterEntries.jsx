@@ -1,4 +1,5 @@
 import React from 'react';
+import "./FilterEntries.css"
 
 /**
  * Composant pour filtrer le nombre d'entrées à afficher par page.
@@ -23,7 +24,6 @@ const FilterEntries = ({ entriesToShow, handleEntriesChange, customLabelFilter }
                 <option value="50">50</option>
                 <option value="100">100</option>
             </select>
-            {/* <p>entries</p> */}
         </div>
     );
 };

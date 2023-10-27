@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./ViewItem.css"
 import { formatLocalDate } from "../utils/formatLocalDate"; // Importez votre fonction de formatage
 
 const ViewItem = ({

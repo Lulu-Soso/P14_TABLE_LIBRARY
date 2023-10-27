@@ -1,0 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;500;600;700;800&display=swap");
+
+/* Constants colors */
+:root {
+  --sortedColumnBackgroundColor: #ffff99; /* Valeur par défaut */
+  --hoverBackgroundColor: #93ad18;
+  --darkGreen: #5a6f08;
+  --oddRowBackgroundColor: #d7ddbb;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Assistant", sans-serif;
+}

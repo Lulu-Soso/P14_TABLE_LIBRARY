@@ -1,0 +1,45 @@
+.itemDetail {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.key-item {
+  flex: 1;
+  font-weight: bold;
+  margin-right: 10px;
+
+  /* @media screen and (min-width: 769px) and (max-width: 1023px) {
+flex: 1.2;
+ } */
+
+  /* @media screen and (max-width: 768px) {
+      flex: 1;
+    } */
+}
+
+.value-item {
+  flex: 2;
+}
+
+.modal-content {
+  padding: 20px;
+}
+
+.modal-content h3 {
+  margin-bottom: 15px;
+}
+
+.view-button {
+  display: flex;
+  justify-content: center;
+}
+
+.view-button button {
+  padding: 0.3rem;
+  margin: 0.6rem;
+  border: none;
+  color: #fff;
+  border-radius: 0.3rem;
+  min-width: 100px;
+}
