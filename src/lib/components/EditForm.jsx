@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./EditForm.css"
+import "./EditForm.css";
 import { isValidPhoneNumber, isValidEmail } from "../utils/validations.js";
 
 const EditForm = ({
@@ -15,6 +15,7 @@ const EditForm = ({
 }) => {
   const [isHoveredSave, setIsHoveredSave] = useState(false);
   const [isHoveredCancel, setIsHoveredCancel] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState({});
 
   const handleMouseEnterSave = () => {
     setIsHoveredSave(true);
@@ -32,6 +33,28 @@ const EditForm = ({
     setIsHoveredCancel(false);
   };
 
+  const isFieldValid = (column, value, validEmptyField = false) => {
+    if (column.type === "tel") {
+      if (validEmptyField && value === "") {
+        return true; // Champ vide est autorisé
+      }
+      return isValidPhoneNumber(value);
+    }
+    if (column.type === "email") {
+      if (validEmptyField && value === "") {
+        return true; // Champ vide est autorisé
+      }
+      return isValidEmail(value);
+    }
+
+    // Si le champ n'est pas de type "tel" ou "email" et s'il est vide, retournez false
+    if (column.noEmptyField && value.trim() === "") {
+      return false;
+    }
+
+    return true; // Si le champ n'est pas de type "tel" ou "email" ou s'il n'est pas vide, on considère qu'il est valide
+  };
+
   /**
    * Gère le changement de valeur d'un champ de l'objet édité.
    *
@@ -40,6 +63,21 @@ const EditForm = ({
    */
   const handleFieldChange = (fieldName, value) => {
     value = value.trim(); // Supprime les espaces inutiles autour de la nouvelle valeur
+    const column = columnsTable.find((col) => col.key === fieldName);
+    const newErrors = { ...fieldErrors };
+
+    if (column.isRequired && value === "") {
+      if (!column.optional) {
+        newErrors[fieldName] = column.errorMessage || "The field cannot be empty.";
+      } else {
+        delete newErrors[fieldName]; // Supprime l'erreur si le champ est vide et validEmptyField est true
+      }
+    } else if (!isFieldValid(column, value, column.optional)) {
+      newErrors[fieldName] = column.errorMessage || "Invalid field";
+    } else {
+      delete newErrors[fieldName]; // Supprime l'erreur si le champ est valide
+    }
+    setFieldErrors(newErrors);
 
     // Met à jour l'objet édité en utilisant une fonction de mise à jour du précédent état
     setEditedItem((prevData) => ({
@@ -48,18 +86,15 @@ const EditForm = ({
     }));
   };
 
-  const isFieldValid = (column, value) => {
-    if (column.type === "tel") {
-      return isValidPhoneNumber(value);
-    }
-    if (column.type === "email") {
-      return isValidEmail(value);
-    }
-    return true; // Si le champ n'est pas de type "tel" ou "email", on considère qu'il est valide
-  };
-
   return (
-    <form onSubmit={(e) => handleEdit(e, item)}>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        if (Object.keys(fieldErrors).length === 0) {
+          handleEdit(item);
+        }
+      }}
+    >
       {columnsTable.map((column) => (
         <div key={column.key} className="editField">
           <label htmlFor={column.key}>{column.label}</label>
@@ -108,22 +143,11 @@ const EditForm = ({
               onChange={(e) => handleFieldChange(column.key, e.target.value)}
             />
           )}
-          {column.type === "tel" && (
-            <span>
-              {!isFieldValid(column, item[column.key]) && (
-            <div className="validation-message">
-              <p>!</p>
-            </div>
-          )}
-            </span>
-          )}
-          {column.type === "email" && (
-            <span>
-              {!isFieldValid(column, item[column.key]) && (
-            <div className="validation-message">
-              <p>!</p>
-            </div>
-          )}
+
+          {/* ... Autres types de champs ici */}
+          {fieldErrors[column.key] && (
+            <span className="error-edit-message">
+              {fieldErrors[column.key]}
             </span>
           )}
         </div>
@@ -139,7 +163,11 @@ const EditForm = ({
           }}
           onMouseEnter={handleMouseEnterSave}
           onMouseLeave={handleMouseLeaveSave}
-          onClick={handleEdit}
+          onClick={() => {
+            if (Object.keys(fieldErrors).length === 0) {
+              handleEdit(item);
+            }
+          }}
         >
           {customTextEditValidationBtn}
         </button>

@@ -7,17 +7,16 @@ import EntriesInfo from "../components/EntriesInfo";
 import PaginatedTable from "../components/PaginatedTable";
 import FilterEntries from "../components/FilterEntries";
 import Modal from "../components/Modal";
-import "./settings.css"
-import "./SuperTable.css"
+import "./settings.css";
+import "./SuperTable.css";
 import ViewItem from "../components/ViewItem";
-import {
-  FaEye,
-  FaPen,
-  FaTrashCan,
-  FaArrowRightArrowLeft,
-} from "react-icons/fa6";
 import EditForm from "../components/EditForm";
 import DeleteItem from "../components/DeleteItem";
+import Component9To1 from "../assets/Component_9-1.svg";
+import Component1To9 from "../assets/Component_1-9.svg";
+import PenGrey from "../assets/PenGrey.svg";
+import Trash from "../assets/Trash.svg";
+import Loupe from "../assets/Loupe.svg";
 
 /**
  * @typedef {Object} Column - Définit une colonne dans la table.
@@ -27,9 +26,24 @@ import DeleteItem from "../components/DeleteItem";
 const columnsTableDefault = [
   { key: "firstName", label: "First Name", type: "text" },
   { key: "lastName", label: "Last Name", type: "text" },
-  { key: "email", label: "Email", type: "email" },
-  { key: "phoneNumber", label: "Phone Number", type: "tel" },
-  { key: "dateOfBirth", label: "Date of Birth", type: "date" },
+  {
+    key: "email",
+    label: "Email",
+    type: "email",
+    errorMessage: "The email is not correct.",
+  },
+  {
+    key: "phoneNumber",
+    label: "Phone Number",
+    type: "tel",
+    errorMessage: "The telephone number is not correct",
+  },
+  {
+    key: "dateOfBirth",
+    label: "Date of Birth",
+    type: "date",
+    errorMessage: "Invalid date",
+  },
   { key: "address", label: "Address", type: "text" },
   { key: "zipCode", label: "Zip Code", type: "number" },
   { key: "country", label: "Country", type: "text" },
@@ -38,7 +52,7 @@ const columnsTableDefault = [
 const SuperTable = ({
   data,
   columnsTable = columnsTableDefault,
-  customLabelFilter = "Number Of Entries",
+  customLabelFilter = "Display By Entries",
   customLabelSearch = "Search Bar",
   customTextPrevious = "Previous Page",
   customTextNext = "Next Page",
@@ -52,8 +66,10 @@ const SuperTable = ({
   customSortedColumnBackgroundColor = "#f6f6f6",
   customHoverBackgroundColor = "#aaaaaa",
   customDarkBackgroundColor = "#929292",
-  customEvenRowBackgroundColor = "#f0f0f0",
+  customEvenRowBackgroundColor = "#E6E6E6",
   customLightBackgroundColor = "#d2d2d2",
+  customHoverRowBackgroundColor = "#FFDAB9",
+  customSuccessEditMessage = "Edit saved successfully !",
   handleEditForm,
   handleDeleteItem,
   editButton,
@@ -75,27 +91,18 @@ const SuperTable = ({
   const [editedItem, setEditedItem] = useState(null); // États pour gérer l'édition
   const [isReversed, setIsReversed] = useState(true); // Nouvel état pour l'ordre inverse
   const [isArrowIconClicked, setIsArrowIconClicked] = useState(false);
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+  const [orderAlpha, setOrderAlpha] = useState(false);
+  const [selectedRowKey, setSelectedRowKey] = useState(null);
 
-  /**
-   * Gère le changement de valeur d'un champ de l'objet édité.
-   *
-   * @param {string} fieldName - Le nom du champ qui change.
-   * @param {string} value - La nouvelle valeur du champ.
-   */
-  const handleFieldChange = (fieldName, value) => {
-    // Supprime les espaces inutiles autour de la nouvelle valeur
-    value = value.trim();
-
-    // Met à jour l'objet édité en utilisant une fonction de mise à jour du précédent état
-    setEditedItem((prevData) => ({
-      ...prevData, // Copie toutes les propriétés de l'objet édité précédent
-      [fieldName]: value, // Met à jour la propriété spécifiée par le nom de champ avec la nouvelle valeur
-    }));
-  };
+  // Ajoutez une classe au tbody lorsque la modale est visible
+  const tbodyClassName = showConfirmationModal ? "pushed-down" : "";
 
   const toggleReverseOrder = () => {
     setIsReversed(!isReversed); // Inverser l'ordre d'affichage lorsque le bouton est cliqué
     setIsArrowIconClicked(!isArrowIconClicked);
+    setSortBy();
+    setOrderAlpha(false);
   };
 
   /**
@@ -115,6 +122,7 @@ const SuperTable = ({
     } else {
       setSortBy(columnName);
       setSortOrder("asc");
+      setOrderAlpha(true);
     }
     setIsReversed(false); // Réinitialisez l'ordre inverse lorsque l'utilisateur clique sur une colonne
   };
@@ -174,54 +182,53 @@ const SuperTable = ({
   // Fonction pour générer les numéros de page à afficher
   const pageNumbers = getPageNumbers(totalPages, currentPage);
 
- /**
- * Génère les numéros de page à afficher en garantissant que cette liste contient un nombre spécifié de numéros de page consécutifs.
- *
- * @param {number} totalPages - Le nombre total de pages.
- * @param {number} currentPage - La page actuellement affichée.
- * @param {number} pagesToShow - Le nombre de pages à afficher.
- * @returns {Array} - Les numéros de page à afficher.
- */
-function getPageNumbers(totalPages, currentPage, pagesToShow = 5) {
-  // Calcule la moitié du nombre de pages à afficher
-  const halfWay = Math.ceil(pagesToShow / 2);
+  /**
+   * Génère les numéros de page à afficher en garantissant que cette liste contient un nombre spécifié de numéros de page consécutifs.
+   *
+   * @param {number} totalPages - Le nombre total de pages.
+   * @param {number} currentPage - La page actuellement affichée.
+   * @param {number} pagesToShow - Le nombre de pages à afficher.
+   * @returns {Array} - Les numéros de page à afficher.
+   */
+  function getPageNumbers(totalPages, currentPage, pagesToShow = 5) {
+    // Calcule la moitié du nombre de pages à afficher
+    const halfWay = Math.ceil(pagesToShow / 2);
 
-  // Calcule la première page à afficher
-  let startPage = currentPage - halfWay + 1;
+    // Calcule la première page à afficher
+    let startPage = currentPage - halfWay + 1;
 
-  // Calcule la dernière page à afficher
-  let endPage = currentPage + halfWay - 1;
+    // Calcule la dernière page à afficher
+    let endPage = currentPage + halfWay - 1;
 
-  // Gère les cas où startPage ou endPage sont en dehors des limites
-  if (startPage <= 0) {
-    endPage -= startPage - 1;
-    startPage = 1;
+    // Gère les cas où startPage ou endPage sont en dehors des limites
+    if (startPage <= 0) {
+      endPage -= startPage - 1;
+      startPage = 1;
+    }
+
+    if (endPage > totalPages) {
+      endPage = totalPages;
+    }
+
+    // Gère les cas où il y a une discontinuité dans les numéros de page
+    // Supposons que pagesToShow (le nombre de numéros de page à afficher) soit défini sur 5 et que la currentPage (page actuellement affichée) soit 8. Sans ce code, la plage de numéros de page serait générée comme suit : 6, 7, 8, 9, 10. Cela signifie qu'il y aurait une discontinuité car la première page affichée dans la liste n'est pas "1".
+    if (endPage - pagesToShow + 1 > 0) {
+      startPage = endPage - pagesToShow + 1;
+    }
+
+    const pages = [];
+
+    // Génère la liste des numéros de page à afficher
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(i);
+    }
+
+    // Ajoute les boutons "1" et "dernière page" si nécessaire
+    if (startPage !== 1) pages.unshift(1);
+    if (endPage !== totalPages && totalPages !== 1) pages.push(totalPages);
+
+    return pages;
   }
-
-  if (endPage > totalPages) {
-    endPage = totalPages;
-  }
-
-  // Gère les cas où il y a une discontinuité dans les numéros de page
-  // Supposons que pagesToShow (le nombre de numéros de page à afficher) soit défini sur 5 et que la currentPage (page actuellement affichée) soit 8. Sans ce code, la plage de numéros de page serait générée comme suit : 6, 7, 8, 9, 10. Cela signifie qu'il y aurait une discontinuité car la première page affichée dans la liste n'est pas "1".
-  if (endPage - pagesToShow + 1 > 0) {
-    startPage = endPage - pagesToShow + 1;
-  }
-
-  const pages = [];
-
-  // Génère la liste des numéros de page à afficher
-  for (let i = startPage; i <= endPage; i++) {
-    pages.push(i);
-  }
-
-  // Ajoute les boutons "1" et "dernière page" si nécessaire
-  if (startPage !== 1) pages.unshift(1);
-  if (endPage !== totalPages && totalPages !== 1) pages.push(totalPages);
-
-  return pages;
-}
-
 
   /**
    * Filtrage et pagination des données des éléments en fonction de la recherche.
@@ -280,6 +287,7 @@ function getPageNumbers(totalPages, currentPage, pagesToShow = 5) {
 
   // Fonction pour ouvrir la modal et définir l'élément sélectionné
   const handleCellClick = (item) => {
+    setSelectedRowKey(item.id); // Utilisez la clé unique de la ligne (id) ou une autre clé appropriée
     setSelectedItem(item);
     setSelectedAction(null); // Réinitialisez l'action sélectionnée
     setIsModalOpen(true);
@@ -300,6 +308,8 @@ function getPageNumbers(totalPages, currentPage, pagesToShow = 5) {
   };
 
   const handleEdit = () => {
+    // Affichez la modal de confirmation après une soumission réussie
+    setShowConfirmationModal(true);
     if (handleEditForm) {
       handleEditForm(editedItem);
     } else {
@@ -328,27 +338,35 @@ function getPageNumbers(totalPages, currentPage, pagesToShow = 5) {
     setIsModalOpen(false);
   };
 
+  useEffect(() => {
+    if (showConfirmationModal) {
+      const timer = setTimeout(() => {
+        setShowConfirmationModal(false);
+      }, 3000); // 3 secondes (3000 millisecondes)
+
+      return () => clearTimeout(timer); // Nettoie le timer lorsque le composant est démonté
+    }
+  }, [showConfirmationModal]);
+
   return (
     <div className="super-container">
-      {/* <div className="employees-header"> */}
-        <div className="show-search">
-          <FilterEntries
-            entriesToShow={entriesToShow}
-            handleEntriesChange={handleEntriesChange}
-            customLabelFilter={customLabelFilter}
-          />
+      <div className="show-search">
+        <FilterEntries
+          entriesToShow={entriesToShow}
+          handleEntriesChange={handleEntriesChange}
+          customLabelFilter={customLabelFilter}
+        />
 
-          <SearchField
-            searchValue={searchValue}
-            handleSearchChange={handleSearchChange}
-            customLabelSearch={customLabelSearch}
-          />
-        </div>
-      {/* </div> */}
+        <SearchField
+          searchValue={searchValue}
+          handleSearchChange={handleSearchChange}
+          customLabelSearch={customLabelSearch}
+        />
+      </div>
 
       <div className="table-container">
-        <table className="employees-table">
-          <thead>
+        <table className="items-table">
+          <thead className={tbodyClassName}>
             <tr>
               {columnsTable.map((column) => (
                 <TableHeader
@@ -365,11 +383,19 @@ function getPageNumbers(totalPages, currentPage, pagesToShow = 5) {
               ))}
             </tr>
           </thead>
-          <tbody>
-            {paginatedData.map((employee, index) => (
+
+          <tbody className={tbodyClassName}>
+            {/* Modal de confirmation */}
+            {showConfirmationModal && (
+              <div className="confirmation-modal">
+                <div className="message-confirm-edit text-center">
+                  <p>{customSuccessEditMessage}</p>
+                </div>
+              </div>
+            )}
+            {paginatedData.map((item, index) => (
               <EmployeeDataRow
-                key={employee.id}
-                employee={employee}
+                item={item}
                 sortBy={sortBy}
                 customSortedColumnBackgroundColor={
                   customSortedColumnBackgroundColor
@@ -377,8 +403,12 @@ function getPageNumbers(totalPages, currentPage, pagesToShow = 5) {
                 customEvenRowBackgroundColor={
                   index % 2 !== 0 ? customEvenRowBackgroundColor : ""
                 }
-                onCellClick={() => handleCellClick(employee)}
+                onCellClick={() => handleCellClick(item)}
                 columnsTable={columnsTable}
+                customHoverRowBackgroundColor={customHoverRowBackgroundColor}
+                isModalOpen={isModalOpen}
+                setSelectedRowKey={setSelectedRowKey}
+                selectedRowKey={selectedRowKey}
               />
             ))}
           </tbody>
@@ -398,6 +428,11 @@ function getPageNumbers(totalPages, currentPage, pagesToShow = 5) {
           totalEntries={totalEntries}
           customDarkBackgroundColor={customDarkBackgroundColor}
           customLightBackgroundColor={customLightBackgroundColor}
+          toggleReverseOrder={toggleReverseOrder}
+          isReversed={isReversed}
+          handleColumnClick={handleColumnClick}
+          sortOrder={sortOrder}
+          orderAlpha={orderAlpha}
         />
 
         <PaginatedTable
@@ -424,20 +459,22 @@ function getPageNumbers(totalPages, currentPage, pagesToShow = 5) {
           {/* Afficher la liste de boutons d'action si aucune action n'est sélectionnée */}
           {selectedAction === null && (
             <div className="option-buttons">
-              <button onClick={toggleReverseOrder} className="rotation" style={{ backgroundColor: isArrowIconClicked ? customLightBackgroundColor : "" }}>
-                <FaArrowRightArrowLeft />
-              </button>
+              <img
+                src={isReversed ? Component9To1 : Component1To9}
+                alt=""
+                onClick={toggleReverseOrder}
+              />
               <button onClick={() => handleActionClick("view")}>
-                <FaEye className="pen-trash-icons" />
+                <img src={Loupe} alt="" />
               </button>
               {editButton && (
                 <button onClick={() => handleActionClick("edit")}>
-                  <FaPen className="pen-trash-icons" />
+                  <img src={PenGrey} alt="" />
                 </button>
               )}
               {deleteButton && (
                 <button onClick={() => handleActionClick("delete")}>
-                  <FaTrashCan className="pen-trash-icons" />
+                  <img src={Trash} alt="" />
                 </button>
               )}
             </div>
@@ -463,13 +500,14 @@ function getPageNumbers(totalPages, currentPage, pagesToShow = 5) {
                 item={editedItem}
                 columnsTable={columnsTable}
                 handleEdit={handleEdit}
-                handleFieldChange={handleFieldChange}
                 customDarkBackgroundColor={customDarkBackgroundColor}
                 customHoverBackgroundColor={customHoverBackgroundColor}
                 setSelectedAction={setSelectedAction}
                 customTextEditValidationBtn={customTextEditValidationBtn}
                 customTextEditCancelBtn={customTextEditCancelBtn}
                 setEditedItem={setEditedItem}
+                isFieldValid
+                // ifHasErrors={ifHasErrors}
               />
             </div>
           )}

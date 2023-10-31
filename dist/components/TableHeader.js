@@ -7,7 +7,11 @@ Object.defineProperty(exports, "__esModule", {
 exports["default"] = void 0;
 var _react = _interopRequireWildcard(require("react"));
 require("./TableHeader.css");
-var _fa = require("react-icons/fa");
+var _Up = _interopRequireDefault(require("../assets/Up.svg"));
+var _UpActive = _interopRequireDefault(require("../assets/UpActive.svg"));
+var _Down = _interopRequireDefault(require("../assets/Down.svg"));
+var _DownActive = _interopRequireDefault(require("../assets/DownActive.svg"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(e) { return e ? t : r; })(e); }
 function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != _typeof(e) && "function" != typeof e) return { "default": e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && Object.prototype.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n["default"] = e, t && t.set(e, n), n; }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
@@ -67,14 +71,18 @@ var TableHeader = function TableHeader(_ref) {
     style: columnHeaderStyle,
     onMouseEnter: handleMouseEnter,
     onMouseLeave: handleMouseLeave
-  }, /*#__PURE__*/_react["default"].createElement("p", {
-    className: "flex-jcc-aic"
-  }, column.label, /*#__PURE__*/_react["default"].createElement("span", {
+  }, /*#__PURE__*/_react["default"].createElement("div", {
+    className: "th-label"
+  }, /*#__PURE__*/_react["default"].createElement("p", null, column.label), /*#__PURE__*/_react["default"].createElement("span", {
     className: "up-down"
-  }, /*#__PURE__*/_react["default"].createElement(_fa.FaCaretUp, {
-    className: sortBy === column.key && sortOrder === "asc" ? "sorted-icon" : ""
-  }), /*#__PURE__*/_react["default"].createElement(_fa.FaCaretDown, {
-    className: sortBy === column.key && sortOrder === "desc" ? "sorted-icon" : ""
+  }, /*#__PURE__*/_react["default"].createElement("img", {
+    src: sortBy === column.key && sortOrder === "asc" ? _UpActive["default"] : _Up["default"],
+    alt: "",
+    className: sortBy === column.key ? "sorted-icon" : "up-down-icon"
+  }), /*#__PURE__*/_react["default"].createElement("img", {
+    src: sortBy === column.key && sortOrder === "desc" ? _DownActive["default"] : _Down["default"],
+    alt: "",
+    className: sortBy === column.key ? "sorted-icon" : "up-down-icon"
   }))));
 };
 var _default = exports["default"] = TableHeader;

@@ -1,6 +1,9 @@
 import React, { useState } from "react";
-import "./TableHeader.css"
-import { FaCaretUp, FaCaretDown } from "react-icons/fa";
+import "./TableHeader.css";
+import Up from "../assets/Up.svg";
+import UpActive from "../assets/UpActive.svg";
+import Down from "../assets/Down.svg";
+import DownActive from "../assets/DownActive.svg";
 
 /**
  * Composant pour afficher l'en-tête d'une colonne de tableau.
@@ -59,21 +62,24 @@ const TableHeader = ({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <p className="flex-jcc-aic">
-        {column.label}
+      <div className="th-label">
+        <p>{column.label}</p>
+
         <span className="up-down">
-          <FaCaretUp
-            className={
-              sortBy === column.key && sortOrder === "asc" ? "sorted-icon" : ""
-            }
+          <img
+            src={sortBy === column.key && sortOrder === "asc" ? UpActive : Up}
+            alt=""
+            className={sortBy === column.key ? "sorted-icon" : "up-down-icon"}
           />
-          <FaCaretDown
-            className={
-              sortBy === column.key && sortOrder === "desc" ? "sorted-icon" : ""
+          <img
+            src={
+              sortBy === column.key && sortOrder === "desc" ? DownActive : Down
             }
+            alt=""
+            className={sortBy === column.key ? "sorted-icon" : "up-down-icon"}
           />
         </span>
-      </p>
+      </div>
     </th>
   );
 };

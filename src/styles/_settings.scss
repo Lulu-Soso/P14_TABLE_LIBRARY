@@ -1,57 +1,57 @@
-@import url("https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;500;600;700;800&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;500;600;700;800&display=swap");
 
-/* Constants colors */
-:root {
-  --sortedColumnBackgroundColor: #ffff99; /* Valeur par défaut */
-  --hoverBackgroundColor: #93ad18;
-  --darkGreen: #5a6f08;
-  --oddRowBackgroundColor: #d7ddbb;
-}
+// /* Constants colors */
+// :root {
+//   --sortedColumnBackgroundColor: #ffff99; /* Valeur par défaut */
+//   --hoverBackgroundColor: #93ad18;
+//   --darkGreen: #5a6f08;
+//   --oddRowBackgroundColor: #d7ddbb;
+// }
 
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  font-family: "Assistant", sans-serif;
-}
+// * {
+//   padding: 0;
+//   margin: 0;
+//   box-sizing: border-box;
+//   font-family: "Assistant", sans-serif;
+// }
 
-.app-container {
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+// .app-container {
+//   margin: 0;
+//   display: flex;
+//   flex-direction: column;
+//   min-height: 100vh;
 
-  @media screen and (max-width: 768px) {
-    font-size: 1rem;
-  }
-}
+//   @media screen and (max-width: 768px) {
+//     font-size: 1rem;
+//   }
+// }
 
-.main {
-  flex: 1;
-  margin: 0 auto;
-  max-width: 1340px;
-  width: 100%;
+// .main {
+//   flex: 1;
+//   margin: 0 auto;
+//   max-width: 1340px;
+//   width: 100%;
 
-  @media screen and (max-width: 768px) {
-    padding: 0.5rem;
-  }
+//   @media screen and (max-width: 768px) {
+//     padding: 0.5rem;
+//   }
 
-  @media screen and (max-width: 991px) {
-    /* Styles pour les tablettes */
-    padding: 0.5rem;
-  }
+//   @media screen and (max-width: 991px) {
+//     /* Styles pour les tablettes */
+//     padding: 0.5rem;
+//   }
 
-  @media screen and (min-width: 992px) {
-    /* Styles pour les écrans de bureau */
-    padding: 0.5rem;
-  }
-}
+//   @media screen and (min-width: 992px) {
+//     /* Styles pour les écrans de bureau */
+//     padding: 0.5rem;
+//   }
+// }
 
-footer {
-  background-color: #5a6f08;
-  color: #ffffff;
-  height: 70px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+// footer {
+//   background-color: #5a6f08;
+//   color: #ffffff;
+//   height: 70px;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+// }

@@ -1,188 +1,188 @@
-header {
-  background-color: beige;
-  height: 80px;
-  display: flex;
-  align-items: center;
+// header {
+//   background-color: beige;
+//   height: 80px;
+//   display: flex;
+//   align-items: center;
 
-  .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 1340px;
-    width: 80%;
-    margin: 0 auto;
+//   .header {
+//     display: flex;
+//     align-items: center;
+//     justify-content: space-between;
+//     max-width: 1340px;
+//     width: 80%;
+//     margin: 0 auto;
 
-    .main-nav {
-      display: flex;
-      justify-content: space-between;
-      gap: 2rem;
-      font-size: 1rem;
-      text-transform: uppercase;
+//     .main-nav {
+//       display: flex;
+//       justify-content: space-between;
+//       gap: 2rem;
+//       font-size: 1rem;
+//       text-transform: uppercase;
 
-      a {
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        color: #5a6f08;
-        height: 70px;
-        padding: 1rem;
-        font-weight: bold;
+//       a {
+//         text-decoration: none;
+//         display: flex;
+//         align-items: center;
+//         color: #5a6f08;
+//         height: 70px;
+//         padding: 1rem;
+//         font-weight: bold;
 
-        &:hover {
-          background-color: #5a6f08;
-          color: #fff;
-          transition: background-color 0.3s ease;
-        }
+//         &:hover {
+//           background-color: #5a6f08;
+//           color: #fff;
+//           transition: background-color 0.3s ease;
+//         }
 
-        @media screen and (max-width: 768px) {
-          margin: 0;
-          padding: 0;
-          height: 0;
-          text-align: center;
-        }
-      }
+//         @media screen and (max-width: 768px) {
+//           margin: 0;
+//           padding: 0;
+//           height: 0;
+//           text-align: center;
+//         }
+//       }
 
-      .nav-active {
-        position: relative;
+//       .nav-active {
+//         position: relative;
 
-        &::after {
-          content: "";
-          height: 2px;
-          width: 0;
-          background: #5a6f08;
-          position: absolute;
-          border-radius: 10px;
-          bottom: 1rem;
-          left: 50%;
-          transform: translateX(-50%);
-          animation: anim 0.6s ease forwards;
+//         &::after {
+//           content: "";
+//           height: 2px;
+//           width: 0;
+//           background: #5a6f08;
+//           position: absolute;
+//           border-radius: 10px;
+//           bottom: 1rem;
+//           left: 50%;
+//           transform: translateX(-50%);
+//           animation: anim 0.6s ease forwards;
 
-          @keyframes anim {
-            to {
-              width: 80%;
-            }
-          }
-        }
-      }
+//           @keyframes anim {
+//             to {
+//               width: 80%;
+//             }
+//           }
+//         }
+//       }
 
-      @media screen and (max-width: 768px) {
-        display: none;
-      }
-    }
-  }
-}
+//       @media screen and (max-width: 768px) {
+//         display: none;
+//       }
+//     }
+//   }
+// }
 
-.burger-button {
-  display: none; /* Masque le bouton burger par défaut */
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  color: #5a6f08;
+// .burger-button {
+//   display: none; /* Masque le bouton burger par défaut */
+//   background: none;
+//   border: none;
+//   font-size: 1.5rem;
+//   cursor: pointer;
+//   color: #5a6f08;
 
-  @media screen and (max-width: 768px) {
-    display: block; /* Affiche le bouton burger pour les appareils mobiles */
-  }
-}
+//   @media screen and (max-width: 768px) {
+//     display: block; /* Affiche le bouton burger pour les appareils mobiles */
+//   }
+// }
 
-.header ul {
-  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
-}
+// .header ul {
+//   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+// }
 
-.burger-menu {
-  list-style-type: none;
-  position: fixed;
-  background-color: beige;
-  right: -100%; /* Fait sortir la div du menu de la droite */
-  width: 50%; /* Largeur de la div du menu */
-  transition: right 0.3s ease; /* Animation de transition */
-  z-index: 100; /* Assurez-vous qu'il s'affiche au-dessus du contenu */
-  display: none;
+// .burger-menu {
+//   list-style-type: none;
+//   position: fixed;
+//   background-color: beige;
+//   right: -100%; /* Fait sortir la div du menu de la droite */
+//   width: 50%; /* Largeur de la div du menu */
+//   transition: right 0.3s ease; /* Animation de transition */
+//   z-index: 100; /* Assurez-vous qu'il s'affiche au-dessus du contenu */
+//   display: none;
 
-  @media screen and (max-width: 768px) {
-    display: block; /* Affiche le bouton burger pour les appareils mobiles */
-    top: 100px;
-  }
-}
+//   @media screen and (max-width: 768px) {
+//     display: block; /* Affiche le bouton burger pour les appareils mobiles */
+//     top: 100px;
+//   }
+// }
 
-.burger-menu.open {
-  right: 0; /* Révèle la div du menu lorsque la classe "open" est appliquée */
-}
+// .burger-menu.open {
+//   right: 0; /* Révèle la div du menu lorsque la classe "open" est appliquée */
+// }
 
-.burger-menu li {
-  padding: 1rem;
-  width: max-content;
+// .burger-menu li {
+//   padding: 1rem;
+//   width: max-content;
 
-  a {
-    text-decoration: none;
-    color: #5a6f08;
-    font-weight: bold;
-    font-size: 1rem;
-    text-transform: uppercase;
-    display: block;
-    transition: color 0.3s ease;
-    height: 30px;
-    padding: 1rem;
-    display: flex;
-    align-items: center;
+//   a {
+//     text-decoration: none;
+//     color: #5a6f08;
+//     font-weight: bold;
+//     font-size: 1rem;
+//     text-transform: uppercase;
+//     display: block;
+//     transition: color 0.3s ease;
+//     height: 30px;
+//     padding: 1rem;
+//     display: flex;
+//     align-items: center;
 
-    &:hover {
-      background-color: #5a6f08;
-      color: #fff;
-      transition: background-color 0.3s ease;
-      width: max-content;
-    }
-  }
-}
+//     &:hover {
+//       background-color: #5a6f08;
+//       color: #fff;
+//       transition: background-color 0.3s ease;
+//       width: max-content;
+//     }
+//   }
+// }
 
-.close-button {
-  margin-bottom: 1rem;
+// .close-button {
+//   margin-bottom: 1rem;
 
-  button {
-    margin: 0.5em;
-    padding: 0.2rem;
-    float: right;
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background-color: var(--darkGreen);
-    border: none;
-    font-size: 1.3em;
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+//   button {
+//     margin: 0.5em;
+//     padding: 0.2rem;
+//     float: right;
+//     width: 25px;
+//     height: 25px;
+//     border-radius: 50%;
+//     background-color: var(--darkGreen);
+//     border: none;
+//     font-size: 1.3em;
+//     color: #fff;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 
-    &:hover {
-      background-color: var(--hoverBackgroundColor);
-      color: #fff;
-      transition: background-color 0.3s ease;
-      transform: scale(1.2);
-    }
-  }
-}
+//     &:hover {
+//       background-color: var(--hoverBackgroundColor);
+//       color: #fff;
+//       transition: background-color 0.3s ease;
+//       transform: scale(1.2);
+//     }
+//   }
+// }
 
-.burger-menu a.nav-active {
-  position: relative;
-  width: max-content;
+// .burger-menu a.nav-active {
+//   position: relative;
+//   width: max-content;
 
-  &::after {
-    content: "";
-    height: 2px;
-    width: 0;
-    background: #5a6f08;
-    position: absolute;
-    border-radius: 10px;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    animation: anim 0.6s ease forwards;
+//   &::after {
+//     content: "";
+//     height: 2px;
+//     width: 0;
+//     background: #5a6f08;
+//     position: absolute;
+//     border-radius: 10px;
+//     bottom: 0;
+//     left: 50%;
+//     transform: translateX(-50%);
+//     animation: anim 0.6s ease forwards;
 
-    @keyframes anim {
-      to {
-        width: 80%;
-      }
-    }
-  }
-}
+//     @keyframes anim {
+//       to {
+//         width: 80%;
+//       }
+//     }
+//   }
+// }

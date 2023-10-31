@@ -22,31 +22,59 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 var EmployeeDataRow = function EmployeeDataRow(_ref) {
-  var employee = _ref.employee,
+  var item = _ref.item,
     sortBy = _ref.sortBy,
     className = _ref.className,
     customSortedColumnBackgroundColor = _ref.customSortedColumnBackgroundColor,
     customEvenRowBackgroundColor = _ref.customEvenRowBackgroundColor,
+    customHoverRowBackgroundColor = _ref.customHoverRowBackgroundColor,
     onCellClick = _ref.onCellClick,
-    columnsTable = _ref.columnsTable;
+    columnsTable = _ref.columnsTable,
+    isModalOpen = _ref.isModalOpen,
+    selectedRowKey = _ref.selectedRowKey,
+    setSelectedRowKey = _ref.setSelectedRowKey;
   var _useState = (0, _react.useState)(null),
     _useState2 = _slicedToArray(_useState, 2),
     hoveredColumn = _useState2[0],
     setHoveredColumn = _useState2[1];
+  var _useState3 = (0, _react.useState)(null),
+    _useState4 = _slicedToArray(_useState3, 2),
+    hoveredRow = _useState4[0],
+    setHoveredRow = _useState4[1];
+  (0, _react.useEffect)(function () {
+    if (!isModalOpen) {
+      // Réinitialisez la clé de la ligne sélectionnée lorsque la modal est fermée
+      setSelectedRowKey(null);
+    }
+  }, [isModalOpen, setSelectedRowKey]);
   var handleMouseEnter = function handleMouseEnter(column) {
     setHoveredColumn(column);
+    setHoveredRow(true); // Met à true lorsque survolé
   };
+
   var handleMouseLeave = function handleMouseLeave() {
     setHoveredColumn(null);
+    setHoveredRow(false); // Réinitialise à false lorsqu'il n'est plus survolé
   };
+
   return /*#__PURE__*/_react["default"].createElement("tr", {
     className: className,
-    style: {
-      backgroundColor: customEvenRowBackgroundColor
-    }
+    style: _objectSpread({
+      backgroundColor: selectedRowKey === item.id ? customHoverRowBackgroundColor : hoveredRow ? customHoverRowBackgroundColor : customEvenRowBackgroundColor
+    }, hoveredRow ? {
+      filter: "saturate(0.9)",
+      mixBlendMode: "multiply"
+    } : {}),
+    onMouseEnter: function onMouseEnter() {
+      return setHoveredRow(true);
+    },
+    onMouseLeave: function onMouseLeave() {
+      return setHoveredRow(false);
+    },
+    onClick: onCellClick
   }, columnsTable.map(function (column) {
     var key = column.key;
-    var value = employee[key];
+    var value = item[key];
     var isSorted = sortBy === key;
     var isHovered = hoveredColumn === key;
 

@@ -2,11 +2,32 @@
   display: flex;
   align-items: center;
   cursor: default;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 .entries span {
-  background-color: #5a6f08;
-  padding: 0.3rem;
+  padding: 0.4rem;
   color: #ffffff;
-  margin-right: 1rem;
+  border-radius: 0.3rem;
+}
+
+.entries p {
+  padding: 0.4rem;
+  color: #ffffff;
+  border-radius: 0.3rem;
+}
+
+.btn-info {
+  display: flex;
+  align-items: center;
+}
+
+.btn-info img {
+  height: 40px;
+  margin: 0 0.5rem;
+}
+
+.btn-info img.curser {
+  cursor: pointer;
 }

@@ -67,7 +67,9 @@ var PaginatedTable = function PaginatedTable(_ref) {
 
     onMouseEnter: handleMouseEnterPrevious,
     onMouseLeave: handleMouseLeavePrevious
-  }, customTextPrevious), pageNumbers.map(function (number, index) {
+  }, customTextPrevious), /*#__PURE__*/_react["default"].createElement("div", {
+    className: "fragment-buttons"
+  }, pageNumbers.map(function (number, index) {
     return /*#__PURE__*/_react["default"].createElement(_react["default"].Fragment, {
       key: number
     }, index > 0 && pageNumbers[index - 1] !== number - 1 && /*#__PURE__*/_react["default"].createElement("span", null, "..."), /*#__PURE__*/_react["default"].createElement("button", {
@@ -84,7 +86,7 @@ var PaginatedTable = function PaginatedTable(_ref) {
       },
       onMouseLeave: handleMouseLeavePageNumber
     }, number));
-  }), /*#__PURE__*/_react["default"].createElement("button", {
+  })), /*#__PURE__*/_react["default"].createElement("button", {
     className: "previous-next",
     onClick: handleNextPage,
     style: {
@@ -93,6 +95,8 @@ var PaginatedTable = function PaginatedTable(_ref) {
 
     onMouseEnter: handleMouseEnterNext,
     onMouseLeave: handleMouseLeaveNext
-  }, customTextNext));
+  }, customTextNext))
+  // </div>
+  ;
 };
 var _default = exports["default"] = PaginatedTable;

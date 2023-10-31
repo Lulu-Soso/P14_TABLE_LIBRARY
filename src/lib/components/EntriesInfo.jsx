@@ -1,5 +1,9 @@
 import React from "react";
-import "./EntriesInfo.css"
+import "./EntriesInfo.css";
+import Component9To1 from "../assets/Component_9-1.svg";
+import Component1To9 from "../assets/Component_1-9.svg";
+import ComponentA from "../assets/Component-A-z.svg";
+import ComponentZ from "../assets/Component_Z-a.svg";
 
 /**
  * Composant pour afficher des informations sur les entrées affichées.
@@ -15,6 +19,11 @@ const EntriesInfo = ({
   totalEntries,
   customDarkBackgroundColor,
   customLightBackgroundColor,
+  toggleReverseOrder,
+  isReversed,
+  handleColumnClick,
+  sortOrder,
+  orderAlpha,
 }) => {
   return (
     // <div className="entries-info">
@@ -27,14 +36,29 @@ const EntriesInfo = ({
             (currentPage - 1) * entriesToShow : Ceci calcule l'indice de la première entrée sur la page précédente. Par exemple, si currentPage est 2 et entriesToShow est 10, cela donnera 10, car la première entrée sur la deuxième page commence à l'indice 10.
             + 1 : Cela ajoute 1 à l'indice calculé pour obtenir l'indice de la première entrée sur la page actuelle. */}
         {(currentPage - 1) * entriesToShow + 1}
-        {"..."} {/* Points de suspension pour indiquer une plage d'indices */}
+        {"..."}
         {/* Calcul de l'indice de la dernière entrée affichée */}
         {Math.min(currentPage * entriesToShow, totalEntries)}
       </span>
 
-      <span style={{ backgroundColor: customLightBackgroundColor }}>
+      <p style={{ backgroundColor: customLightBackgroundColor }}>
         {totalEntries}
-      </span>
+      </p>
+
+      <div className="btn-info">
+        <img
+          src={isReversed ? Component9To1 : Component1To9}
+          alt=""
+          className="curser"
+          onClick={toggleReverseOrder}
+        />
+        {orderAlpha &&
+          (sortOrder === "asc" ? (
+            <img src={ComponentA} alt="" />
+          ) : (
+            <img src={ComponentZ} alt="" />
+          ))}
+      </div>
     </div>
   );
 };

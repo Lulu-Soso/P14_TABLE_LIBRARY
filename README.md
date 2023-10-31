@@ -1,12 +1,12 @@
 <!-- Markdown -->
 
-# SuperTable : JavaScript Library for Customized and Responsive Tables
+# SuperTable : JavaScript Component for Customizable and Responsive Tables with React
 
 ![Alt text](https://raw.githubusercontent.com/Lulu-Soso/Github-Files/main/P14-Library/SuperTable1.png)
 
 ## Introduction to SuperTable
 
-SuperTable is a powerful and versatile JavaScript library designed to simplify data display in a customizable table using React.
+SuperTable is a versatile JavaScript component designed to simplify data display in a customizable table using React.
 
 ## Why Use SuperTable?
 
@@ -16,7 +16,7 @@ SuperTable allows you to quickly create custom tables without writing many lines
 
 ### Maximum Flexibility :
 
-Our library offers maximum flexibility to customize the appearance and behavior of your tables. Customize every aspect, from cell colors to user event handling.
+This component offers maximum flexibility to customize the appearance and behavior of your tables. Customize every aspect, from cell colors to user event handling.
 
 ### Advanced Interactivity :
 
@@ -129,6 +129,16 @@ SuperTable offers a wide range of customization options so you can tailor the ap
 
 - **customLightBackgroundColor** : Conversely, this customization allows you to set a lighter background color.
 
+- **customHoverRowBackgroundColor** : Allows you to set a custom color that will be applied when the user hovers over a row in the table.
+
+- **customSuccessEditMessage** : Allows you to set a custom message that will be displayed upon successfully editing an item in the table.
+
+- **isRequired** : Indicates whether a field must be filled in when submitting a form.
+
+- **optional** : Allows leaving a field empty when submitting the form if enabled.
+
+- **errorMessage** : A customizable error message for each field, displayed in case of validation failure to guide the user on correcting the error.Allows leaving a field empty when submitting the form if enabled.
+
 By using these customization options, you can create a table that seamlessly fits the look and style of your application while providing a smooth and intuitive user experience.
 
 ```jsx
@@ -164,11 +174,33 @@ By using these customization options, you can create a table that seamlessly fit
 
 ![Alt text](https://raw.githubusercontent.com/Lulu-Soso/Github-Files/main/P14-Library/SuperTable23.png)
 
+![Alt text](https://raw.githubusercontent.com/Lulu-Soso/Github-Files/main/P14-Library/SuperTable28.png)
+
 ### Mobile Adaptability
 
 ![Alt text](https://raw.githubusercontent.com/Lulu-Soso/Github-Files/main/P14-Library/SuperTable24.png)
 
 ![Alt text](https://raw.githubusercontent.com/Lulu-Soso/Github-Files/main/P14-Library/SuperTable25.png)
+
+### Using Attributes `isRequired`, `optional`, and `errorMessage`
+
+You can customize the behavior and validation of fields using the `isRequired`, `optional`, and `errorMessage` attributes when defining your table columns.
+
+Here's an example of how to use these attributes:
+
+```javascript
+const customColumnsTable = [
+  { key: "firstName", label: "First Name", type: "text", isRequired: true },
+  { key: "lastName", label: "Last Name", type: "text", isRequired: true },
+  { key: "email", label: "Email", type: "email", errorMessage: "The email is not correct.", optional: true },
+  { key: "phoneNumber", label: "Phone Number", type: "tel", errorMessage: "The telephone number is not correct", optional: true },
+  { key: "dateOfBirth", label: "Date of Birth", type: "date", errorMessage: "Invalid date" },
+  { key: "address", label: "Address", type: "text" },
+  { key: "zipCode", label: "Zip Code", type: "number" },
+  { key: "country", label: "Country", type: "text" },
+];
+```
+![Alt text](https://raw.githubusercontent.com/Lulu-Soso/Github-Files/main/P14-Library/SuperTable27.png)
 
 ## Customizing Edit and Delete Functions in SuperTable
 

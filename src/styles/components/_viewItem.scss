@@ -1,48 +1,48 @@
-.itemDetail {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
+// .itemDetail {
+//   display: flex;
+//   justify-content: space-between;
+//   margin-bottom: 10px;
+// }
 
-.key-item {
-  flex: 1;
-  font-weight: bold;
-  margin-right: 10px;
+// .key-item {
+//   flex: 1;
+//   font-weight: bold;
+//   margin-right: 10px;
 
-//   @media screen and (min-width: 769px) and (max-width: 1023px) {
-//     flex: 1.2;
-//   }
+// //   @media screen and (min-width: 769px) and (max-width: 1023px) {
+// //     flex: 1.2;
+// //   }
   
 
-  @media screen and (max-width: 768px) {
-    flex: 1;
-  }
-}
+//   @media screen and (max-width: 768px) {
+//     flex: 1;
+//   }
+// }
 
-.value-item {
-  flex: 2;
-}
+// .value-item {
+//   flex: 2;
+// }
 
-/* Style pour les éléments à l'intérieur de la modal */
-.modal-content {
-  padding: 20px;
-}
+// /* Style pour les éléments à l'intérieur de la modal */
+// .modal-content {
+//   padding: 20px;
+// }
 
-/* Style pour le titre de la modal */
-.modal-content h3 {
-  margin-bottom: 15px;
-}
+// /* Style pour le titre de la modal */
+// .modal-content h3 {
+//   margin-bottom: 15px;
+// }
 
-.view-button {
-  display: flex;
-  justify-content: center;
+// .view-button {
+//   display: flex;
+//   justify-content: center;
 
-  button {
-    padding: 0.3rem;
-    margin: 0.6rem;
-    border: none;
-    color: #fff;
-    border-radius: 0.3rem;
-    min-width: 100px;
-  }
-}
+//   button {
+//     padding: 0.3rem;
+//     margin: 0.6rem;
+//     border: none;
+//     color: #fff;
+//     border-radius: 0.3rem;
+//     min-width: 100px;
+//   }
+// }

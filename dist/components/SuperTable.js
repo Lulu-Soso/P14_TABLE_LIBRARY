@@ -17,17 +17,16 @@ var _Modal = _interopRequireDefault(require("../components/Modal"));
 require("./settings.css");
 require("./SuperTable.css");
 var _ViewItem = _interopRequireDefault(require("../components/ViewItem"));
-var _fa = require("react-icons/fa6");
 var _EditForm = _interopRequireDefault(require("../components/EditForm"));
 var _DeleteItem = _interopRequireDefault(require("../components/DeleteItem"));
+var _Component_ = _interopRequireDefault(require("../assets/Component_9-1.svg"));
+var _Component_2 = _interopRequireDefault(require("../assets/Component_1-9.svg"));
+var _PenGrey = _interopRequireDefault(require("../assets/PenGrey.svg"));
+var _Trash = _interopRequireDefault(require("../assets/Trash.svg"));
+var _Loupe = _interopRequireDefault(require("../assets/Loupe.svg"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(e) { return e ? t : r; })(e); }
 function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != _typeof(e) && "function" != typeof e) return { "default": e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && Object.prototype.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n["default"] = e, t && t.set(e, n), n; }
-function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -50,15 +49,18 @@ var columnsTableDefault = [{
 }, {
   key: "email",
   label: "Email",
-  type: "email"
+  type: "email",
+  errorMessage: "The email is not correct."
 }, {
   key: "phoneNumber",
   label: "Phone Number",
-  type: "tel"
+  type: "tel",
+  errorMessage: "The telephone number is not correct"
 }, {
   key: "dateOfBirth",
   label: "Date of Birth",
-  type: "date"
+  type: "date",
+  errorMessage: "Invalid date"
 }, {
   key: "address",
   label: "Address",
@@ -77,7 +79,7 @@ var SuperTable = function SuperTable(_ref) {
     _ref$columnsTable = _ref.columnsTable,
     columnsTable = _ref$columnsTable === void 0 ? columnsTableDefault : _ref$columnsTable,
     _ref$customLabelFilte = _ref.customLabelFilter,
-    customLabelFilter = _ref$customLabelFilte === void 0 ? "Number Of Entries" : _ref$customLabelFilte,
+    customLabelFilter = _ref$customLabelFilte === void 0 ? "Display By Entries" : _ref$customLabelFilte,
     _ref$customLabelSearc = _ref.customLabelSearch,
     customLabelSearch = _ref$customLabelSearc === void 0 ? "Search Bar" : _ref$customLabelSearc,
     _ref$customTextPrevio = _ref.customTextPrevious,
@@ -105,9 +107,13 @@ var SuperTable = function SuperTable(_ref) {
     _ref$customDarkBackgr = _ref.customDarkBackgroundColor,
     customDarkBackgroundColor = _ref$customDarkBackgr === void 0 ? "#929292" : _ref$customDarkBackgr,
     _ref$customEvenRowBac = _ref.customEvenRowBackgroundColor,
-    customEvenRowBackgroundColor = _ref$customEvenRowBac === void 0 ? "#f0f0f0" : _ref$customEvenRowBac,
+    customEvenRowBackgroundColor = _ref$customEvenRowBac === void 0 ? "#E6E6E6" : _ref$customEvenRowBac,
     _ref$customLightBackg = _ref.customLightBackgroundColor,
     customLightBackgroundColor = _ref$customLightBackg === void 0 ? "#d2d2d2" : _ref$customLightBackg,
+    _ref$customHoverRowBa = _ref.customHoverRowBackgroundColor,
+    customHoverRowBackgroundColor = _ref$customHoverRowBa === void 0 ? "#FFDAB9" : _ref$customHoverRowBa,
+    _ref$customSuccessEdi = _ref.customSuccessEditMessage,
+    customSuccessEditMessage = _ref$customSuccessEdi === void 0 ? "Edit saved successfully !" : _ref$customSuccessEdi,
     handleEditForm = _ref.handleEditForm,
     handleDeleteItem = _ref.handleDeleteItem,
     editButton = _ref.editButton,
@@ -167,25 +173,26 @@ var SuperTable = function SuperTable(_ref) {
     _useState26 = _slicedToArray(_useState25, 2),
     isArrowIconClicked = _useState26[0],
     setIsArrowIconClicked = _useState26[1];
+  var _useState27 = (0, _react.useState)(false),
+    _useState28 = _slicedToArray(_useState27, 2),
+    showConfirmationModal = _useState28[0],
+    setShowConfirmationModal = _useState28[1];
+  var _useState29 = (0, _react.useState)(false),
+    _useState30 = _slicedToArray(_useState29, 2),
+    orderAlpha = _useState30[0],
+    setOrderAlpha = _useState30[1];
+  var _useState31 = (0, _react.useState)(null),
+    _useState32 = _slicedToArray(_useState31, 2),
+    selectedRowKey = _useState32[0],
+    setSelectedRowKey = _useState32[1];
 
-  /**
-   * Gère le changement de valeur d'un champ de l'objet édité.
-   *
-   * @param {string} fieldName - Le nom du champ qui change.
-   * @param {string} value - La nouvelle valeur du champ.
-   */
-  var handleFieldChange = function handleFieldChange(fieldName, value) {
-    // Supprime les espaces inutiles autour de la nouvelle valeur
-    value = value.trim();
-
-    // Met à jour l'objet édité en utilisant une fonction de mise à jour du précédent état
-    setEditedItem(function (prevData) {
-      return _objectSpread(_objectSpread({}, prevData), {}, _defineProperty({}, fieldName, value));
-    });
-  };
+  // Ajoutez une classe au tbody lorsque la modale est visible
+  var tbodyClassName = showConfirmationModal ? "pushed-down" : "";
   var toggleReverseOrder = function toggleReverseOrder() {
     setIsReversed(!isReversed); // Inverser l'ordre d'affichage lorsque le bouton est cliqué
     setIsArrowIconClicked(!isArrowIconClicked);
+    setSortBy();
+    setOrderAlpha(false);
   };
 
   /**
@@ -205,6 +212,7 @@ var SuperTable = function SuperTable(_ref) {
     } else {
       setSortBy(columnName);
       setSortOrder("asc");
+      setOrderAlpha(true);
     }
     setIsReversed(false); // Réinitialisez l'ordre inverse lorsque l'utilisateur clique sur une colonne
   };
@@ -259,13 +267,13 @@ var SuperTable = function SuperTable(_ref) {
   var pageNumbers = getPageNumbers(totalPages, currentPage);
 
   /**
-  * Génère les numéros de page à afficher en garantissant que cette liste contient un nombre spécifié de numéros de page consécutifs.
-  *
-  * @param {number} totalPages - Le nombre total de pages.
-  * @param {number} currentPage - La page actuellement affichée.
-  * @param {number} pagesToShow - Le nombre de pages à afficher.
-  * @returns {Array} - Les numéros de page à afficher.
-  */
+   * Génère les numéros de page à afficher en garantissant que cette liste contient un nombre spécifié de numéros de page consécutifs.
+   *
+   * @param {number} totalPages - Le nombre total de pages.
+   * @param {number} currentPage - La page actuellement affichée.
+   * @param {number} pagesToShow - Le nombre de pages à afficher.
+   * @returns {Array} - Les numéros de page à afficher.
+   */
   function getPageNumbers(totalPages, currentPage) {
     var pagesToShow = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 5;
     // Calcule la moitié du nombre de pages à afficher
@@ -361,6 +369,7 @@ var SuperTable = function SuperTable(_ref) {
 
   // Fonction pour ouvrir la modal et définir l'élément sélectionné
   var handleCellClick = function handleCellClick(item) {
+    setSelectedRowKey(item.id); // Utilisez la clé unique de la ligne (id) ou une autre clé appropriée
     setSelectedItem(item);
     setSelectedAction(null); // Réinitialisez l'action sélectionnée
     setIsModalOpen(true);
@@ -380,6 +389,8 @@ var SuperTable = function SuperTable(_ref) {
     }
   };
   var handleEdit = function handleEdit() {
+    // Affichez la modal de confirmation après une soumission réussie
+    setShowConfirmationModal(true);
     if (handleEditForm) {
       handleEditForm(editedItem);
     } else {
@@ -407,6 +418,17 @@ var SuperTable = function SuperTable(_ref) {
 
     setIsModalOpen(false);
   };
+  (0, _react.useEffect)(function () {
+    if (showConfirmationModal) {
+      var timer = setTimeout(function () {
+        setShowConfirmationModal(false);
+      }, 3000); // 3 secondes (3000 millisecondes)
+
+      return function () {
+        return clearTimeout(timer);
+      }; // Nettoie le timer lorsque le composant est démonté
+    }
+  }, [showConfirmationModal]);
   return /*#__PURE__*/_react["default"].createElement("div", {
     className: "super-container"
   }, /*#__PURE__*/_react["default"].createElement("div", {
@@ -422,8 +444,10 @@ var SuperTable = function SuperTable(_ref) {
   })), /*#__PURE__*/_react["default"].createElement("div", {
     className: "table-container"
   }, /*#__PURE__*/_react["default"].createElement("table", {
-    className: "employees-table"
-  }, /*#__PURE__*/_react["default"].createElement("thead", null, /*#__PURE__*/_react["default"].createElement("tr", null, columnsTable.map(function (column) {
+    className: "items-table"
+  }, /*#__PURE__*/_react["default"].createElement("thead", {
+    className: tbodyClassName
+  }, /*#__PURE__*/_react["default"].createElement("tr", null, columnsTable.map(function (column) {
     return /*#__PURE__*/_react["default"].createElement(_TableHeader["default"], {
       key: column.key,
       column: column,
@@ -435,17 +459,26 @@ var SuperTable = function SuperTable(_ref) {
       customSortedColumnBackgroundColor: customSortedColumnBackgroundColor,
       customHoverBackgroundColor: customHoverBackgroundColor
     });
-  }))), /*#__PURE__*/_react["default"].createElement("tbody", null, paginatedData.map(function (employee, index) {
+  }))), /*#__PURE__*/_react["default"].createElement("tbody", {
+    className: tbodyClassName
+  }, showConfirmationModal && /*#__PURE__*/_react["default"].createElement("div", {
+    className: "confirmation-modal"
+  }, /*#__PURE__*/_react["default"].createElement("div", {
+    className: "message-confirm-edit text-center"
+  }, /*#__PURE__*/_react["default"].createElement("p", null, customSuccessEditMessage))), paginatedData.map(function (item, index) {
     return /*#__PURE__*/_react["default"].createElement(_EmployeeDataRow["default"], {
-      key: employee.id,
-      employee: employee,
+      item: item,
       sortBy: sortBy,
       customSortedColumnBackgroundColor: customSortedColumnBackgroundColor,
       customEvenRowBackgroundColor: index % 2 !== 0 ? customEvenRowBackgroundColor : "",
       onCellClick: function onCellClick() {
-        return handleCellClick(employee);
+        return handleCellClick(item);
       },
-      columnsTable: columnsTable
+      columnsTable: columnsTable,
+      customHoverRowBackgroundColor: customHoverRowBackgroundColor,
+      isModalOpen: isModalOpen,
+      setSelectedRowKey: setSelectedRowKey,
+      selectedRowKey: selectedRowKey
     });
   })))), showEmptySearch && /*#__PURE__*/_react["default"].createElement("div", {
     className: "error-message"
@@ -456,7 +489,12 @@ var SuperTable = function SuperTable(_ref) {
     entriesToShow: entriesToShow,
     totalEntries: totalEntries,
     customDarkBackgroundColor: customDarkBackgroundColor,
-    customLightBackgroundColor: customLightBackgroundColor
+    customLightBackgroundColor: customLightBackgroundColor,
+    toggleReverseOrder: toggleReverseOrder,
+    isReversed: isReversed,
+    handleColumnClick: handleColumnClick,
+    sortOrder: sortOrder,
+    orderAlpha: orderAlpha
   }), /*#__PURE__*/_react["default"].createElement(_PaginatedTable["default"], {
     handlePageClick: handlePageClick,
     handlePreviousPage: handlePreviousPage,
@@ -475,30 +513,31 @@ var SuperTable = function SuperTable(_ref) {
     customHoverBackgroundColor: customHoverBackgroundColor
   }, selectedAction === null && /*#__PURE__*/_react["default"].createElement("div", {
     className: "option-buttons"
-  }, /*#__PURE__*/_react["default"].createElement("button", {
-    onClick: toggleReverseOrder,
-    className: "rotation",
-    style: {
-      backgroundColor: isArrowIconClicked ? customLightBackgroundColor : ""
-    }
-  }, /*#__PURE__*/_react["default"].createElement(_fa.FaArrowRightArrowLeft, null)), /*#__PURE__*/_react["default"].createElement("button", {
+  }, /*#__PURE__*/_react["default"].createElement("img", {
+    src: isReversed ? _Component_["default"] : _Component_2["default"],
+    alt: "",
+    onClick: toggleReverseOrder
+  }), /*#__PURE__*/_react["default"].createElement("button", {
     onClick: function onClick() {
       return handleActionClick("view");
     }
-  }, /*#__PURE__*/_react["default"].createElement(_fa.FaEye, {
-    className: "pen-trash-icons"
+  }, /*#__PURE__*/_react["default"].createElement("img", {
+    src: _Loupe["default"],
+    alt: ""
   })), editButton && /*#__PURE__*/_react["default"].createElement("button", {
     onClick: function onClick() {
       return handleActionClick("edit");
     }
-  }, /*#__PURE__*/_react["default"].createElement(_fa.FaPen, {
-    className: "pen-trash-icons"
+  }, /*#__PURE__*/_react["default"].createElement("img", {
+    src: _PenGrey["default"],
+    alt: ""
   })), deleteButton && /*#__PURE__*/_react["default"].createElement("button", {
     onClick: function onClick() {
       return handleActionClick("delete");
     }
-  }, /*#__PURE__*/_react["default"].createElement(_fa.FaTrashCan, {
-    className: "pen-trash-icons"
+  }, /*#__PURE__*/_react["default"].createElement("img", {
+    src: _Trash["default"],
+    alt: ""
   }))), selectedAction === "view" && selectedItem && /*#__PURE__*/_react["default"].createElement("div", null, /*#__PURE__*/_react["default"].createElement(_ViewItem["default"], {
     item: selectedItem,
     columnsTable: columnsTable,
@@ -510,13 +549,14 @@ var SuperTable = function SuperTable(_ref) {
     item: editedItem,
     columnsTable: columnsTable,
     handleEdit: handleEdit,
-    handleFieldChange: handleFieldChange,
     customDarkBackgroundColor: customDarkBackgroundColor,
     customHoverBackgroundColor: customHoverBackgroundColor,
     setSelectedAction: setSelectedAction,
     customTextEditValidationBtn: customTextEditValidationBtn,
     customTextEditCancelBtn: customTextEditCancelBtn,
-    setEditedItem: setEditedItem
+    setEditedItem: setEditedItem,
+    isFieldValid: true
+    // ifHasErrors={ifHasErrors}
   })), selectedAction === "delete" && selectedItem && /*#__PURE__*/_react["default"].createElement(_DeleteItem["default"], {
     customDeleteItemMessage: customDeleteItemMessage,
     item: selectedItem,

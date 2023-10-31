@@ -6,6 +6,8 @@
   --hoverBackgroundColor: #93ad18;
   --darkGreen: #5a6f08;
   --oddRowBackgroundColor: #d7ddbb;
+  /* --hoverRowBackgroundColor: rgba(224, 140, 78, 0.5); */
+  --hoverRowBackgroundColor: #FFDAB9;
 }
 
 * {

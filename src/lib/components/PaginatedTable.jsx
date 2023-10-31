@@ -43,6 +43,7 @@ const PaginatedTable = ({
 
   return (
     <div className="pagination">
+      {/* <div className="previous-next-btn"> */}
       <button
         className="previous-next"
         onClick={handlePreviousPage}
@@ -56,7 +57,8 @@ const PaginatedTable = ({
       >
         {customTextPrevious}
       </button>
-
+      {/* </div> */}
+        <div className="fragment-buttons">
       {pageNumbers.map((number, index) => (
         <React.Fragment key={number}>
           {/* Vérifie s'il y a une discontinuité entre les numéros de page */}
@@ -85,7 +87,9 @@ const PaginatedTable = ({
           </button>
         </React.Fragment>
       ))}
+      </div>
 
+      {/* <div className="previous-next-btn"> */}
       <button
         className="previous-next"
         onClick={handleNextPage}
@@ -100,6 +104,7 @@ const PaginatedTable = ({
         {customTextNext}
       </button>
     </div>
+    // </div>
   );
 };
 

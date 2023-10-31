@@ -13,17 +13,28 @@
 }
 
 .table-container {
-  /* max-width: 100%; */
   width: 100%; /* Définir une largeur maximale pour le conteneur */
-  overflow-x: auto; 
+  overflow-x: auto;
   overflow-y: hidden;
 }
 
-.employees-table {
+.text-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.items-table {
   border-collapse: collapse; /* Pour fusionner les bordures */
   width: 100%;
   overflow-x: auto; /* Activer la barre de défilement horizontal si nécessaire */
   white-space: nowrap; /* Empêcher le texte de se rompre sur plusieurs lignes */
+}
+
+thead {
+  z-index: 10;
+  position: relative;
+  background-color: #ffffff;
 }
 
 th,
@@ -34,27 +45,8 @@ td {
   cursor: default;
   max-width: 200px;
   overflow: hidden;
-}
-
-.flex-jcc-aic {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem 0;
-}
-
-.up-down {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 1.5rem;
-  margin-left: 0.5rem;
-  color: rgb(208, 208, 208);
-}
-
-.sorted-icon {
-  color: var(--darkGreen);
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 th:hover {
@@ -73,6 +65,12 @@ td:hover {
 tbody {
   border-top: 1px solid #d6d6d6;
   border-bottom: 1px solid #d6d6d6;
+  /* position: relative; */
+}
+
+tbody.pushed-down {
+  transform: translateY(50px); /* Ajustez la valeur selon vos besoins */
+  transition: transform 0.5s ease; /* Animation de translation vers le bas */
 }
 
 .table-row-odd {
@@ -95,7 +93,7 @@ tbody {
   width: 100%;
   height: 100%;
   background-color: var(--sortedColumnBackgroundColor);
-  pointer-events: none; 
+  pointer-events: none;
   z-index: 1;
 }
 
@@ -107,7 +105,6 @@ tbody {
   margin: 1.2rem 0;
 }
 
-
 .error-message {
   display: flex;
   justify-content: center;
@@ -118,6 +115,7 @@ tbody {
   border: 1px solid red;
   margin-top: 30px;
   animation: slideInFromTop 0.5s ease-in-out;
+  color: red;
 }
 
 @keyframes slideInFromTop {
@@ -144,8 +142,6 @@ tbody {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.9rem;
   }
 }
-
-  

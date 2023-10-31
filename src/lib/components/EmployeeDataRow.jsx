@@ -1,34 +1,60 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./EmployeeDataRow.css"
 import { formatLocalDate } from "../utils/formatLocalDate";
 
 const EmployeeDataRow = ({
-  employee,
+  item,
   sortBy,
   className,
   customSortedColumnBackgroundColor,
   customEvenRowBackgroundColor,
+  customHoverRowBackgroundColor,
   onCellClick,
   columnsTable, 
+  isModalOpen,
+  selectedRowKey, // Utilisez la clé de la ligne sélectionnée
+  setSelectedRowKey, // Fonction pour mettre à jour la clé de la ligne sélectionnée
 }) => {
   const [hoveredColumn, setHoveredColumn] = useState(null);
+  const [hoveredRow, setHoveredRow] = useState(null);
+
+  useEffect(() => {
+    if (!isModalOpen) {
+      // Réinitialisez la clé de la ligne sélectionnée lorsque la modal est fermée
+      setSelectedRowKey(null);
+    }
+  }, [isModalOpen, setSelectedRowKey]);
 
   const handleMouseEnter = (column) => {
     setHoveredColumn(column);
+    setHoveredRow(true); // Met à true lorsque survolé
   };
 
   const handleMouseLeave = () => {
     setHoveredColumn(null);
+    setHoveredRow(false); // Réinitialise à false lorsqu'il n'est plus survolé
   };
 
   return (
     <tr
       className={className}
-      style={{ backgroundColor: customEvenRowBackgroundColor }}
+      style={{
+        backgroundColor: selectedRowKey === item.id ? customHoverRowBackgroundColor : 
+                         hoveredRow ? customHoverRowBackgroundColor : customEvenRowBackgroundColor,
+        ...(hoveredRow
+          ? {
+              filter: "saturate(0.9)",
+              mixBlendMode: "multiply",
+            }
+          : {}),
+      }}
+      onMouseEnter={() => setHoveredRow(true)}
+      onMouseLeave={() => setHoveredRow(false)}
+      onClick={onCellClick} 
     >
       {columnsTable.map((column) => {
         const key = column.key;
-        const value = employee[key];
+        const value = item[key];
         const isSorted = sortBy === key;
         const isHovered = hoveredColumn === key;
 

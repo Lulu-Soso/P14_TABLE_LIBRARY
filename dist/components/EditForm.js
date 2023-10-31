@@ -39,6 +39,10 @@ var EditForm = function EditForm(_ref) {
     _useState4 = _slicedToArray(_useState3, 2),
     isHoveredCancel = _useState4[0],
     setIsHoveredCancel = _useState4[1];
+  var _useState5 = (0, _react.useState)({}),
+    _useState6 = _slicedToArray(_useState5, 2),
+    fieldErrors = _useState6[0],
+    setFieldErrors = _useState6[1];
   var handleMouseEnterSave = function handleMouseEnterSave() {
     setIsHoveredSave(true);
   };
@@ -51,6 +55,29 @@ var EditForm = function EditForm(_ref) {
   var handleMouseLeaveCancel = function handleMouseLeaveCancel() {
     setIsHoveredCancel(false);
   };
+  var isFieldValid = function isFieldValid(column, value) {
+    var validEmptyField = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+    if (column.type === "tel") {
+      if (validEmptyField && value === "") {
+        return true; // Champ vide est autorisé
+      }
+
+      return (0, _validations.isValidPhoneNumber)(value);
+    }
+    if (column.type === "email") {
+      if (validEmptyField && value === "") {
+        return true; // Champ vide est autorisé
+      }
+
+      return (0, _validations.isValidEmail)(value);
+    }
+
+    // Si le champ n'est pas de type "tel" ou "email" et s'il est vide, retournez false
+    if (column.noEmptyField && value.trim() === "") {
+      return false;
+    }
+    return true; // Si le champ n'est pas de type "tel" ou "email" ou s'il n'est pas vide, on considère qu'il est valide
+  };
 
   /**
    * Gère le changement de valeur d'un champ de l'objet édité.
@@ -60,25 +87,35 @@ var EditForm = function EditForm(_ref) {
    */
   var handleFieldChange = function handleFieldChange(fieldName, value) {
     value = value.trim(); // Supprime les espaces inutiles autour de la nouvelle valeur
+    var column = columnsTable.find(function (col) {
+      return col.key === fieldName;
+    });
+    var newErrors = _objectSpread({}, fieldErrors);
+    if (column.isRequired && value === "") {
+      if (!column.optional) {
+        newErrors[fieldName] = column.errorMessage || "The field cannot be empty.";
+      } else {
+        delete newErrors[fieldName]; // Supprime l'erreur si le champ est vide et validEmptyField est true
+      }
+    } else if (!isFieldValid(column, value, column.optional)) {
+      newErrors[fieldName] = column.errorMessage || "Invalid field";
+    } else {
+      delete newErrors[fieldName]; // Supprime l'erreur si le champ est valide
+    }
+
+    setFieldErrors(newErrors);
 
     // Met à jour l'objet édité en utilisant une fonction de mise à jour du précédent état
     setEditedItem(function (prevData) {
       return _objectSpread(_objectSpread({}, prevData), {}, _defineProperty({}, fieldName, value));
     });
   };
-  var isFieldValid = function isFieldValid(column, value) {
-    if (column.type === "tel") {
-      return (0, _validations.isValidPhoneNumber)(value);
-    }
-    if (column.type === "email") {
-      return (0, _validations.isValidEmail)(value);
-    }
-    return true; // Si le champ n'est pas de type "tel" ou "email", on considère qu'il est valide
-  };
-
   return /*#__PURE__*/_react["default"].createElement("form", {
     onSubmit: function onSubmit(e) {
-      return handleEdit(e, item);
+      e.preventDefault();
+      if (Object.keys(fieldErrors).length === 0) {
+        handleEdit(item);
+      }
     }
   }, columnsTable.map(function (column) {
     return /*#__PURE__*/_react["default"].createElement("div", {
@@ -126,11 +163,9 @@ var EditForm = function EditForm(_ref) {
       onChange: function onChange(e) {
         return handleFieldChange(column.key, e.target.value);
       }
-    }), column.type === "tel" && /*#__PURE__*/_react["default"].createElement("span", null, !isFieldValid(column, item[column.key]) && /*#__PURE__*/_react["default"].createElement("div", {
-      className: "validation-message"
-    }, /*#__PURE__*/_react["default"].createElement("p", null, "!"))), column.type === "email" && /*#__PURE__*/_react["default"].createElement("span", null, !isFieldValid(column, item[column.key]) && /*#__PURE__*/_react["default"].createElement("div", {
-      className: "validation-message"
-    }, /*#__PURE__*/_react["default"].createElement("p", null, "!"))));
+    }), fieldErrors[column.key] && /*#__PURE__*/_react["default"].createElement("span", {
+      className: "error-edit-message"
+    }, fieldErrors[column.key]));
   }), /*#__PURE__*/_react["default"].createElement("div", {
     className: "buttons-container"
   }, /*#__PURE__*/_react["default"].createElement("button", {
@@ -141,7 +176,11 @@ var EditForm = function EditForm(_ref) {
     },
     onMouseEnter: handleMouseEnterSave,
     onMouseLeave: handleMouseLeaveSave,
-    onClick: handleEdit
+    onClick: function onClick() {
+      if (Object.keys(fieldErrors).length === 0) {
+        handleEdit(item);
+      }
+    }
   }, customTextEditValidationBtn), /*#__PURE__*/_react["default"].createElement("button", {
     type: "button",
     className: "btn-edit-form",

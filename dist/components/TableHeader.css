@@ -1,0 +1,31 @@
+.th-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.th-label p {
+  max-width: 150px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.up-down {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 1.5rem;
+  margin-left: 0.5rem;
+  color: rgb(208, 208, 208);
+  gap: 0.5rem;
+}
+
+.up-down-icon,
+.sorted-icon {
+  height: 0.5rem;
+  filter: saturate(0.9);
+  mix-blend-mode: multiply;
+}

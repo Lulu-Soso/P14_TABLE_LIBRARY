@@ -12,29 +12,29 @@ form {
   gap: 5px;
 }
 
-label {
+.editField label {
   font-weight: bold;
   margin-bottom: 5px;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="number"],
-input[type="tel"],
-input[type="date"],
-textarea {
+.editField input[type="text"],
+.editField input[type="email"],
+.editField input[type="number"],
+.editField input[type="tel"],
+.editField input[type="date"],
+.editField textarea {
   width: 100%;
-  padding: 8px;
+  padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 1em;
 }
 
-textarea {
+/* textarea {
   resize: vertical;
   max-height: 200px;
   min-height: 50px;
-}
+} */
 
 .buttons-container {
   display: flex;
@@ -51,14 +51,15 @@ textarea {
   color: #fff;
 }
 
-.validation-message {
+.error-edit-message {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 25px;
   background-color: rgba(255, 0, 0, 0.1);
   border: 1px solid red;
-  margin-top: 10px;
+  color: red;
+  margin-top: 0.2rem;
+  padding: 0.5rem;
   animation: slideInFromTop 0.5s ease-in-out;
 }
 
@@ -72,23 +73,3 @@ textarea {
     opacity: 1;
   }
 }
-
-
-/* .buttons-container {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-  
-    button {
-      width: 50%;
-      margin: 0;
-      height: 30px;
-      border: none;
-      border-radius: 0.2rem;
-      color: #fff;
-  
-      &:hover {
-        background-color: #93ad18;
-      }
-    }
-  } */

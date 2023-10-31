@@ -85,15 +85,15 @@ const AppTestLibrary = () => {
         data={employeesData}
         columnsTable={customColumnsTable}
         customLabelSearch="Search"
-        customLabelFilter="Show"
-        customTextPrevious="Previous"
-        customTextNext="Next"
-        customEmptySearchMessage="No results found."
-        customSortedColumnBackgroundColor="#ffff99"
-        customHoverBackgroundColor="#93ad18"
-        customDarkBackgroundColor="#5a6f08"
-        customLightBackgroundColor="#d7ddbb"
-        customEvenRowBackgroundColor="#d7ddbb"
+        // customLabelFilter="Filter By"
+        // customTextPrevious="Previous"
+        // customTextNext="Next"
+        // customEmptySearchMessage="No results found."
+        // customSortedColumnBackgroundColor="#ffff99"
+        // customHoverBackgroundColor="#93ad18"
+        // customDarkBackgroundColor="#5a6f08"
+        // customLightBackgroundColor="#d7ddbb"
+        // customEvenRowBackgroundColor="#d7ddbb"
         editButton
         deleteButton
         handleEditForm={handleEditForm}
